@@ -1,0 +1,43 @@
+# kafka-topics.yml
+# Configuração dos tópicos Kafka do AgroSmart
+# Aplicar com: kafka-topics.sh --bootstrap-server localhost:9092 --create --config ...
+# ou via docker exec agro_kafka kafka-topics --bootstrap-server localhost:9092 --create ...
+
+topics:
+  - name: sensor-readings
+    partitions: 3
+    replication_factor: 1
+    config:
+      retention.ms: 86400000        # 24 horas de retenção
+      cleanup.policy: delete
+      max.message.bytes: 1048576    # 1 MB por mensagem
+
+  - name: alerts
+    partitions: 1
+    replication_factor: 1
+    config:
+      retention.ms: 604800000       # 7 dias de retenção para alertas
+      cleanup.policy: delete
+
+# Exemplo de mensagem no tópico sensor-readings:
+# {
+#   "timestamp": "2025-06-23T14:30:00",
+#   "talhao_id": "T-02",
+#   "perc_folhas_doentes": 45.3,
+#   "praga_detectada": "pulgao",
+#   "umidade_solo_pct": 22.1,
+#   "temperatura_c": 28.5,
+#   "nivel_irrigacao": "baixo"
+# }
+
+# Exemplo de mensagem no tópico alerts:
+# {
+#   "regra": "INFESTAÇÃO",
+#   "nivel": "CRÍTICO",
+#   "icone": "🚨",
+#   "talhao_id": "T-02",
+#   "timestamp": "2025-06-23T14:30:00",
+#   "detalhe": "Folhas doentes: 45.3% | Praga: pulgao",
+#   "recomendacoes": [...],
+#   "acoes_automaticas": [...]
+# }
