@@ -109,3 +109,39 @@ O AgroSmart é uma plataforma de **monitoramento agrícola em tempo real** que c
 - Churn rate mensal (meta: <3%)
 - NPS do produtor rural (meta: >60)
 - Talhões ativos na plataforma (crescimento MoM)
+
+---
+
+## Roteiro do Pitch de Negócios (Duração Estimada: 2 a 4 minutos)
+
+Este roteiro foi estruturado estrategicamente para apresentar a proposta de valor do AgroSmart para investidores e produtores rurais, dividindo a apresentação por minutos para garantir uma exposição fluida, profissional e direta ao ponto.
+
+### Minuto 0:00 - 0:30 | O Gancho e a Dor do Mercado (Problema)
+*   **Visual:** Apresentador em primeiro plano, com imagens de plantações saudáveis contrastando com talhões afetados por seca ou pragas ao fundo.
+*   **Fala (Locução):**
+    > "Você sabia que, anualmente, até 30% de toda a produção agrícola global é desperdiçada devido a pragas, falhas de irrigação e flutuações extremas de temperatura? Para o produtor rural, cada dia sem detectar um foco de pulgão ou um solo com déficit hídrico significa prejuízo direto no bolso e ameaça à segurança alimentar da sua safra. Detectar o problema tarde demais é o maior gargalo da agricultura moderna."
+
+### Minuto 0:30 - 1:15 | A Apresentação da Solução (AgroSmart)
+*   **Visual:** Apresentador aponta para a tela exibindo o dashboard interativo do AgroSmart rodando em tempo real. Gráficos subindo, leituras de sensores IoT sendo transmitidas instantaneamente.
+*   **Fala (Locução):**
+    > "Para resolver essa dor, nós criamos o **AgroSmart** — uma plataforma inteligente de agricultura de precisão e monitoramento em tempo real. Através de sensores IoT de alta frequência instalados nos talhões, transmitimos dados contínuos de temperatura, umidade do solo e saúde foliar usando a tecnologia robusta de streaming do Apache Kafka. Nosso motor de regras proprietário analisa esses dados instantaneamente, aplicando lógica booleana rigorosa. Quando qualquer parâmetro foge da normalidade, o AgroSmart gera alertas estruturados de severidade Crítica, Atenção ou Aviso, já com recomendações acionáveis na tela e notificações automáticas para a equipe de campo."
+
+### Minuto 1:15 - 2:00 | Modelo de Negócios e Monetização (SaaS + Hardware)
+*   **Visual:** Slide limpo mostrando os pilares de receita: Assinatura Mensal, Kits de Sensores e Serviços Corporativos (B2B).
+*   **Fala (Locução):**
+    > "Nosso modelo de negócios é extremamente escalável e previsível, focado em **SaaS (Software as a Service)**. Cobramos uma assinatura mensal recorrente que varia de R$ 80 a R$ 300 por talhão monitorado. Complementamos nossa receita com a venda única dos nossos kits de sensores homologados e com taxas de integração de APIs para grandes cooperativas que desejam consolidar os dados em seus ERPs agrícolas existentes. Isso nos garante uma receita recorrente previsível com margem bruta de software superior a 80%."
+
+### Minuto 2:00 - 2:45 | Estratégia de Go-to-Market (Canais e Clientes)
+*   **Visual:** Mapa mental de distribuição exibindo Cooperativas, Revendas de Insumos e Consultorias Agronômicas.
+*   **Fala (Locução):**
+    > "Como chegamos ao cliente? Focamos em canais de alto efeito multiplicador: **Cooperativas Agrícolas** e **Consultorias Agronômicas**. Ao fazer parcerias com agrônomos consultores e grandes cooperativas, conseguimos introduzir o AgroSmart de forma confiável para centenas de produtores associados em um único acordo comercial. Também marcamos presença ativa nas maiores feiras agrícolas do país, como a Agrishow, convertendo demonstrações práticas em assinaturas ativas."
+
+### Minuto 2:45 - 3:30 | Estrutura de Custos e Viabilidade Financeira
+*   **Visual:** Gráfico de pizza simples mostrando as despesas (Cloud, P&D, Equipe) e o Ponto de Equilíbrio.
+*   **Fala (Locução):**
+    > "Nossa estrutura de custos é otimizada. Os maiores investimentos estão alocados em infraestrutura de nuvem resiliente para manter o streaming de dados e na manutenção e refinamento do nosso software e algoritmos. Nosso ponto de equilíbrio operacional é atingido rapidamente: com apenas 500 talhões monitorados sob uma assinatura média de R$ 150/mês, cobrimos integralmente nossos custos de operação e suporte, tornando cada novo talhão escalado em nossa plataforma puro lucro líquido."
+
+### Minuto 3:30 - 4:00 | Encerramento e Call to Action (Chamada para Ação)
+*   **Visual:** Logo do AgroSmart, contatos e os nomes dos integrantes do grupo e RMs (FIAP 4ESOA).
+*   **Fala (Locução):**
+    > "O AgroSmart traz a agilidade digital e a segurança do monitoramento em tempo real para o coração da lavoura. Evite perdas, aumente sua produtividade e garanta a sustentabilidade do seu negócio. Venha com o AgroSmart colher o futuro hoje! Muito obrigado."

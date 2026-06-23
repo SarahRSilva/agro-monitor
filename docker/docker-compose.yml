@@ -48,7 +48,7 @@ services:
       kafka:
         condition: service_healthy
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_TOPIC_READINGS: sensor-readings

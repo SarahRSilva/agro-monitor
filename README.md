@@ -52,14 +52,14 @@ Ver `pipeline/kafka-topics.yml` para especificação de partições, retenção 
 | `agro_kafka_ui` | provectuslabs/kafka-ui | 8080 | Visualização dos tópicos |
 | `agro_sensor_producer` | python:3.11-slim (build local) | — | Geração de dados dos sensores |
 | `agro_rules_engine` | python:3.11-slim (build local) | — | Motor de regras e alertas |
-| `agro_api` | python:3.11-slim (build local) | 5000 | API Flask + Dashboard |
+| `agro_api` | python:3.11-slim (build local) | 5001 (host) -> 5000 (container) | API Flask + Dashboard (porta alterada de 5000 para 5001 para evitar conflito com AirPlay no macOS) |
 
 ### Como executar
 
 ```bash
 # Clonar o repo original e copiar os arquivos Python para docker/api/
-git clone https://github.com/G3n4r00/agro_monitor.git
-cp agro_monitor/main.py agro_monitor/gerador.py agro_monitor/regras.py docker/api/
+git clone https://github.com/SarahRSilva/agro-monitor
+cp agro-monitor/main.py agro-monitor/gerador.py agro-monitor/regras.py docker/api/
 
 # Subir toda a stack
 cd docker
@@ -74,8 +74,8 @@ docker compose logs -f
 
 ### Endpoints disponíveis
 
-- `http://localhost:5000` — Dashboard web do AgroSmart
-- `http://localhost:5000/api/dados` — API JSON com leituras e alertas
+- `http://localhost:5001` — Dashboard web do AgroSmart (mapeado de 5000 do container para evitar colisão de porta 5000 com AirPlay no macOS)
+- `http://localhost:5001/api/dados` — API JSON com leituras e alertas
 - `http://localhost:8080` — Kafka UI (tópicos em tempo real)
 
 ### Parar os containers
