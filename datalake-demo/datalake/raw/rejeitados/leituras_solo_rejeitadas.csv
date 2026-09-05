@@ -1,0 +1,2 @@
+talhao_id,data,hora,umidade_solo_pct,temperatura_c,ph_solo,precipitacao_mm,motivo_rejeicao,arquivo_origem
+TAL-07,2026-09-02,12:00,137.4,22.5,6.3,0.0,"campo 'umidade_solo_pct'=137.4 fora da faixa [0, 100]",datalake/raw/leituras_solo/2026-09-02/leituras_solo_2026-09-02.csv

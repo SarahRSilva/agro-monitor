@@ -1,0 +1,17 @@
+{
+  "evento_id": "3f2a9e40-11c4-4b8a-9d21-8a6e0c5f9b12",
+  "sensor_id": "SNS-014",
+  "talhao_id": "TAL-07",
+  "timestamp": "2026-09-05T08:12:30-03:00",
+  "leituras": {
+    "umidade_solo_pct": 38.2,
+    "temperatura_c": 24.6,
+    "ph_solo": 6.3
+  },
+  "geolocalizacao": {
+    "lat": -22.9083,
+    "lon": -47.0626
+  },
+  "fonte": "kafka:sensor-readings",
+  "versao_firmware": "2.3.1"
+}

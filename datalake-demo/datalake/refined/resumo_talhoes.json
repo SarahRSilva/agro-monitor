@@ -1,0 +1,66 @@
+{
+  "TAL-07": {
+    "talhao_id": "TAL-07",
+    "periodo_analisado": {
+      "inicio": "2026-08-31T06:00:00",
+      "fim": "2026-09-05T18:00:00",
+      "total_leituras": 18
+    },
+    "umidade_solo_pct": {
+      "atual": 33.1,
+      "media_periodo": 45.7,
+      "tendencia": "queda"
+    },
+    "temperatura_c": {
+      "atual": 23.7,
+      "media_periodo": 22.7
+    },
+    "ph_solo": 6.3,
+    "previsao_precipitacao_3d_mm": 0.0,
+    "deteccoes_imagem_relevantes": [
+      {
+        "talhao_id": "TAL-07",
+        "timestamp": "2026-09-05T07:45:00-03:00",
+        "classe": "lagarta_desfolhadora",
+        "confianca": 0.87,
+        "imagem_id": "IMG-2026-09-05-0007",
+        "fonte": "visao_computacional"
+      }
+    ],
+    "alertas": [
+      {
+        "tipo": "deficit_hidrico",
+        "prioridade": "alta",
+        "detalhe": "umidade atual 33.1%, abaixo do limiar de 40.0%"
+      },
+      {
+        "tipo": "deteccao_praga",
+        "prioridade": "media",
+        "detalhe": "lagarta_desfolhadora detectada com confianca 87%"
+      }
+    ],
+    "gerado_em": "2026-09-05T14:00:55"
+  },
+  "TAL-12": {
+    "talhao_id": "TAL-12",
+    "periodo_analisado": {
+      "inicio": "2026-08-31T06:00:00",
+      "fim": "2026-09-05T18:00:00",
+      "total_leituras": 18
+    },
+    "umidade_solo_pct": {
+      "atual": 45.2,
+      "media_periodo": 48.3,
+      "tendencia": "estavel"
+    },
+    "temperatura_c": {
+      "atual": 22.5,
+      "media_periodo": 21.4
+    },
+    "ph_solo": 6.6,
+    "previsao_precipitacao_3d_mm": 4.0,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [],
+    "gerado_em": "2026-09-05T14:00:55"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "imagem_id": "IMG-2026-09-05-0007",
+  "talhao_id": "TAL-07",
+  "timestamp_captura": "2026-09-05T07:45:00-03:00",
+  "origem": "drone",
+  "caminho_arquivo_bruto": "raw/imagens/TAL-07/2026/09/05/IMG-2026-09-05-0007.jpg",
+  "resolucao": "4032x3024",
+  "deteccoes": [
+    {
+      "classe": "lagarta_desfolhadora",
+      "confianca": 0.87,
+      "bbox": [1204, 880, 1390, 1042]
+    },
+    {
+      "classe": "folha_saudavel",
+      "confianca": 0.95,
+      "bbox": [300, 200, 520, 410]
+    }
+  ],
+  "modelo_visao": "agrosmart-vision-v1",
+  "fonte": "api-upload"
+}

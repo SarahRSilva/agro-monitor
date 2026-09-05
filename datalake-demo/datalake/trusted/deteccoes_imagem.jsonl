@@ -1,0 +1,2 @@
+{"talhao_id": "TAL-07", "timestamp": "2026-09-05T07:45:00-03:00", "classe": "lagarta_desfolhadora", "confianca": 0.87, "imagem_id": "IMG-2026-09-05-0007", "fonte": "visao_computacional"}
+{"talhao_id": "TAL-07", "timestamp": "2026-09-05T07:45:00-03:00", "classe": "folha_saudavel", "confianca": 0.95, "imagem_id": "IMG-2026-09-05-0007", "fonte": "visao_computacional"}
