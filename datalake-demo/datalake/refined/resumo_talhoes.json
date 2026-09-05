@@ -39,7 +39,7 @@
         "detalhe": "lagarta_desfolhadora detectada com confianca 87%"
       }
     ],
-    "gerado_em": "2026-09-05T14:00:55"
+    "gerado_em": "2026-09-05T15:53:10"
   },
   "TAL-12": {
     "talhao_id": "TAL-12",
@@ -61,6 +61,6 @@
     "previsao_precipitacao_3d_mm": 4.0,
     "deteccoes_imagem_relevantes": [],
     "alertas": [],
-    "gerado_em": "2026-09-05T14:00:55"
+    "gerado_em": "2026-09-05T15:53:10"
   }
 }
