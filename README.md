@@ -8,6 +8,8 @@ com os artefatos exigidos pela atividade, organizados em duas fases:
 - **Fase 4** — Pipeline de dados com streaming, containerização com Docker e Business Model Canvas (v1).
 - **Fase 5** — Arquitetura de Data Lake, processo de ingestão/manutenção de dados, IA Generativa
   como apoio à decisão e evolução do modelo de negócio (Canvas v2).
+- **Fase 6** — Plataforma inteligente integrada: coleta IoT (Arduino no TinkerCad + simulador),
+  processamento de dados, automação com motor de regras + Machine Learning e dashboard analítico.
 
 ---
 
@@ -185,6 +187,28 @@ relatório gerado em [`ia-generativa/decision_support.md`](ia-generativa/decisio
 Canvas atualizado com monetização baseada em dados (score de risco para seguradoras, relatórios
 agregados, API paga de insights) e roteiro do vídeo de 2–3 minutos em
 [`business-model/business_model_canvas_v2.md`](business-model/business_model_canvas_v2.md).
+
+---
+
+# Fase 6
+
+A Fase 6 consolida as fases anteriores em uma plataforma que **coleta → processa → analisa →
+apresenta**. Tudo está na pasta [`fase6/`](fase6/), com documentação completa (o que foi feito,
+passo a passo de teste e roteiro do vídeo) em [`fase6/README.md`](fase6/README.md).
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r fase6/requirements.txt
+python fase6/run_fase6.py --dashboard     # pipeline completo + dashboard em http://localhost:8501
+```
+
+| Requisito | Artefato |
+|---|---|
+| Arquitetura da solução | [`fase6/arquitetura/arquitetura.md`](fase6/arquitetura/arquitetura.md) |
+| Coleta IoT / simulação | [`fase6/iot/`](fase6/iot/) — Arduino TinkerCad + simulador de sensores |
+| Processamento | [`fase6/processamento/processar_dados.py`](fase6/processamento/processar_dados.py) |
+| Automação inteligente | [`fase6/automacao/automacao_inteligente.py`](fase6/automacao/automacao_inteligente.py) — regras + Random Forest |
+| Dashboard analítico | [`fase6/dashboard/app.py`](fase6/dashboard/app.py) — Streamlit |
 
 ---
 

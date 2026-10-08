@@ -1,0 +1,140 @@
+{
+  "TAL-01": {
+    "ultima_leitura": "2026-10-04 23:30",
+    "fonte": "simulador_campo",
+    "temperatura_c": 20.3,
+    "umidade_solo_pct": 45.1,
+    "luminosidade_pct": 1.9,
+    "perc_folhas_doentes": 6.9,
+    "irrigacao_ligada": true,
+    "prob_evento_6h": 0.065,
+    "risco_previsto": "BAIXO",
+    "alertas_ativos": [],
+    "nivel_final": "NORMAL",
+    "recomendacao_priorizada": [
+      "Condições dentro do esperado — manter monitoramento de rotina"
+    ]
+  },
+  "TAL-02": {
+    "ultima_leitura": "2026-10-04 23:30",
+    "fonte": "simulador_campo",
+    "temperatura_c": 21.8,
+    "umidade_solo_pct": 3.5,
+    "luminosidade_pct": 0.0,
+    "perc_folhas_doentes": 7.6,
+    "irrigacao_ligada": false,
+    "prob_evento_6h": 0.915,
+    "risco_previsto": "ALTO",
+    "alertas_ativos": [
+      {
+        "regra": "FALHA_IRRIGACAO",
+        "nivel": "CRITICO",
+        "valor_pior": 3.0,
+        "duracao_h": 18.5
+      },
+      {
+        "regra": "DEFICIT_HIDRICO",
+        "nivel": "CRITICO",
+        "valor_pior": 3.0,
+        "duracao_h": 35.0
+      }
+    ],
+    "nivel_final": "CRITICO",
+    "recomendacao_priorizada": [
+      "Inspecionar bomba, válvulas e linhas de gotejamento imediatamente",
+      "Confirmar irrigação em campo e manter umidade entre 45-55%"
+    ]
+  },
+  "TAL-03": {
+    "ultima_leitura": "2026-10-04 23:30",
+    "fonte": "simulador_campo",
+    "temperatura_c": 31.7,
+    "umidade_solo_pct": 46.4,
+    "luminosidade_pct": 3.8,
+    "perc_folhas_doentes": 2.5,
+    "irrigacao_ligada": false,
+    "prob_evento_6h": 0.334,
+    "risco_previsto": "MEDIO",
+    "alertas_ativos": [],
+    "nivel_final": "ATENCAO",
+    "recomendacao_priorizada": [
+      "Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação"
+    ]
+  },
+  "TAL-04": {
+    "ultima_leitura": "2026-10-04 23:30",
+    "fonte": "simulador_campo",
+    "temperatura_c": 18.9,
+    "umidade_solo_pct": 46.4,
+    "luminosidade_pct": 1.9,
+    "perc_folhas_doentes": 75.0,
+    "irrigacao_ligada": false,
+    "prob_evento_6h": 0.923,
+    "risco_previsto": "ALTO",
+    "alertas_ativos": [
+      {
+        "regra": "INFESTACAO",
+        "nivel": "CRITICO",
+        "valor_pior": 75.0,
+        "duracao_h": 108.5
+      },
+      {
+        "regra": "MOVIMENTO_NOTURNO",
+        "nivel": "AVISO",
+        "valor_pior": 1.0,
+        "duracao_h": 0.5
+      }
+    ],
+    "nivel_final": "CRITICO",
+    "recomendacao_priorizada": [
+      "Inspeção visual e aplicação de controle específico conforme receituário agronômico",
+      "Verificar presença de animais ou pragas noturnas na área"
+    ]
+  },
+  "TAL-05": {
+    "ultima_leitura": "2026-10-04 23:30",
+    "fonte": "simulador_campo",
+    "temperatura_c": 2.0,
+    "umidade_solo_pct": 46.2,
+    "luminosidade_pct": 2.0,
+    "perc_folhas_doentes": 3.2,
+    "irrigacao_ligada": false,
+    "prob_evento_6h": 0.894,
+    "risco_previsto": "ALTO",
+    "alertas_ativos": [
+      {
+        "regra": "TEMPERATURA_EXTREMA",
+        "nivel": "CRITICO",
+        "valor_pior": 2.0,
+        "duracao_h": 1.5
+      }
+    ],
+    "nivel_final": "CRITICO",
+    "recomendacao_priorizada": [
+      "Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis"
+    ]
+  },
+  "TAL-TC": {
+    "ultima_leitura": "2026-10-04 12:00",
+    "fonte": "tinkercad",
+    "temperatura_c": 10.9,
+    "umidade_solo_pct": 46.5,
+    "luminosidade_pct": 5.3,
+    "perc_folhas_doentes": 0.0,
+    "irrigacao_ligada": false,
+    "prob_evento_6h": 0.327,
+    "risco_previsto": "MEDIO",
+    "alertas_ativos": [
+      {
+        "regra": "TEMPERATURA_EXTREMA",
+        "nivel": "AVISO",
+        "valor_pior": 10.9,
+        "duracao_h": 0.0
+      }
+    ],
+    "nivel_final": "ATENCAO",
+    "recomendacao_priorizada": [
+      "Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis"
+    ]
+  }
+}

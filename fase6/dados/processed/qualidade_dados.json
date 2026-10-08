@@ -1,0 +1,23 @@
+{
+  "linhas_recebidas": 1706,
+  "linhas_por_fonte": {
+    "simulador_campo": 1686,
+    "tinkercad": 20
+  },
+  "duplicadas_removidas": 6,
+  "rejeitadas_fora_da_faixa": 5,
+  "linhas_com_valor_imputado": 10,
+  "linhas_processadas": 1695,
+  "talhoes": [
+    "TAL-01",
+    "TAL-02",
+    "TAL-03",
+    "TAL-04",
+    "TAL-05",
+    "TAL-TC"
+  ],
+  "periodo": [
+    "2026-09-28 00:00:00",
+    "2026-10-04 23:30:00"
+  ]
+}
