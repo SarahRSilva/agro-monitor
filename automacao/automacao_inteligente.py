@@ -2,8 +2,10 @@
 automacao_inteligente.py
 Automação baseada em dados (Fase 6). Combina duas abordagens:
 
-  A) Motor de regras inferencial (evolução das regras da Fase 4)
-     Avalia cada leitura processada, agrupa leituras consecutivas que
+  A) Motor de regras inferencial — herda o MotorDeRegras da Fase 4
+     (docker/api/regras.py): as 3 regras booleanas de lá (infestação,
+     irrigação, temperatura) são a condição base das regras graduadas
+     daqui (AVISO/ATENCAO/CRITICO). Avalia cada leitura da camada trusted, agrupa leituras consecutivas que
      disparam a mesma regra em um único EPISÓDIO de alerta (evita gerar um
      alerta a cada 30 min para o mesmo problema), executa a ação automática
      correspondente (simulada — ex.: comando de irrigação) e registra uma
@@ -19,10 +21,14 @@ Automação baseada em dados (Fase 6). Combina duas abordagens:
 A decisão final de cada talhão combina as duas: o nível mais grave entre o
 alerta ativo e o risco previsto, com a recomendação priorizada.
 
+Lê dados/trusted/ e grava na camada dados/refined/ (mesmas camadas do Data
+Lake da Fase 5).
+
 Uso:
-    python fase6/automacao/automacao_inteligente.py
+    python automacao/automacao_inteligente.py
 """
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -32,9 +38,14 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
 
-FASE6_DIR = Path(__file__).resolve().parent.parent
-PROCESSED_DIR = FASE6_DIR / "dados" / "processed"
-OUTPUT_DIR = FASE6_DIR / "dados" / "output"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+TRUSTED_DIR = ROOT_DIR / "dados" / "trusted"
+REFINED_DIR = ROOT_DIR / "dados" / "refined"
+
+# Motor de regras da Fase 4 — o mesmo módulo usado pela API Flask em docker/api/
+sys.path.insert(0, str(ROOT_DIR / "docker" / "api"))
+from regras import (LIMIAR_FOLHAS_DOENTES_PCT, LIMIAR_TEMP_ALTA_C,  # noqa: E402
+                    LIMIAR_TEMP_BAIXA_C, LIMIAR_UMIDADE_SECA_PCT, MotorDeRegras)
 
 NIVEIS = {"AVISO": 1, "ATENCAO": 2, "CRITICO": 3}
 HORIZONTE_PREVISAO = "6h"
@@ -49,79 +60,103 @@ FEATURES = [
 
 
 # ─────────────────────────────── A) Motor de regras ───────────────────────────────
-# Cada regra recebe o DataFrame e devolve uma Series com o nível por leitura
-# (None quando a regra não dispara), mais a ação automática e a recomendação.
-
-def nivel_hidrico(df):
-    nivel = pd.Series(None, index=df.index, dtype=object)
-    preventivo = (df["tendencia_umidade_6h"] < -6) & (df["umidade_solo_pct"] < 40)
-    nivel[preventivo] = "AVISO"
-    nivel[(df["umidade_solo_pct"] < 30) & (df["chuva_24h_mm"] < 2)] = "ATENCAO"
-    nivel[df["umidade_solo_pct"] < 20] = "CRITICO"
-    return nivel
-
-
-def nivel_falha_irrigacao(df):
-    nivel = pd.Series(None, index=df.index, dtype=object)
-    nivel[(df["umidade_solo_pct"] < 30) & (df["irrigacao_ligada"] == 0) & (df["chuva_24h_mm"] < 2)] = "CRITICO"
-    return nivel
+# Limiares novos da Fase 6; os da Fase 4 (30% de umidade, 30% de folhas doentes,
+# 12-35 °C) vêm de docker/api/regras.py.
+LIMIAR_UMIDADE_CRITICA_PCT = 20
+LIMIAR_UMIDADE_PREVENTIVA_PCT = 40
+QUEDA_UMIDADE_6H_PP = 6
+CHUVA_RELEVANTE_24H_MM = 2
+LIMIAR_FOLHAS_ATENCAO_PCT = 15
+LIMIAR_CALOR_CRITICO_C = 38
+LIMIAR_GEADA_C = 3
+LIMIAR_LUZ_NOITE_PCT = 10
 
 
-def nivel_temperatura(df):
-    nivel = pd.Series(None, index=df.index, dtype=object)
-    nivel[df["temperatura_c"] < 12] = "AVISO"
-    nivel[df["temperatura_c"] > 35] = "ATENCAO"
-    nivel[(df["temperatura_c"] > 38) | (df["temperatura_c"] < 3)] = "CRITICO"
-    return nivel
+class MotorDeRegrasInferencial(MotorDeRegras):
+    """Evolução do motor da Fase 4. Cada regra recebe o DataFrame e devolve uma
+    Series com o nível por leitura (None quando a regra não dispara)."""
+
+    @staticmethod
+    def schema_fase4(df: pd.DataFrame) -> pd.DataFrame:
+        # A Fase 4 recebia nivel_irrigacao (baixo/medio/alto); a Fase 6 mede se a bomba está ligada
+        return df.assign(nivel_irrigacao=np.where(df["irrigacao_ligada"] == 1, "alto", "baixo"))
+
+    @staticmethod
+    def _vazio(df: pd.DataFrame) -> pd.Series:
+        return pd.Series(None, index=df.index, dtype=object)
+
+    def nivel_hidrico(self, df):
+        nivel = self._vazio(df)
+        preventivo = ((df["tendencia_umidade_6h"] < -QUEDA_UMIDADE_6H_PP)
+                      & (df["umidade_solo_pct"] < LIMIAR_UMIDADE_PREVENTIVA_PCT))
+        nivel[preventivo] = "AVISO"
+        nivel[(df["umidade_solo_pct"] < LIMIAR_UMIDADE_SECA_PCT) & (df["chuva_24h_mm"] < CHUVA_RELEVANTE_24H_MM)] = "ATENCAO"
+        nivel[df["umidade_solo_pct"] < LIMIAR_UMIDADE_CRITICA_PCT] = "CRITICO"
+        return nivel
+
+    def nivel_falha_irrigacao(self, df):
+        # regra IRRIGAÇÃO da Fase 4 (solo seco E irrigação baixa) + sem chuva que explique
+        nivel = self._vazio(df)
+        nivel[self.mascara_irrigacao(self.schema_fase4(df)) & (df["chuva_24h_mm"] < CHUVA_RELEVANTE_24H_MM)] = "CRITICO"
+        return nivel
+
+    def nivel_temperatura(self, df):
+        # regra TEMPERATURA da Fase 4 (fora de 12-35 °C), graduada pelos extremos
+        nivel = self._vazio(df)
+        fora_da_faixa = self.mascara_temperatura(df)
+        nivel[fora_da_faixa & (df["temperatura_c"] < LIMIAR_TEMP_BAIXA_C)] = "AVISO"
+        nivel[fora_da_faixa & (df["temperatura_c"] > LIMIAR_TEMP_ALTA_C)] = "ATENCAO"
+        nivel[(df["temperatura_c"] > LIMIAR_CALOR_CRITICO_C) | (df["temperatura_c"] < LIMIAR_GEADA_C)] = "CRITICO"
+        return nivel
+
+    def nivel_infestacao(self, df):
+        # regra INFESTAÇÃO da Fase 4 (praga E folhas doentes > 30%) + nível de atenção antecipado
+        nivel = self._vazio(df)
+        nivel[(df["praga_presente"] == 1) & (df["perc_folhas_doentes"] > LIMIAR_FOLHAS_ATENCAO_PCT)] = "ATENCAO"
+        nivel[self.mascara_infestacao(df)] = "CRITICO"
+        return nivel
+
+    def nivel_movimento_noturno(self, df):
+        nivel = self._vazio(df)
+        nivel[(df["movimento_detectado"] == 1) & (df["luminosidade_pct"] < LIMIAR_LUZ_NOITE_PCT)] = "AVISO"
+        return nivel
 
 
-def nivel_infestacao(df):
-    nivel = pd.Series(None, index=df.index, dtype=object)
-    com_praga = df["praga_presente"] == 1
-    nivel[com_praga & (df["perc_folhas_doentes"] > 15)] = "ATENCAO"
-    nivel[com_praga & (df["perc_folhas_doentes"] > 30)] = "CRITICO"
-    return nivel
-
-
-def nivel_movimento_noturno(df):
-    nivel = pd.Series(None, index=df.index, dtype=object)
-    nivel[(df["movimento_detectado"] == 1) & (df["luminosidade_pct"] < 10)] = "AVISO"
-    return nivel
-
+motor = MotorDeRegrasInferencial()
 
 REGRAS = {
     "FALHA_IRRIGACAO": {
-        "avaliar": nivel_falha_irrigacao,
+        "avaliar": motor.nivel_falha_irrigacao,
         "metrica": "umidade_solo_pct", "pior": "min",
-        "descricao": "Solo seco (<30%) e irrigação não acionou",
+        "descricao": f"Solo seco (<{LIMIAR_UMIDADE_SECA_PCT}%) e irrigação não acionou",
         "acao": "Ordem de manutenção aberta para o sistema de irrigação; gestor notificado",
         "recomendacao": "Inspecionar bomba, válvulas e linhas de gotejamento imediatamente",
     },
     "DEFICIT_HIDRICO": {
-        "avaliar": nivel_hidrico,
+        "avaliar": motor.nivel_hidrico,
         "metrica": "umidade_solo_pct", "pior": "min",
         "descricao": "Umidade do solo baixa ou caindo rápido sem chuva",
         "acao": "Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)",
         "recomendacao": "Confirmar irrigação em campo e manter umidade entre 45-55%",
     },
     "TEMPERATURA_EXTREMA": {
-        "avaliar": nivel_temperatura,
+        "avaliar": motor.nivel_temperatura,
         "metrica": "temperatura_c", "pior": "extremo",
-        "descricao": "Temperatura fora da faixa segura (12-35 °C)",
+        "descricao": f"Temperatura fora da faixa segura ({LIMIAR_TEMP_BAIXA_C}-{LIMIAR_TEMP_ALTA_C} °C)",
         "acao": "Frequência de leitura elevada para 5 min; alerta enviado ao gestor",
         "recomendacao": lambda pior: ("Calor: irrigar no fim da tarde e suspender aplicação de defensivos"
                                       if pior > 23 else
                                       "Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis"),
     },
     "INFESTACAO": {
-        "avaliar": nivel_infestacao,
+        "avaliar": motor.nivel_infestacao,
         "metrica": "perc_folhas_doentes", "pior": "max",
         "descricao": "Praga detectada pela câmera com folhas doentes acima do limite",
         "acao": "Talhão marcado como 'Monitoramento Intensivo'; equipe de campo acionada",
         "recomendacao": "Inspeção visual e aplicação de controle específico conforme receituário agronômico",
     },
     "MOVIMENTO_NOTURNO": {
-        "avaliar": nivel_movimento_noturno,
+        "avaliar": motor.nivel_movimento_noturno,
         "metrica": "movimento_detectado", "pior": "max",
         "descricao": "Movimento detectado pelo PIR durante a noite",
         "acao": "Registro de evento gravado; câmera do talhão acionada",
@@ -174,9 +209,9 @@ def detectar_episodios(df: pd.DataFrame) -> pd.DataFrame:
 # ─────────────────────────────── B) Machine Learning ───────────────────────────────
 
 def evento_critico(df: pd.DataFrame) -> pd.Series:
-    return ((df["umidade_solo_pct"] < 20)
-            | (df["temperatura_c"] > 38) | (df["temperatura_c"] < 3)
-            | ((df["praga_presente"] == 1) & (df["perc_folhas_doentes"] > 30))).astype(int)
+    return ((df["umidade_solo_pct"] < LIMIAR_UMIDADE_CRITICA_PCT)
+            | (df["temperatura_c"] > LIMIAR_CALOR_CRITICO_C) | (df["temperatura_c"] < LIMIAR_GEADA_C)
+            | motor.mascara_infestacao(df)).astype(int)
 
 
 def criar_alvo(df: pd.DataFrame) -> pd.DataFrame:
@@ -233,7 +268,8 @@ def treinar_modelo(df: pd.DataFrame):
     relatorio = {
         "modelo": "RandomForestClassifier(n_estimators=200, max_depth=8, class_weight='balanced')",
         "alvo": f"evento crítico nas próximas {HORIZONTE_PREVISAO} "
-                "(umidade<20% | temp>38°C | temp<3°C | praga com folhas doentes>30%)",
+                f"(umidade<{LIMIAR_UMIDADE_CRITICA_PCT}% | temp>{LIMIAR_CALOR_CRITICO_C}°C | "
+                f"temp<{LIMIAR_GEADA_C}°C | praga com folhas doentes>{LIMIAR_FOLHAS_DOENTES_PCT}%)",
         "divisao": f"temporal — treino antes de {corte.date()}, teste a partir de {corte.date()}",
         "amostras_treino": int(len(treino)),
         "amostras_teste": int(len(teste)),
@@ -292,7 +328,7 @@ def montar_status(df: pd.DataFrame, episodios: pd.DataFrame) -> dict:
 
 
 def gravar_log_acoes(episodios: pd.DataFrame):
-    with open(OUTPUT_DIR / "acoes_automaticas.log", "w", encoding="utf-8") as f:
+    with open(REFINED_DIR / "acoes_automaticas.log", "w", encoding="utf-8") as f:
         for ep in episodios.itertuples():
             f.write(f"{ep.inicio:%Y-%m-%d %H:%M} | {ep.talhao_id} | {ep.nivel:<7} | {ep.regra:<19} | {ep.acao_automatica}\n")
 
@@ -318,41 +354,41 @@ def gravar_relatorio(status: dict, relatorio_ml: dict, episodios: pd.DataFrame):
         linhas.extend(f"  {i}. {r}" for i, r in enumerate(s["recomendacao_priorizada"], 1))
         linhas.append("")
     linhas.append("*Decisão final cabe ao responsável técnico do talhão.*")
-    (OUTPUT_DIR / "relatorio_decisao.md").write_text("\n".join(linhas), encoding="utf-8")
+    (REFINED_DIR / "relatorio_decisao.md").write_text("\n".join(linhas), encoding="utf-8")
 
 
 def main():
-    caminho = PROCESSED_DIR / "leituras_processadas.csv"
+    caminho = TRUSTED_DIR / "leituras_processadas.csv"
     if not caminho.exists():
-        raise SystemExit("Rode antes: python fase6/processamento/processar_dados.py")
+        raise SystemExit("Rode antes: python processamento/processar_dados.py")
     df = pd.read_csv(caminho, parse_dates=["timestamp"])
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    REFINED_DIR.mkdir(parents=True, exist_ok=True)
 
     # A) regras
     episodios = detectar_episodios(df)
-    episodios.to_csv(OUTPUT_DIR / "alertas.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
+    episodios.to_csv(REFINED_DIR / "alertas.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
     gravar_log_acoes(episodios)
     print(f"[automacao] {len(episodios)} episódios de alerta "
-          f"({episodios['nivel'].value_counts().to_dict()}) -> output/alertas.csv")
+          f"({episodios['nivel'].value_counts().to_dict()}) -> refined/alertas.csv")
 
     # B) machine learning
     df = criar_alvo(df)
     modelo, relatorio_ml = treinar_modelo(df)
     df["prob_evento_6h"] = modelo.predict_proba(df[FEATURES])[:, 1].round(3)
     df["risco_previsto"] = df["prob_evento_6h"].map(classe_risco)
-    joblib.dump(modelo, OUTPUT_DIR / "modelo_risco.joblib")
-    with open(OUTPUT_DIR / "metricas_modelo.json", "w", encoding="utf-8") as f:
+    joblib.dump(modelo, REFINED_DIR / "modelo_risco.joblib")
+    with open(REFINED_DIR / "metricas_modelo.json", "w", encoding="utf-8") as f:
         json.dump(relatorio_ml, f, ensure_ascii=False, indent=2)
     colunas_pred = ["timestamp", "talhao_id", "fonte", "evento_critico_agora",
                     "alvo_evento_6h", "prob_evento_6h", "risco_previsto"]
-    df[colunas_pred].to_csv(OUTPUT_DIR / "predicoes_risco.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
+    df[colunas_pred].to_csv(REFINED_DIR / "predicoes_risco.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
     m, b = relatorio_ml["metricas_modelo"], relatorio_ml["metricas_baseline_regra_atual"]
     print(f"[automacao] modelo treinado: F1={m['f1']} recall={m['recall']} precisao={m['precisao']} "
           f"(baseline regra atual: F1={b['f1']} recall={b['recall']})")
 
     # decisão combinada
     status = montar_status(df, episodios)
-    with open(OUTPUT_DIR / "status_talhoes.json", "w", encoding="utf-8") as f:
+    with open(REFINED_DIR / "status_talhoes.json", "w", encoding="utf-8") as f:
         json.dump(status, f, ensure_ascii=False, indent=2)
     gravar_relatorio(status, relatorio_ml, episodios)
 
@@ -360,7 +396,7 @@ def main():
     for talhao_id, s in status.items():
         print(f"  - {talhao_id}: {s['nivel_final']:<8} risco 6h {s['risco_previsto']:<5} "
               f"({s['prob_evento_6h']:.0%}) -> {s['recomendacao_priorizada'][0]}")
-    print("[automacao] saídas em dados/output/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, "
+    print("[automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, "
           "metricas_modelo.json, status_talhoes.json, relatorio_decisao.md")
 
 

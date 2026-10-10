@@ -19,7 +19,7 @@
  *   millis,talhao_id,temperatura_c,umidade_solo_pct,luminosidade_pct,movimento_detectado,irrigacao_ligada,status
  *
  * As linhas do Serial Monitor podem ser copiadas para
- * fase6/dados/raw/tinkercad_serial.txt e são lidas pelo processamento em Python.
+ * dados/raw/tinkercad_serial.txt e são lidas pelo processamento em Python.
  */
 
 const char* TALHAO_ID = "TAL-TC";   // talhão representado pela estação TinkerCad
@@ -34,7 +34,8 @@ const int LED_VERDE       = 11;
 const int LED_IRRIGACAO   = 10;
 const int PINO_BUZZER     = 8;
 
-// Limiares — os mesmos usados no motor de regras em Python (fase6/automacao)
+// Limiares — os mesmos do motor de regras em Python (docker/api/regras.py da Fase 4,
+// estendido em automacao/automacao_inteligente.py)
 const float UMIDADE_LIGA_IRRIGACAO    = 30.0;  // liga bomba abaixo disso
 const float UMIDADE_DESLIGA_IRRIGACAO = 45.0;  // histerese: desliga acima disso
 const float UMIDADE_CRITICA           = 20.0;

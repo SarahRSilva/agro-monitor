@@ -83,6 +83,15 @@ python3 scripts/04_ia_generativa.py --real     # força uso da API real
 A pasta `datalake/` é recriada a cada `python3 run_pipeline.py` (o passo 1 apaga e recria antes de
 popular de novo), então é seguro rodar quantas vezes quiser.
 
+## Reaproveitamento na Fase 6
+
+A plataforma da Fase 6 usa as mesmas camadas (`dados/raw` → `dados/trusted` → `dados/refined`, na raiz
+do repositório) e reaproveita dois scripts daqui, via `automacao/apoio_decisao_ia.py`:
+`calcular_tendencia` (`03_camada_refined.py`) e `gerar_relatorio` (`04_ia_generativa.py`). Por isso o
+`04_ia_generativa.py` aceita campos opcionais a mais (`alertas_automacao`, `risco_previsto_6h`,
+`chuva_24h_mm`) e `ph_solo`/`previsao_precipitacao_3d_mm` nulos. Sem esses campos, a saída desta
+demo é exatamente a mesma.
+
 Para a fundamentação teórica de cada camada e do módulo de IA, ver
 [`data-lake/architecture.md`](../data-lake/architecture.md) e
 [`ia-generativa/decision_support.md`](../ia-generativa/decision_support.md).

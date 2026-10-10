@@ -1,4 +1,4 @@
-# Relatório de Apoio à Decisão — AgroSmart (gerado em 08/10/2026 14:44)
+# Relatório de Apoio à Decisão — AgroSmart (gerado em 09/10/2026 22:40)
 
 Episódios de alerta no período: **55** (18 críticos). Modelo preditivo — F1 no teste: **0.949** (baseline regra: 0.887).
 

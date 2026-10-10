@@ -1,16 +1,17 @@
 """
 app.py — Dashboard analítico do AgroSmart (Fase 6)
 
-Lê as saídas do pipeline (dados/processed e dados/output) e apresenta:
+Lê as camadas trusted e refined do pipeline (dados/trusted e dados/refined) e apresenta:
   - indicadores do ambiente (KPIs do período filtrado)
-  - situação atual de cada talhão (decisão combinada regras + ML)
+  - situação atual de cada talhão (decisão combinada regras + ML) e o
+    relatório da IA Generativa (módulo da Fase 5)
   - evolução temporal de umidade, temperatura e luminosidade
   - alertas gerados e ações automáticas executadas
   - risco previsto pelo modelo de Machine Learning e suas métricas
   - qualidade dos dados e a estação TinkerCad
 
 Uso:
-    streamlit run fase6/dashboard/app.py
+    streamlit run dashboard/app.py
 """
 import json
 import subprocess
@@ -22,9 +23,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-FASE6_DIR = Path(__file__).resolve().parent.parent
-PROCESSED_DIR = FASE6_DIR / "dados" / "processed"
-OUTPUT_DIR = FASE6_DIR / "dados" / "output"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+TRUSTED_DIR = ROOT_DIR / "dados" / "trusted"
+REFINED_DIR = ROOT_DIR / "dados" / "refined"
+REJEITADOS_DIR = ROOT_DIR / "dados" / "raw" / "rejeitados"
 
 # Cor fixa por talhão (a cor segue o talhão, nunca a posição no filtro)
 CORES_TALHAO = {
@@ -46,15 +48,17 @@ st.set_page_config(page_title="AgroSmart — Painel", page_icon="🌱", layout="
 
 @st.cache_data
 def carregar():
-    leituras = pd.read_csv(PROCESSED_DIR / "leituras_processadas.csv", parse_dates=["timestamp"])
-    alertas = pd.read_csv(OUTPUT_DIR / "alertas.csv", parse_dates=["inicio", "fim"])
-    predicoes = pd.read_csv(OUTPUT_DIR / "predicoes_risco.csv", parse_dates=["timestamp"])
-    rejeitados = pd.read_csv(PROCESSED_DIR / "rejeitados.csv")
-    status = json.loads((OUTPUT_DIR / "status_talhoes.json").read_text(encoding="utf-8"))
-    metricas = json.loads((OUTPUT_DIR / "metricas_modelo.json").read_text(encoding="utf-8"))
-    qualidade = json.loads((PROCESSED_DIR / "qualidade_dados.json").read_text(encoding="utf-8"))
-    acoes = (OUTPUT_DIR / "acoes_automaticas.log").read_text(encoding="utf-8")
-    return leituras, alertas, predicoes, rejeitados, status, metricas, qualidade, acoes
+    leituras = pd.read_csv(TRUSTED_DIR / "leituras_processadas.csv", parse_dates=["timestamp"])
+    alertas = pd.read_csv(REFINED_DIR / "alertas.csv", parse_dates=["inicio", "fim"])
+    predicoes = pd.read_csv(REFINED_DIR / "predicoes_risco.csv", parse_dates=["timestamp"])
+    rejeitados = pd.read_csv(REJEITADOS_DIR / "rejeitados.csv")
+    status = json.loads((REFINED_DIR / "status_talhoes.json").read_text(encoding="utf-8"))
+    metricas = json.loads((REFINED_DIR / "metricas_modelo.json").read_text(encoding="utf-8"))
+    qualidade = json.loads((TRUSTED_DIR / "qualidade_dados.json").read_text(encoding="utf-8"))
+    acoes = (REFINED_DIR / "acoes_automaticas.log").read_text(encoding="utf-8")
+    relatorios_ia = {caminho.stem.split("_")[0]: caminho.read_text(encoding="utf-8")
+                     for caminho in sorted((REFINED_DIR / "relatorios_ia").glob("*.md"))}
+    return leituras, alertas, predicoes, rejeitados, status, metricas, qualidade, acoes, relatorios_ia
 
 
 def grafico_linha(df, coluna, titulo, unidade, limiares=(), faixa=None):
@@ -84,8 +88,8 @@ def bloco_reprocessar():
     st.sidebar.subheader("Gerar novos dados")
     seed = st.sidebar.number_input("Semente do simulador", min_value=1, value=42, step=1)
     if st.sidebar.button("Rodar pipeline completo", width="stretch"):
-        with st.spinner("Coletando, processando e executando a automação..."):
-            resultado = subprocess.run([sys.executable, str(FASE6_DIR / "run_fase6.py"), "--seed", str(seed)],
+        with st.spinner("Coletando, processando, executando a automação e gerando os relatórios..."):
+            resultado = subprocess.run([sys.executable, str(ROOT_DIR / "run_plataforma.py"), "--seed", str(seed)],
                                        capture_output=True, text=True)
         if resultado.returncode != 0:
             st.sidebar.error("Falha no pipeline")
@@ -97,9 +101,9 @@ def bloco_reprocessar():
 
 # ─────────────────────────────── carga e filtros ───────────────────────────────
 try:
-    leituras, alertas, predicoes, rejeitados, status, metricas, qualidade, acoes = carregar()
+    leituras, alertas, predicoes, rejeitados, status, metricas, qualidade, acoes, relatorios_ia = carregar()
 except FileNotFoundError:
-    st.error("Dados não encontrados. Rode antes: `python fase6/run_fase6.py`")
+    st.error("Dados não encontrados. Rode antes: `python run_plataforma.py`")
     bloco_reprocessar()
     st.stop()
 
@@ -107,7 +111,7 @@ campo = leituras[leituras["fonte"] == "simulador_campo"]
 talhoes_campo = sorted(campo["talhao_id"].unique())
 
 st.sidebar.title("🌱 AgroSmart")
-st.sidebar.caption("Plataforma integrada — Fase 6")
+st.sidebar.caption("Plataforma integrada — Fases 4, 5 e 6")
 selecionados = st.sidebar.multiselect("Talhões", talhoes_campo, default=talhoes_campo)
 data_min, data_max = campo["timestamp"].min().date(), campo["timestamp"].max().date()
 periodo = st.sidebar.date_input("Período", value=(data_min, data_max), min_value=data_min, max_value=data_max)
@@ -162,6 +166,9 @@ for linha in range(0, len(cards), 3):
             if ativos:
                 st.markdown(f"Alertas ativos: {ativos}")
             st.markdown(f"➡️ {s['recomendacao_priorizada'][0]}")
+            if talhao_id in relatorios_ia:
+                with st.expander("📝 Relatório da IA Generativa"):
+                    st.markdown(relatorios_ia[talhao_id])
 
 # ─────────────────────────────── abas analíticas ───────────────────────────────
 aba_tempo, aba_alertas, aba_ml, aba_tc, aba_qualidade = st.tabs([
@@ -286,5 +293,5 @@ with aba_qualidade:
     st.markdown("**Leituras rejeitadas na validação** (não são descartadas: ficam registradas para auditoria)")
     st.dataframe(rejeitados, hide_index=True, width="stretch")
     st.download_button("Baixar leituras processadas (CSV)",
-                       (PROCESSED_DIR / "leituras_processadas.csv").read_bytes(),
+                       (TRUSTED_DIR / "leituras_processadas.csv").read_bytes(),
                        file_name="leituras_processadas.csv", mime="text/csv")

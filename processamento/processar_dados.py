@@ -1,22 +1,23 @@
 """
 processar_dados.py
-Etapa de processamento e preparação dos dados (Fase 6). Segue a mesma ideia
-de camadas do Data Lake da Fase 5 (raw -> trusted/processed):
+Etapa de processamento e preparação dos dados (Fase 6). Usa as mesmas
+camadas do Data Lake da Fase 5 (datalake-demo/): raw -> trusted -> refined.
 
   1. Leitura   — sensores_campo.csv (simulador) + tinkercad_serial.txt (Arduino)
   2. Padronização — schema único, tipos numéricos, timestamp em datetime
   3. Deduplicação — por (talhao_id, timestamp)
   4. Validação — faixas físicas plausíveis; o que está fora vai para
-                 rejeitados.csv com o motivo (não é descartado em silêncio)
+                 raw/rejeitados/ com o motivo (não é descartado em silêncio),
+                 como na camada Trusted da Fase 5
   5. Imputação — campos vazios preenchidos por interpolação temporal no
                  próprio talhão (marcados com valor_imputado=1)
   6. Features  — médias móveis, tendência de umidade, chuva acumulada,
                  extremos de temperatura em 24h, período do dia
-  7. Agregação — resumo diário por talhão (insumo do dashboard)
+  7. Agregação — resumo diário por talhão -> camada refined
 
 Uso:
-    python fase6/processamento/processar_dados.py
-    python fase6/processamento/processar_dados.py --inicio-tinkercad "2026-10-04 12:00:00"
+    python processamento/processar_dados.py
+    python processamento/processar_dados.py --inicio-tinkercad "2026-10-04 12:00:00"
 """
 import argparse
 import json
@@ -24,9 +25,11 @@ from pathlib import Path
 
 import pandas as pd
 
-FASE6_DIR = Path(__file__).resolve().parent.parent
-RAW_DIR = FASE6_DIR / "dados" / "raw"
-PROCESSED_DIR = FASE6_DIR / "dados" / "processed"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+RAW_DIR = ROOT_DIR / "dados" / "raw"
+REJEITADOS_DIR = RAW_DIR / "rejeitados"
+TRUSTED_DIR = ROOT_DIR / "dados" / "trusted"
+REFINED_DIR = ROOT_DIR / "dados" / "refined"
 
 FAIXAS_VALIDAS = {
     "temperatura_c": (-10, 55),
@@ -42,7 +45,7 @@ COLUNAS_NUMERICAS = list(FAIXAS_VALIDAS) + [
 def carregar_sensores_campo() -> pd.DataFrame:
     caminho = RAW_DIR / "sensores_campo.csv"
     if not caminho.exists():
-        raise SystemExit(f"Arquivo {caminho} não encontrado. Rode antes: python fase6/iot/simulador_sensores.py")
+        raise SystemExit(f"Arquivo {caminho} não encontrado. Rode antes: python iot/simulador_sensores.py")
     df = pd.read_csv(caminho)
     df["fonte"] = "simulador_campo"
     return df
@@ -165,11 +168,12 @@ def main():
     df = criar_features(df)
     df = df.sort_values(["talhao_id", "timestamp"]).reset_index(drop=True)
 
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(PROCESSED_DIR / "leituras_processadas.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
-    rejeitados.to_csv(PROCESSED_DIR / "rejeitados.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
+    for pasta in (TRUSTED_DIR, REFINED_DIR, REJEITADOS_DIR):
+        pasta.mkdir(parents=True, exist_ok=True)
+    df.to_csv(TRUSTED_DIR / "leituras_processadas.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
+    rejeitados.to_csv(REJEITADOS_DIR / "rejeitados.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
     diario = resumo_diario(df)
-    diario.to_csv(PROCESSED_DIR / "resumo_diario.csv", index=False)
+    diario.to_csv(REFINED_DIR / "resumo_diario.csv", index=False)
 
     qualidade = {
         "linhas_recebidas": total_bruto,
@@ -181,16 +185,16 @@ def main():
         "talhoes": sorted(df["talhao_id"].unique().tolist()),
         "periodo": [str(df["timestamp"].min()), str(df["timestamp"].max())],
     }
-    with open(PROCESSED_DIR / "qualidade_dados.json", "w", encoding="utf-8") as f:
+    with open(TRUSTED_DIR / "qualidade_dados.json", "w", encoding="utf-8") as f:
         json.dump(qualidade, f, ensure_ascii=False, indent=2)
 
     print(f"[processamento] {total_bruto} linhas recebidas "
           f"({', '.join(f'{k}: {v}' for k, v in qualidade['linhas_por_fonte'].items())})")
     print(f"[processamento] {duplicadas} duplicadas removidas")
-    print(f"[processamento] {len(rejeitados)} rejeitadas por valor impossível -> processed/rejeitados.csv")
+    print(f"[processamento] {len(rejeitados)} rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv")
     print(f"[processamento] {qualidade['linhas_com_valor_imputado']} linhas com campo vazio imputado por interpolação")
-    print(f"[processamento] {len(df)} linhas válidas -> processed/leituras_processadas.csv")
-    print(f"[processamento] {len(diario)} linhas de resumo diário -> processed/resumo_diario.csv")
+    print(f"[processamento] {len(df)} linhas válidas -> trusted/leituras_processadas.csv")
+    print(f"[processamento] {len(diario)} linhas de resumo diário -> refined/resumo_diario.csv")
 
 
 if __name__ == "__main__":

@@ -11,9 +11,28 @@ Cada alerta contém além dos campos básicos:
 
 import pandas as pd
 
+# Limiares das regras — fonte única, reaproveitada pelo motor de regras da
+# Fase 6 (automacao/automacao_inteligente.py) e espelhados no Arduino do TinkerCad.
+LIMIAR_FOLHAS_DOENTES_PCT = 30
+LIMIAR_UMIDADE_SECA_PCT = 30
+LIMIAR_TEMP_ALTA_C = 35
+LIMIAR_TEMP_BAIXA_C = 12
+
 
 class MotorDeRegras:
     """Aplica regras booleanas sobre o DataFrame de leituras e produz alertas."""
+
+    # Máscaras booleanas: a condição de cada regra, separada da montagem do
+    # alerta para que outras camadas (ex.: Fase 6) reutilizem a mesma lógica.
+
+    def mascara_infestacao(self, df: pd.DataFrame) -> pd.Series:
+        return (df["perc_folhas_doentes"] > LIMIAR_FOLHAS_DOENTES_PCT) & (df["praga_detectada"] != "nenhuma")
+
+    def mascara_irrigacao(self, df: pd.DataFrame) -> pd.Series:
+        return (df["umidade_solo_pct"] < LIMIAR_UMIDADE_SECA_PCT) & (df["nivel_irrigacao"] == "baixo")
+
+    def mascara_temperatura(self, df: pd.DataFrame) -> pd.Series:
+        return (df["temperatura_c"] > LIMIAR_TEMP_ALTA_C) | (df["temperatura_c"] < LIMIAR_TEMP_BAIXA_C)
 
     def verificar_infestacao(self, df: pd.DataFrame) -> list[dict]:
         """
@@ -22,7 +41,7 @@ class MotorDeRegras:
         """
         alertas = []
         # Máscara booleana: doença grave E praga presente
-        mascara = (df["perc_folhas_doentes"] > 30) & (df["praga_detectada"] != "nenhuma")
+        mascara = self.mascara_infestacao(df)
 
         for _, linha in df[mascara].iterrows():
             praga = linha["praga_detectada"]
@@ -65,7 +84,7 @@ class MotorDeRegras:
         """
         alertas = []
         # Máscara booleana: solo seco E irrigação já na posição baixa
-        mascara = (df["umidade_solo_pct"] < 30) & (df["nivel_irrigacao"] == "baixo")
+        mascara = self.mascara_irrigacao(df)
 
         for _, linha in df[mascara].iterrows():
             talhao = int(linha["talhao_id"])
@@ -106,12 +125,12 @@ class MotorDeRegras:
         """
         alertas = []
         # Máscara booleana: calor extremo OU frio extremo
-        mascara = (df["temperatura_c"] > 35) | (df["temperatura_c"] < 12)
+        mascara = self.mascara_temperatura(df)
 
         for _, linha in df[mascara].iterrows():
             talhao = int(linha["talhao_id"])
             temp = linha["temperatura_c"]
-            calor = temp > 35
+            calor = temp > LIMIAR_TEMP_ALTA_C
 
             if calor:
                 recomendacoes = [

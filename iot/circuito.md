@@ -59,9 +59,9 @@ Com a simulação rodando, clique em cada sensor para mostrar o controle desliza
 
 1. Deixe a simulação rodar enquanto executa o roteiro acima (~40 s já bastam).
 2. No Serial Monitor, selecione todo o texto e copie (Ctrl/Cmd + C).
-3. Cole em `fase6/dados/raw/tinkercad_serial.txt`, **mantendo a linha de cabeçalho**
+3. Cole em `dados/raw/tinkercad_serial.txt`, **mantendo a linha de cabeçalho**
    (`millis,talhao_id,...`) na primeira linha. O repositório já traz uma captura de exemplo nesse formato.
-4. Rode `python fase6/run_fase6.py` — as leituras aparecem como talhão `TAL-TC` no processamento,
+4. Rode `python run_plataforma.py` — as leituras aparecem como talhão `TAL-TC` no processamento,
    nos alertas e na aba **Estação TinkerCad** do dashboard.
 
 ## Exemplo de dados gerados (saída serial)

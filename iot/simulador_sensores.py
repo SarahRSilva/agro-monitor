@@ -19,8 +19,8 @@ processamento tratar: leituras duplicadas, valores ausentes e valores
 impossíveis (falha de sensor).
 
 Uso:
-    python fase6/iot/simulador_sensores.py                 # 7 dias, leitura a cada 30 min
-    python fase6/iot/simulador_sensores.py --dias 14 --seed 7
+    python iot/simulador_sensores.py                 # 7 dias, leitura a cada 30 min
+    python iot/simulador_sensores.py --dias 14 --seed 7
 """
 import argparse
 import csv
@@ -29,8 +29,8 @@ import random
 from datetime import datetime, timedelta
 from pathlib import Path
 
-FASE6_DIR = Path(__file__).resolve().parent.parent
-RAW_DIR = FASE6_DIR / "dados" / "raw"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+RAW_DIR = ROOT_DIR / "dados" / "raw"
 
 INTERVALO_MIN = 30
 INICIO = datetime(2026, 9, 28, 0, 0)
@@ -185,7 +185,7 @@ def main():
 
     print(f"[simulador] problemas injetados: {n_dup} duplicadas, {n_nulos} campos vazios, "
           f"{n_impossiveis} valores impossíveis")
-    print(f"[simulador] {len(linhas)} linhas gravadas em {caminho.relative_to(FASE6_DIR.parent)}")
+    print(f"[simulador] {len(linhas)} linhas gravadas em {caminho.relative_to(ROOT_DIR)}")
 
 
 if __name__ == "__main__":

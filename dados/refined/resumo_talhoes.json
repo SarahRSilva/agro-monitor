@@ -1,0 +1,247 @@
+{
+  "TAL-01": {
+    "talhao_id": "TAL-01",
+    "periodo_analisado": {
+      "inicio": "2026-10-02T00:00:00",
+      "fim": "2026-10-04T23:30:00",
+      "total_leituras": 144
+    },
+    "umidade_solo_pct": {
+      "atual": 45.1,
+      "media_periodo": 37.7,
+      "tendencia": "estavel"
+    },
+    "temperatura_c": {
+      "atual": 20.3,
+      "media_periodo": 24.0
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [],
+    "risco_previsto_6h": {
+      "classe": "BAIXO",
+      "probabilidade": 0.065
+    },
+    "nivel_final": "NORMAL"
+  },
+  "TAL-02": {
+    "talhao_id": "TAL-02",
+    "periodo_analisado": {
+      "inicio": "2026-10-02T00:00:00",
+      "fim": "2026-10-04T23:30:00",
+      "total_leituras": 144
+    },
+    "umidade_solo_pct": {
+      "atual": 3.5,
+      "media_periodo": 13.3,
+      "tendencia": "queda"
+    },
+    "temperatura_c": {
+      "atual": 21.8,
+      "media_periodo": 26.0
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [
+      {
+        "tipo": "falha_irrigacao",
+        "prioridade": "alta",
+        "detalhe": "FALHA_IRRIGACAO (CRITICO) ativo há 18.5h, pior valor 3.0"
+      },
+      {
+        "tipo": "deficit_hidrico",
+        "prioridade": "alta",
+        "detalhe": "DEFICIT_HIDRICO (CRITICO) ativo há 35.0h, pior valor 3.0"
+      }
+    ],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [
+      {
+        "regra": "FALHA_IRRIGACAO",
+        "nivel": "CRITICO"
+      },
+      {
+        "regra": "DEFICIT_HIDRICO",
+        "nivel": "CRITICO"
+      }
+    ],
+    "risco_previsto_6h": {
+      "classe": "ALTO",
+      "probabilidade": 0.915
+    },
+    "nivel_final": "CRITICO"
+  },
+  "TAL-03": {
+    "talhao_id": "TAL-03",
+    "periodo_analisado": {
+      "inicio": "2026-10-02T00:00:00",
+      "fim": "2026-10-04T23:30:00",
+      "total_leituras": 143
+    },
+    "umidade_solo_pct": {
+      "atual": 46.4,
+      "media_periodo": 38.9,
+      "tendencia": "estavel"
+    },
+    "temperatura_c": {
+      "atual": 31.7,
+      "media_periodo": 36.0
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [],
+    "risco_previsto_6h": {
+      "classe": "MEDIO",
+      "probabilidade": 0.334
+    },
+    "nivel_final": "ATENCAO"
+  },
+  "TAL-04": {
+    "talhao_id": "TAL-04",
+    "periodo_analisado": {
+      "inicio": "2026-10-02T00:00:00",
+      "fim": "2026-10-04T23:30:00",
+      "total_leituras": 144
+    },
+    "umidade_solo_pct": {
+      "atual": 46.4,
+      "media_periodo": 41.5,
+      "tendencia": "estavel"
+    },
+    "temperatura_c": {
+      "atual": 18.9,
+      "media_periodo": 24.0
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [
+      {
+        "talhao_id": "TAL-04",
+        "timestamp": "2026-10-04T23:30:00",
+        "classe": "lagarta",
+        "confianca": null,
+        "perc_folhas_doentes": 75.0,
+        "fonte": "visao_computacional"
+      }
+    ],
+    "alertas": [
+      {
+        "tipo": "infestacao",
+        "prioridade": "alta",
+        "detalhe": "INFESTACAO (CRITICO) ativo há 108.5h, pior valor 75.0"
+      },
+      {
+        "tipo": "movimento_noturno",
+        "prioridade": "baixa",
+        "detalhe": "MOVIMENTO_NOTURNO (AVISO) ativo há 0.5h, pior valor 1.0"
+      }
+    ],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [
+      {
+        "regra": "INFESTACAO",
+        "nivel": "CRITICO"
+      },
+      {
+        "regra": "MOVIMENTO_NOTURNO",
+        "nivel": "AVISO"
+      }
+    ],
+    "risco_previsto_6h": {
+      "classe": "ALTO",
+      "probabilidade": 0.923
+    },
+    "nivel_final": "CRITICO"
+  },
+  "TAL-05": {
+    "talhao_id": "TAL-05",
+    "periodo_analisado": {
+      "inicio": "2026-10-02T00:00:00",
+      "fim": "2026-10-04T23:30:00",
+      "total_leituras": 144
+    },
+    "umidade_solo_pct": {
+      "atual": 46.2,
+      "media_periodo": 47.0,
+      "tendencia": "alta"
+    },
+    "temperatura_c": {
+      "atual": 2.0,
+      "media_periodo": 12.9
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [
+      {
+        "tipo": "temperatura_extrema",
+        "prioridade": "alta",
+        "detalhe": "TEMPERATURA_EXTREMA (CRITICO) ativo há 1.5h, pior valor 2.0"
+      }
+    ],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [
+      {
+        "regra": "TEMPERATURA_EXTREMA",
+        "nivel": "CRITICO"
+      }
+    ],
+    "risco_previsto_6h": {
+      "classe": "ALTO",
+      "probabilidade": 0.894
+    },
+    "nivel_final": "CRITICO"
+  },
+  "TAL-TC": {
+    "talhao_id": "TAL-TC",
+    "periodo_analisado": {
+      "inicio": "2026-10-04T12:00:00",
+      "fim": "2026-10-04T12:00:38",
+      "total_leituras": 20
+    },
+    "umidade_solo_pct": {
+      "atual": 46.5,
+      "media_periodo": 39.0,
+      "tendencia": "alta"
+    },
+    "temperatura_c": {
+      "atual": 10.9,
+      "media_periodo": 25.3
+    },
+    "ph_solo": null,
+    "previsao_precipitacao_3d_mm": null,
+    "deteccoes_imagem_relevantes": [],
+    "alertas": [
+      {
+        "tipo": "temperatura_extrema",
+        "prioridade": "baixa",
+        "detalhe": "TEMPERATURA_EXTREMA (AVISO) ativo há 0.0h, pior valor 10.9"
+      }
+    ],
+    "gerado_em": "2026-10-09T22:40:04",
+    "chuva_24h_mm": 0.0,
+    "alertas_automacao": [
+      {
+        "regra": "TEMPERATURA_EXTREMA",
+        "nivel": "AVISO"
+      }
+    ],
+    "risco_previsto_6h": {
+      "classe": "MEDIO",
+      "probabilidade": 0.327
+    },
+    "nivel_final": "ATENCAO"
+  }
+}

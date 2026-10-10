@@ -8,6 +8,11 @@ Por padrao roda em modo SIMULADO (sem nenhuma dependencia externa, sem
 custo e sem precisar de internet), com uma funcao baseada em regras que
 imita a estrutura de saida de um LLM.
 
+Tambem e reaproveitado pela Fase 6 (automacao/apoio_decisao_ia.py), que
+publica o mesmo contrato da camada Refined com dois campos opcionais a mais:
+`alertas_automacao` (motor de regras) e `risco_previsto_6h` (modelo de ML).
+Campos que a Fase 6 nao possui (pH, previsao de chuva) podem vir como None.
+
 Se a variavel de ambiente ANTHROPIC_API_KEY estiver definida e o pacote
 `anthropic` estiver instalado (pip install anthropic), o script usa a API
 de verdade, mandando o mesmo contexto estruturado para o modelo.
@@ -28,6 +33,12 @@ REFINED_DIR = BASE_DIR / "datalake" / "refined"
 RELATORIOS_DIR = REFINED_DIR / "relatorios_ia"
 
 
+def descrever_deteccao(deteccao: dict) -> str:
+    if deteccao.get("confianca") is not None:
+        return f"{deteccao['classe']} (confianca {deteccao['confianca']:.0%})"
+    return f"{deteccao['classe']} ({deteccao['perc_folhas_doentes']}% de folhas doentes)"
+
+
 def montar_prompt(contexto: dict) -> str:
     talhao = contexto["talhao_id"]
     umid = contexto["umidade_solo_pct"]
@@ -36,8 +47,24 @@ def montar_prompt(contexto: dict) -> str:
     pragas = contexto["deteccoes_imagem_relevantes"]
 
     linhas_pragas = "\n".join(
-        f"- {p['classe']} (confianca {p['confianca']:.0%})" for p in pragas
+        f"- {descrever_deteccao(p)}" for p in pragas
     ) or "- nenhuma deteccao relevante no periodo"
+
+    linhas_extras = []
+    if contexto.get("ph_solo") is not None:
+        linhas_extras.append(f"- pH do solo: {contexto['ph_solo']}")
+    if chuva is not None:
+        linhas_extras.append(f"- Previsao de precipitacao (proximos 3 dias): {chuva} mm")
+    if contexto.get("chuva_24h_mm") is not None:
+        linhas_extras.append(f"- Chuva acumulada nas ultimas 24h: {contexto['chuva_24h_mm']} mm")
+    if "alertas_automacao" in contexto:
+        alertas = ", ".join(f"{a['regra']} ({a['nivel']})" for a in contexto["alertas_automacao"]) or "nenhum"
+        linhas_extras.append(f"- Alertas ativos do motor de regras: {alertas}")
+    if contexto.get("risco_previsto_6h"):
+        risco = contexto["risco_previsto_6h"]
+        linhas_extras.append(f"- Risco de evento critico nas proximas 6h (modelo de ML): "
+                             f"{risco['classe']} ({risco['probabilidade']:.0%})")
+    extras = "\n".join(linhas_extras)
 
     return f"""Voce e um assistente agronomico. Com base APENAS nos dados abaixo do
 Talhao {talhao}, gere um relatorio curto com: (1) situacao atual, (2) riscos
@@ -47,8 +74,7 @@ estejam no contexto.
 Dados:
 - Umidade do solo atual: {umid['atual']}% (media do periodo: {umid['media_periodo']}%, tendencia: {umid['tendencia']})
 - Temperatura atual: {temp['atual']} C (media do periodo: {temp['media_periodo']} C)
-- pH do solo: {contexto['ph_solo']}
-- Previsao de precipitacao (proximos 3 dias): {chuva} mm
+{extras}
 - Deteccoes de imagem relevantes:
 {linhas_pragas}
 """
@@ -62,12 +88,19 @@ def gerar_relatorio_simulado(contexto: dict) -> str:
     pragas = contexto["deteccoes_imagem_relevantes"]
     agora = datetime.now().strftime("%d/%m/%Y, %Hh%M")
 
+    if chuva is not None:
+        frase_chuva = f", e previsao de {chuva:.0f}mm de chuva para os proximos 3 dias"
+    elif contexto.get("chuva_24h_mm") is not None:
+        frase_chuva = f", com {contexto['chuva_24h_mm']:.0f}mm de chuva nas ultimas 24h"
+    else:
+        frase_chuva = ""
+    frase_ph = (f" e o pH do solo esta em {contexto['ph_solo']}"
+                if contexto.get("ph_solo") is not None else "")
     situacao = (
         f"A umidade do solo esta em {umid['atual']}%, com tendencia de "
-        f"**{umid['tendencia']}** no periodo analisado, e previsao de "
-        f"{chuva:.0f}mm de chuva para os proximos 3 dias. A temperatura "
-        f"media do periodo foi de {contexto['temperatura_c']['media_periodo']}C "
-        f"e o pH do solo esta em {contexto['ph_solo']}."
+        f"**{umid['tendencia']}** no periodo analisado{frase_chuva}. A temperatura "
+        f"media do periodo foi de {contexto['temperatura_c']['media_periodo']}C"
+        f"{frase_ph}."
     )
 
     riscos = []
@@ -77,7 +110,8 @@ def gerar_relatorio_simulado(contexto: dict) -> str:
         riscos.append(
             "1. **Deficit hidrico (alta prioridade)** — a umidade atual esta "
             f"abaixo do limiar seguro de 40% e a tendencia e de {umid['tendencia']}, "
-            "com pouca ou nenhuma chuva prevista."
+            + ("com pouca ou nenhuma chuva prevista." if chuva is not None
+               else "e a chuva recente nao foi suficiente para repor a umidade.")
         )
         recomendacoes.append(
             f"Programar irrigacao suplementar no Talhao {talhao} nas proximas 24h, "
@@ -108,6 +142,26 @@ def gerar_relatorio_simulado(contexto: dict) -> str:
         )
     else:
         riscos.append(f"{len(riscos)+1}. Nenhuma deteccao de praga relevante no periodo.")
+
+    # Contexto extra publicado pela Fase 6 (motor de regras + modelo de ML)
+    alertas_criticos = [a["regra"] for a in contexto.get("alertas_automacao", []) if a["nivel"] == "CRITICO"]
+    if alertas_criticos:
+        riscos.append(
+            f"{len(riscos)+1}. **Alertas criticos ativos (alta prioridade)** — o motor de regras "
+            f"mantem ativos: {', '.join(alertas_criticos)}."
+        )
+        if "FALHA_IRRIGACAO" in alertas_criticos:
+            recomendacoes.insert(0, f"Inspecionar bomba, valvulas e linhas de gotejamento do Talhao {talhao} "
+                                    "imediatamente — a irrigacao nao esta acionando.")
+    risco_ml = contexto.get("risco_previsto_6h")
+    if risco_ml and risco_ml["classe"] in ("ALTO", "MEDIO"):
+        riscos.append(
+            f"{len(riscos)+1}. **Risco previsto pelo modelo de ML ({risco_ml['classe'].lower()})** — "
+            f"probabilidade de {risco_ml['probabilidade']:.0%} de evento critico nas proximas 6h."
+        )
+        if not alertas_criticos:
+            recomendacoes.append(f"Antecipar a vistoria do Talhao {talhao}: o modelo preve risco "
+                                 "mesmo sem alerta critico ativo no momento.")
 
     recomendacoes.append(f"Reavaliar a situacao do Talhao {talhao} em 48h com base em novas leituras.")
 
