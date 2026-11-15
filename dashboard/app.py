@@ -14,6 +14,7 @@ Uso:
     streamlit run dashboard/app.py
 """
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -27,6 +28,9 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 TRUSTED_DIR = ROOT_DIR / "dados" / "trusted"
 REFINED_DIR = ROOT_DIR / "dados" / "refined"
 REJEITADOS_DIR = ROOT_DIR / "dados" / "raw" / "rejeitados"
+MONITOR_DIR = ROOT_DIR / "dados" / "monitoramento"
+PROCESSO_DIR = REFINED_DIR / "processo"
+LOG_APLICACAO = ROOT_DIR / "logs" / "agrosmart.log"
 
 # Cor fixa por talhão (a cor segue o talhão, nunca a posição no filtro)
 CORES_TALHAO = {
@@ -46,7 +50,7 @@ LIMIAR_COR = "#898781"
 st.set_page_config(page_title="AgroSmart — Painel", page_icon="🌱", layout="wide")
 
 
-@st.cache_data
+@st.cache_data(ttl=60)  # o container "pipeline" gera um ciclo novo a cada intervalo
 def carregar():
     leituras = pd.read_csv(TRUSTED_DIR / "leituras_processadas.csv", parse_dates=["timestamp"])
     alertas = pd.read_csv(REFINED_DIR / "alertas.csv", parse_dates=["inicio", "fim"])
@@ -111,7 +115,7 @@ campo = leituras[leituras["fonte"] == "simulador_campo"]
 talhoes_campo = sorted(campo["talhao_id"].unique())
 
 st.sidebar.title("🌱 AgroSmart")
-st.sidebar.caption("Plataforma integrada — Fases 4, 5 e 6")
+st.sidebar.caption("Plataforma integrada — Fases 4 a 7")
 selecionados = st.sidebar.multiselect("Talhões", talhoes_campo, default=talhoes_campo)
 data_min, data_max = campo["timestamp"].min().date(), campo["timestamp"].max().date()
 periodo = st.sidebar.date_input("Período", value=(data_min, data_max), min_value=data_min, max_value=data_max)
@@ -151,7 +155,7 @@ st.caption("Nível final = o mais grave entre o alerta ativo (regras) e o risco 
 cards = [t for t in sorted(status) if t in selecionados or t == "TAL-TC"]
 for linha in range(0, len(cards), 3):
     colunas = st.columns(3)
-    for coluna, talhao_id in zip(colunas, cards[linha:linha + 3]):
+    for coluna, talhao_id in zip(colunas, cards[linha:linha + 3], strict=False):
         s = status[talhao_id]
         st_info = STATUS[s["nivel_final"]]
         with coluna.container(border=True):
@@ -171,9 +175,9 @@ for linha in range(0, len(cards), 3):
                     st.markdown(relatorios_ia[talhao_id])
 
 # ─────────────────────────────── abas analíticas ───────────────────────────────
-aba_tempo, aba_alertas, aba_ml, aba_tc, aba_qualidade = st.tabs([
+aba_tempo, aba_alertas, aba_ml, aba_tc, aba_qualidade, aba_monitor, aba_processo = st.tabs([
     "📈 Evolução no tempo", "🚨 Alertas e ações", "🤖 Risco previsto (ML)",
-    "🔌 Estação TinkerCad", "🧹 Qualidade dos dados"])
+    "🔌 Estação TinkerCad", "🧹 Qualidade dos dados", "🩺 Monitoramento", "🔀 Processo (mineração)"])
 
 with aba_tempo:
     st.plotly_chart(grafico_linha(filtro, "umidade_solo_pct", "Umidade do solo", "%",
@@ -295,3 +299,105 @@ with aba_qualidade:
     st.download_button("Baixar leituras processadas (CSV)",
                        (TRUSTED_DIR / "leituras_processadas.csv").read_bytes(),
                        file_name="leituras_processadas.csv", mime="text/csv")
+
+# ─────────────────────────────── Fase 7: monitoramento ───────────────────────────────
+with aba_monitor:
+    st.caption("Execução automatizada: cada ciclo do pipeline é cronometrado e registrado "
+               "(dados/monitoramento/). O mesmo status é usado pelo healthcheck do container.")
+    status_exec = MONITOR_DIR / "status.json"
+    if not status_exec.exists():
+        st.info("Nenhuma execução monitorada ainda. Rode `python run_plataforma.py`.")
+    else:
+        sys.path.insert(0, str(ROOT_DIR))
+        from monitoramento.healthcheck import verificar
+        from monitoramento.monitor import ler_execucoes
+
+        st_exec = json.loads(status_exec.read_text(encoding="utf-8"))
+        saude = verificar(max_idade_min=float(os.environ.get("AGRO_MAX_IDADE_MIN", "15")))
+        hist = st_exec.get("historico", {})
+        ind = st_exec.get("indicadores", {})
+        m1, m2, m3, m4, m5 = st.columns(5)
+        m1.metric("Saúde da plataforma", "🟢 Saudável" if saude["saudavel"] else "🔴 Com problema",
+                  help="; ".join(f"{k}: {'ok' if v else 'falhou'}" for k, v in saude["checks"].items()))
+        m2.metric("Último ciclo", st_exec.get("status", "—").upper(), help=f"run_id {st_exec.get('run_id')}")
+        m3.metric("Último sucesso", (st_exec.get("ultimo_sucesso") or "—")[5:16],
+                  help=f"há {saude['idade_ultimo_sucesso_min']} min")
+        m4.metric("Ciclos ok / erro", f"{hist.get('ciclos_ok', 0)} / {hist.get('ciclos_erro', 0)}")
+        m5.metric("Disponibilidade", f"{hist.get('disponibilidade_pct') or 0:.1f} %")
+
+        i1, i2, i3, i4, i5 = st.columns(5)
+        i1.metric("Linhas processadas", ind.get("linhas_processadas", "—"))
+        i2.metric("Taxa de rejeição", f"{ind.get('taxa_rejeicao_pct', 0)} %")
+        i3.metric("Episódios críticos", ind.get("episodios_criticos", "—"))
+        i4.metric("Talhões críticos", ind.get("talhoes_criticos", "—"))
+        i5.metric("F1 do modelo", ind.get("f1_modelo", "—"), help=f"baseline: {ind.get('f1_baseline')}")
+
+        execs = pd.DataFrame(ler_execucoes())
+        if not execs.empty:
+            execs["inicio"] = pd.to_datetime(execs["inicio"])
+            col_a, col_b = st.columns(2)
+            por_ciclo = execs.groupby(["run_id", "etapa"], sort=False)["duracao_s"].sum().reset_index()
+            fig = px.bar(por_ciclo.tail(5 * 20), x="run_id", y="duracao_s", color="etapa",
+                         title="Duração de cada ciclo por etapa (s)", labels={"run_id": "ciclo", "duracao_s": "s"})
+            fig.update_layout(height=360, xaxis_showticklabels=False, legend=dict(orientation="h", y=-0.15))
+            col_a.plotly_chart(fig, width="stretch")
+            resumo = (execs.groupby("etapa", sort=False)
+                      .agg(execucoes=("run_id", "size"), erros=("status", lambda x: int((x == "erro").sum())),
+                           media_s=("duracao_s", "mean"), p95_s=("duracao_s", lambda x: x.quantile(.95)))
+                      .round(2).reset_index())
+            col_b.markdown("**Indicadores por etapa**")
+            col_b.dataframe(resumo, hide_index=True, width="stretch")
+            erros = execs[execs["status"] == "erro"]
+            if len(erros):
+                col_b.error(f"{len(erros)} etapa(s) com erro registradas")
+                col_b.dataframe(erros[["inicio", "etapa", "erro"]].tail(5), hide_index=True, width="stretch")
+            else:
+                col_b.success("Nenhuma etapa com erro no histórico")
+
+        if LOG_APLICACAO.exists():
+            with st.expander("📜 Últimas linhas do log da aplicação (logs/agrosmart.log)"):
+                linhas = LOG_APLICACAO.read_text(encoding="utf-8").splitlines()[-40:]
+                eventos = pd.DataFrame([json.loads(linha) for linha in linhas if linha.startswith("{")])
+                st.dataframe(eventos.iloc[::-1], hide_index=True, width="stretch")
+
+# ─────────────────────────────── Fase 7: mineração de processos ───────────────────────────────
+with aba_processo:
+    analise = PROCESSO_DIR / "analise_processo.json"
+    if not analise.exists():
+        st.info("Rode `python mineracao/mineracao_processos.py` para gerar a análise de processo.")
+    else:
+        ins = json.loads(analise.read_text(encoding="utf-8"))
+        st.caption("Event log reconstruído a partir das saídas da plataforma — case = ocorrência "
+                   "(talhão + regra), atividades do disparo à normalização.")
+        p1, p2, p3, p4, p5 = st.columns(5)
+        p1.metric("Casos (ocorrências)", ins["casos"], help=f"{ins['eventos']} eventos")
+        p2.metric("Variantes", ins["variantes"], help=f"top 3 cobrem {ins['top3_variantes_pct']}% dos casos")
+        p3.metric("Em aberto", f"{ins['pct_casos_em_aberto']} %")
+        p4.metric("Críticos antecipados pelo ML", f"{ins['pct_criticos_antecipados_ml']} %",
+                  help=f"antecedência média {ins['antecedencia_ml_media_h']}h")
+        g = ins["gargalo_transicao"]
+        p5.metric("Gargalo (espera média)", f"{g['tempo_medio_h']} h", help=f"{g['de']} → {g['para']}")
+
+        dot = PROCESSO_DIR / "dfg_operacional.dot"
+        st.markdown("**Mapa do processo (Directly-Follows Graph)** — espessura = nº de casos; "
+                    "rótulo = casos · tempo médio; vermelho = espera ≥ 12h")
+        st.graphviz_chart(dot.read_text(encoding="utf-8"), width="stretch")
+
+        c1, c2 = st.columns([3, 2])
+        c1.markdown("**Variantes do processo**")
+        c1.dataframe(pd.read_csv(PROCESSO_DIR / "variantes.csv"), hide_index=True, width="stretch")
+        regras_df = pd.read_csv(PROCESSO_DIR / "desempenho_regras.csv")
+        fig = px.bar(regras_df.dropna(subset=["resolucao_media_h"]), x="regra", y="resolucao_media_h",
+                     title="Tempo médio até normalizar (h) por regra", color_discrete_sequence=["#2a78d6"])
+        fig.update_layout(height=320)
+        c2.plotly_chart(fig, width="stretch")
+        st.markdown("**Desempenho por regra**")
+        st.dataframe(regras_df, hide_index=True, width="stretch")
+        etapas = PROCESSO_DIR / "etapas_pipeline.csv"
+        if etapas.exists() and etapas.stat().st_size > 5:
+            st.markdown("**Processo técnico — etapas do pipeline** (event log de dados/monitoramento/execucoes.jsonl)")
+            st.dataframe(pd.read_csv(etapas), hide_index=True, width="stretch")
+        st.download_button("Baixar event log (CSV)", (PROCESSO_DIR / "event_log.csv").read_bytes(),
+                           file_name="event_log.csv", mime="text/csv")
+        st.download_button("Baixar event log (XES — ProM/Disco/pm4py)", (PROCESSO_DIR / "event_log.xes").read_bytes(),
+                           file_name="event_log.xes", mime="application/xml")

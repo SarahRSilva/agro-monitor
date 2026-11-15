@@ -1,0 +1,6 @@
+atividade,execucoes,erros,duracao_media_s,duracao_p95_s,duracao_max_s,pct_tempo_ciclo
+Coleta de dados,4,0,0.04,0.05,0.05,1.5
+Processamento,4,0,0.24,0.24,0.24,9.2
+Automação (regras + ML),4,0,0.97,0.97,0.98,37.0
+IA Generativa,4,0,0.21,0.22,0.22,8.0
+Mineração de processos,3,0,1.16,1.16,1.16,44.3

@@ -1,6 +1,10 @@
-pandas>=2.2
-numpy>=1.26
-scikit-learn>=1.4
-joblib>=1.3
-streamlit>=1.40
-plotly>=5.20
+# Dependências da plataforma AgroSmart — versões FIXAS (Fase 7 / DevSecOps):
+# builds reproduzíveis e auditáveis pelo pip-audit. Atualize de forma controlada
+# (ex.: Dependabot) — a Fase 6 quebrou quando o pandas 3.0 saiu sem pin de versão.
+pandas==2.3.3
+numpy==2.5.4
+scikit-learn==1.9.1
+joblib==1.6.0
+streamlit==1.67.0
+plotly==7.1.0
+matplotlib==3.11.2

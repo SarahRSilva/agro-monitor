@@ -1,0 +1,339 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.85kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13.9-slim-bookworm
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 624B done
+#3 DONE 0.0s
+
+#4 [build 1/4] FROM docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34
+#4 resolve docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34 done
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 14.56kB done
+#5 DONE 0.0s
+
+#6 [build 2/4] WORKDIR /build
+#6 CACHED
+
+#7 [build 3/4] COPY requirements.txt .
+#7 CACHED
+
+#8 [build 4/4] RUN pip wheel --wheel-dir /wheels -r requirements.txt
+#8 CACHED
+
+#9 [runtime 2/9] RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
+#9 0.104 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.124 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 0.132 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+#9 0.149 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8689 kB]
+#9 0.483 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [6936 B]
+#9 0.490 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [371 kB]
+#9 0.959 Fetched 9309 kB in 1s (10.5 MB/s)
+#9 0.959 Reading package lists...
+#9 1.145 Reading package lists...
+#9 1.335 Building dependency tree...
+#9 1.377 Reading state information...
+#9 1.389 Calculating upgrade...
+#9 1.514 The following packages will be upgraded:
+#9 1.514   apt base-files bash ca-certificates dpkg gpgv libapt-pkg6.0 libc-bin libc6
+#9 1.514   libcap2 libgcrypt20 libgnutls30 liblzma5 libpam-modules libpam-modules-bin
+#9 1.514   libpam-runtime libpam0g libpcre2-8-0 libssl3 libsystemd0 libudev1 login
+#9 1.514   openssl passwd perl-base sed tzdata
+#9 1.548 27 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 1.548 Need to get 19.2 MB of archives.
+#9 1.548 After this operation, 35.8 kB of additional disk space will be used.
+#9 1.548 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u15 [70.9 kB]
+#9 1.566 Get:2 http://deb.debian.org/debian bookworm/main arm64 bash arm64 5.2.15-2+b13 [1444 kB]
+#9 1.616 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u14 [2325 kB]
+#9 1.684 Get:4 http://deb.debian.org/debian bookworm/main arm64 libgcrypt20 arm64 1.10.1-3+deb12u1 [620 kB]
+#9 1.709 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 liblzma5 arm64 5.4.1-1+deb12u2 [200 kB]
+#9 1.713 Get:6 http://deb.debian.org/debian bookworm/main arm64 libcap2 arm64 1:2.66-4+deb12u3+b1 [27.1 kB]
+#9 1.714 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.39-1~deb12u2 [309 kB]
+#9 1.727 Get:8 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.39-1~deb12u2 [103 kB]
+#9 1.736 Get:9 http://deb.debian.org/debian-security bookworm-security/main arm64 libapt-pkg6.0 arm64 2.6.2 [814 kB]
+#9 1.761 Get:10 http://deb.debian.org/debian bookworm/main arm64 dpkg arm64 1.21.23 [1550 kB]
+#9 1.806 Get:11 http://deb.debian.org/debian bookworm/main arm64 login arm64 1:4.13+dfsg1-1+deb12u2 [614 kB]
+#9 1.830 Get:12 http://deb.debian.org/debian-security bookworm-security/main arm64 perl-base arm64 5.36.0-7+deb12u4 [1478 kB]
+#9 1.884 Get:13 http://deb.debian.org/debian bookworm/main arm64 sed arm64 4.9-1+deb12u1 [324 kB]
+#9 1.899 Get:14 http://deb.debian.org/debian bookworm/main arm64 gpgv arm64 2.2.40-1.1+deb12u2 [630 kB]
+#9 1.915 Get:15 http://deb.debian.org/debian bookworm/main arm64 libgnutls30 arm64 3.7.9-2+deb12u7 [1318 kB]
+#9 1.953 Get:16 http://deb.debian.org/debian-security bookworm-security/main arm64 apt arm64 2.6.2 [1310 kB]
+#9 1.990 Get:17 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u14 [535 kB]
+#9 2.007 Get:18 http://deb.debian.org/debian bookworm/main arm64 libpam0g arm64 1.5.2-6+deb12u2 [90.9 kB]
+#9 2.008 Get:19 http://deb.debian.org/debian bookworm/main arm64 libpam-modules-bin arm64 1.5.2-6+deb12u2 [75.0 kB]
+#9 2.016 Get:20 http://deb.debian.org/debian bookworm/main arm64 libpam-modules arm64 1.5.2-6+deb12u2 [286 kB]
+#9 2.031 Get:21 http://deb.debian.org/debian bookworm/main arm64 libpam-runtime all 1.5.2-6+deb12u2 [161 kB]
+#9 2.043 Get:22 http://deb.debian.org/debian bookworm/main arm64 passwd arm64 1:4.13+dfsg1-1+deb12u2 [947 kB]
+#9 2.076 Get:23 http://deb.debian.org/debian-security bookworm-security/main arm64 libpcre2-8-0 arm64 10.42-1+deb12u2 [231 kB]
+#9 2.081 Get:24 http://deb.debian.org/debian-security bookworm-security/main arm64 tzdata all 2026f-0+deb12u1 [308 kB]
+#9 2.096 Get:25 http://deb.debian.org/debian-security bookworm-security/main arm64 libssl3 arm64 3.0.22-1~deb12u2 [1829 kB]
+#9 2.154 Get:26 http://deb.debian.org/debian-security bookworm-security/main arm64 openssl arm64 3.0.22-1~deb12u2 [1410 kB]
+#9 2.195 Get:27 http://deb.debian.org/debian-security bookworm-security/main arm64 ca-certificates all 20250419~deb12u2 [161 kB]
+#9 2.268 debconf: delaying package configuration, since apt-utils is not installed
+#9 2.279 Fetched 19.2 MB in 1s (28.0 MB/s)
+#9 2.286 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 2.292 Preparing to unpack .../base-files_12.4+deb12u15_arm64.deb ...
+#9 2.295 Unpacking base-files (12.4+deb12u15) over (12.4+deb12u12) ...
+#9 2.323 Setting up base-files (12.4+deb12u15) ...
+#9 2.324 Installing new version of config file /etc/debian_version ...
+#9 2.344 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 2.346 Preparing to unpack .../bash_5.2.15-2+b13_arm64.deb ...
+#9 2.349 update-alternatives: warning: alternative /usr/share/man/man7/bash-builtins.7.gz (part of link group builtins.7.gz) doesn't exist; removing from list of alternatives
+#9 2.349 update-alternatives: warning: /etc/alternatives/builtins.7.gz is dangling; it will be updated with best choice
+#9 2.351 Unpacking bash (5.2.15-2+b13) over (5.2.15-2+b9) ...
+#9 2.409 Setting up bash (5.2.15-2+b13) ...
+#9 2.416 update-alternatives: error: alternative path /usr/share/man/man7/bash-builtins.7.gz doesn't exist
+#9 2.429 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 2.431 Preparing to unpack .../libc6_2.36-9+deb12u14_arm64.deb ...
+#9 2.457 debconf: unable to initialize frontend: Dialog
+#9 2.457 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 2.457 debconf: falling back to frontend: Readline
+#9 2.457 debconf: unable to initialize frontend: Readline
+#9 2.457 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 2.457 debconf: falling back to frontend: Teletype
+#9 2.469 Unpacking libc6:arm64 (2.36-9+deb12u14) over (2.36-9+deb12u13) ...
+#9 2.810 Setting up libc6:arm64 (2.36-9+deb12u14) ...
+#9 2.835 debconf: unable to initialize frontend: Dialog
+#9 2.835 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 2.835 debconf: falling back to frontend: Readline
+#9 2.835 debconf: unable to initialize frontend: Readline
+#9 2.835 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 2.835 debconf: falling back to frontend: Teletype
+#9 3.869 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 3.872 Preparing to unpack .../libgcrypt20_1.10.1-3+deb12u1_arm64.deb ...
+#9 3.875 Unpacking libgcrypt20:arm64 (1.10.1-3+deb12u1) over (1.10.1-3) ...
+#9 3.907 Setting up libgcrypt20:arm64 (1.10.1-3+deb12u1) ...
+#9 3.919 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 3.921 Preparing to unpack .../liblzma5_5.4.1-1+deb12u2_arm64.deb ...
+#9 3.923 Unpacking liblzma5:arm64 (5.4.1-1+deb12u2) over (5.4.1-1) ...
+#9 3.937 Setting up liblzma5:arm64 (5.4.1-1+deb12u2) ...
+#9 3.945 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6632 files and directories currently installed.)
+#9 3.947 Preparing to unpack .../libcap2_1%3a2.66-4+deb12u3+b1_arm64.deb ...
+#9 3.950 Unpacking libcap2:arm64 (1:2.66-4+deb12u3+b1) over (1:2.66-4+deb12u2) ...
+#9 3.962 Setting up libcap2:arm64 (1:2.66-4+deb12u3+b1) ...
+#9 3.974 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 3.976 Preparing to unpack .../libsystemd0_252.39-1~deb12u2_arm64.deb ...
+#9 3.979 Unpacking libsystemd0:arm64 (252.39-1~deb12u2) over (252.39-1~deb12u1) ...
+#9 4.000 Setting up libsystemd0:arm64 (252.39-1~deb12u2) ...
+#9 4.010 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 4.012 Preparing to unpack .../libudev1_252.39-1~deb12u2_arm64.deb ...
+#9 4.014 Unpacking libudev1:arm64 (252.39-1~deb12u2) over (252.39-1~deb12u1) ...
+#9 4.027 Setting up libudev1:arm64 (252.39-1~deb12u2) ...
+#9 4.039 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 4.041 Preparing to unpack .../libapt-pkg6.0_2.6.2_arm64.deb ...
+#9 4.043 Unpacking libapt-pkg6.0:arm64 (2.6.2) over (2.6.1) ...
+#9 4.081 Setting up libapt-pkg6.0:arm64 (2.6.2) ...
+#9 4.092 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 4.093 Preparing to unpack .../dpkg_1.21.23_arm64.deb ...
+#9 4.096 Unpacking dpkg (1.21.23) over (1.21.22) ...
+#9 4.159 Setting up dpkg (1.21.23) ...
+#9 4.207 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 4.209 Preparing to unpack .../login_1%3a4.13+dfsg1-1+deb12u2_arm64.deb ...
+#9 4.214 Unpacking login (1:4.13+dfsg1-1+deb12u2) over (1:4.13+dfsg1-1+deb12u1) ...
+#9 4.244 Setting up login (1:4.13+dfsg1-1+deb12u2) ...
+#9 4.259 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6633 files and directories currently installed.)
+#9 4.261 Preparing to unpack .../perl-base_5.36.0-7+deb12u4_arm64.deb ...
+#9 4.266 Unpacking perl-base (5.36.0-7+deb12u4) over (5.36.0-7+deb12u3) ...
+#9 4.723 Setting up perl-base (5.36.0-7+deb12u4) ...
+#9 4.733 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 4.735 Preparing to unpack .../sed_4.9-1+deb12u1_arm64.deb ...
+#9 4.737 Unpacking sed (4.9-1+deb12u1) over (4.9-1) ...
+#9 4.758 Setting up sed (4.9-1+deb12u1) ...
+#9 4.766 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 4.768 Preparing to unpack .../gpgv_2.2.40-1.1+deb12u2_arm64.deb ...
+#9 4.770 Unpacking gpgv (2.2.40-1.1+deb12u2) over (2.2.40-1.1+deb12u1) ...
+#9 4.787 Setting up gpgv (2.2.40-1.1+deb12u2) ...
+#9 4.798 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 4.800 Preparing to unpack .../libgnutls30_3.7.9-2+deb12u7_arm64.deb ...
+#9 4.804 Unpacking libgnutls30:arm64 (3.7.9-2+deb12u7) over (3.7.9-2+deb12u5) ...
+#9 4.849 Setting up libgnutls30:arm64 (3.7.9-2+deb12u7) ...
+#9 4.862 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 4.864 Preparing to unpack .../archives/apt_2.6.2_arm64.deb ...
+#9 4.875 Unpacking apt (2.6.2) over (2.6.1) ...
+#9 4.937 Setting up apt (2.6.2) ...
+#9 5.017 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.019 Preparing to unpack .../libc-bin_2.36-9+deb12u14_arm64.deb ...
+#9 5.021 Unpacking libc-bin (2.36-9+deb12u14) over (2.36-9+deb12u13) ...
+#9 5.064 Setting up libc-bin (2.36-9+deb12u14) ...
+#9 5.087 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.089 Preparing to unpack .../libpam0g_1.5.2-6+deb12u2_arm64.deb ...
+#9 5.091 Unpacking libpam0g:arm64 (1.5.2-6+deb12u2) over (1.5.2-6+deb12u1) ...
+#9 5.108 Setting up libpam0g:arm64 (1.5.2-6+deb12u2) ...
+#9 5.128 debconf: unable to initialize frontend: Dialog
+#9 5.128 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 5.128 debconf: falling back to frontend: Readline
+#9 5.128 debconf: unable to initialize frontend: Readline
+#9 5.128 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 5.128 debconf: falling back to frontend: Teletype
+#9 5.141 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.142 Preparing to unpack .../libpam-modules-bin_1.5.2-6+deb12u2_arm64.deb ...
+#9 5.144 Unpacking libpam-modules-bin (1.5.2-6+deb12u2) over (1.5.2-6+deb12u1) ...
+#9 5.163 Setting up libpam-modules-bin (1.5.2-6+deb12u2) ...
+#9 5.175 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.177 Preparing to unpack .../libpam-modules_1.5.2-6+deb12u2_arm64.deb ...
+#9 5.198 debconf: unable to initialize frontend: Dialog
+#9 5.198 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 5.198 debconf: falling back to frontend: Readline
+#9 5.198 debconf: unable to initialize frontend: Readline
+#9 5.198 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 5.198 debconf: falling back to frontend: Teletype
+#9 5.204 Unpacking libpam-modules:arm64 (1.5.2-6+deb12u2) over (1.5.2-6+deb12u1) ...
+#9 5.263 Setting up libpam-modules:arm64 (1.5.2-6+deb12u2) ...
+#9 5.285 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.287 Preparing to unpack .../libpam-runtime_1.5.2-6+deb12u2_all.deb ...
+#9 5.290 Unpacking libpam-runtime (1.5.2-6+deb12u2) over (1.5.2-6+deb12u1) ...
+#9 5.314 Setting up libpam-runtime (1.5.2-6+deb12u2) ...
+#9 5.336 debconf: unable to initialize frontend: Dialog
+#9 5.336 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 5.336 debconf: falling back to frontend: Readline
+#9 5.336 debconf: unable to initialize frontend: Readline
+#9 5.336 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 5.336 debconf: falling back to frontend: Teletype
+#9 5.364 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.366 Preparing to unpack .../passwd_1%3a4.13+dfsg1-1+deb12u2_arm64.deb ...
+#9 5.373 Unpacking passwd (1:4.13+dfsg1-1+deb12u2) over (1:4.13+dfsg1-1+deb12u1) ...
+#9 5.416 Setting up passwd (1:4.13+dfsg1-1+deb12u2) ...
+#9 5.435 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.437 Preparing to unpack .../libpcre2-8-0_10.42-1+deb12u2_arm64.deb ...
+#9 5.439 Unpacking libpcre2-8-0:arm64 (10.42-1+deb12u2) over (10.42-1) ...
+#9 5.457 Setting up libpcre2-8-0:arm64 (10.42-1+deb12u2) ...
+#9 5.472 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6634 files and directories currently installed.)
+#9 5.474 Preparing to unpack .../tzdata_2026f-0+deb12u1_all.deb ...
+#9 5.503 Unpacking tzdata (2026f-0+deb12u1) over (2025b-0+deb12u2) ...
+#9 6.056 Preparing to unpack .../libssl3_3.0.22-1~deb12u2_arm64.deb ...
+#9 6.059 Unpacking libssl3:arm64 (3.0.22-1~deb12u2) over (3.0.17-1~deb12u3) ...
+#9 6.133 Preparing to unpack .../openssl_3.0.22-1~deb12u2_arm64.deb ...
+#9 6.136 Unpacking openssl (3.0.22-1~deb12u2) over (3.0.17-1~deb12u3) ...
+#9 6.191 Preparing to unpack .../ca-certificates_20250419~deb12u2_all.deb ...
+#9 6.194 Unpacking ca-certificates (20250419~deb12u2) over (20230311+deb12u1) ...
+#9 6.288 Setting up libssl3:arm64 (3.0.22-1~deb12u2) ...
+#9 6.290 Setting up tzdata (2026f-0+deb12u1) ...
+#9 6.311 debconf: unable to initialize frontend: Dialog
+#9 6.311 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 6.311 debconf: falling back to frontend: Readline
+#9 6.311 debconf: unable to initialize frontend: Readline
+#9 6.311 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 6.311 debconf: falling back to frontend: Teletype
+#9 6.324 
+#9 6.324 Current default time zone: 'Etc/UTC'
+#9 6.325 Local time is now:      Sun Nov 15 17:07:12 UTC 2026.
+#9 6.325 Universal Time is now:  Sun Nov 15 17:07:12 UTC 2026.
+#9 6.325 Run 'dpkg-reconfigure tzdata' if you wish to change it.
+#9 6.325 
+#9 6.342 Setting up openssl (3.0.22-1~deb12u2) ...
+#9 6.346 Setting up ca-certificates (20250419~deb12u2) ...
+#9 6.372 debconf: unable to initialize frontend: Dialog
+#9 6.372 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 6.372 debconf: falling back to frontend: Readline
+#9 6.372 debconf: unable to initialize frontend: Readline
+#9 6.372 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#9 6.372 debconf: falling back to frontend: Teletype
+#9 6.737 Updating certificates in /etc/ssl/certs...
+#9 6.922 rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+#9 6.923 21 added, 15 removed; done.
+#9 6.933 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+#9 6.937 Processing triggers for debianutils (5.7-0.5~deb12u1) ...
+#9 6.948 Processing triggers for ca-certificates (20250419~deb12u2) ...
+#9 6.949 Updating certificates in /etc/ssl/certs...
+#9 7.063 0 added, 0 removed; done.
+#9 7.063 Running hooks in /etc/ca-certificates/update.d...
+#9 7.066 done.
+#9 DONE 7.2s
+
+#10 [runtime 3/9] COPY --from=build /wheels /wheels
+#10 DONE 0.1s
+
+#11 [runtime 4/9] RUN pip install --no-index --find-links=/wheels /wheels/*     && rm -rf /wheels     && pip uninstall -y pip setuptools wheel 2>/dev/null || true
+#11 0.549 Looking in links: /wheels
+#11 0.550 Processing /wheels/altair-6.3.0-py3-none-any.whl
+#11 0.554 Processing /wheels/anyio-4.16.0-py3-none-any.whl
+#11 0.555 Processing /wheels/attrs-26.1.0-py3-none-any.whl
+#11 0.556 Processing /wheels/certifi-2026.10.23-py3-none-any.whl
+#11 0.556 Processing /wheels/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl
+#11 0.557 Processing /wheels/click-8.5.1-py3-none-any.whl
+#11 0.558 Processing /wheels/cloudpickle-3.1.2-py3-none-any.whl
+#11 0.558 Processing /wheels/contourpy-1.4.0-cp313-cp313-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
+#11 0.559 Processing /wheels/cycler-0.12.1-py3-none-any.whl
+#11 0.560 Processing /wheels/fonttools-4.68.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl
+#11 0.566 Processing /wheels/h11-0.16.0-py3-none-any.whl
+#11 0.567 Processing /wheels/idna-3.20-py3-none-any.whl
+#11 0.568 Processing /wheels/itsdangerous-2.2.0-py3-none-any.whl
+#11 0.568 Processing /wheels/jinja2-3.1.6-py3-none-any.whl
+#11 0.568 Processing /wheels/joblib-1.6.0-py3-none-any.whl
+#11 0.571 Processing /wheels/jsonschema-4.26.0-py3-none-any.whl
+#11 0.572 Processing /wheels/jsonschema_specifications-2025.9.1-py3-none-any.whl
+#11 0.573 Processing /wheels/kiwisolver-1.5.1-cp313-cp313-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl
+#11 0.574 Processing /wheels/markupsafe-3.0.4-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl
+#11 0.574 Processing /wheels/matplotlib-3.11.2-cp313-cp313-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
+#11 0.582 Processing /wheels/narwhals-2.28.0-py3-none-any.whl
+#11 0.584 Processing /wheels/numpy-2.5.4-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+#11 0.592 Processing /wheels/packaging-26.3-py3-none-any.whl
+#11 0.593 Processing /wheels/pandas-2.3.3-cp313-cp313-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl
+#11 0.608 Processing /wheels/pillow-13.0.0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+#11 0.612 Processing /wheels/plotly-7.1.0-py3-none-any.whl
+#11 0.621 Processing /wheels/protobuf-7.36.2-cp310-abi3-manylinux2014_aarch64.whl
+#11 0.621 Processing /wheels/pyarrow-26.0.1-cp313-cp313-manylinux_2_28_aarch64.whl
+#11 0.640 Processing /wheels/pydeck-0.9.3-py2.py3-none-any.whl
+#11 0.645 Processing /wheels/pyparsing-3.3.3-py3-none-any.whl
+#11 0.645 Processing /wheels/python_dateutil-4.0.0-py3-none-any.whl
+#11 0.646 Processing /wheels/python_multipart-0.0.33-py3-none-any.whl
+#11 0.646 Processing /wheels/pytz-2026.6-py2.py3-none-any.whl
+#11 0.648 Processing /wheels/referencing-0.37.0-py3-none-any.whl
+#11 0.649 Processing /wheels/requests-2.34.2-py3-none-any.whl
+#11 0.649 Processing /wheels/rpds_py-2026.9.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+#11 0.650 Processing /wheels/scikit_learn-1.9.1-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+#11 0.655 Processing /wheels/scipy-1.18.1-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+#11 0.672 Processing /wheels/starlette-1.10.0-py3-none-any.whl
+#11 0.673 Processing /wheels/streamlit-1.67.0-py3-none-any.whl
+#11 0.680 Processing /wheels/threadpoolctl-3.8.0-py3-none-any.whl
+#11 0.681 Processing /wheels/typing_extensions-4.16.0-py3-none-any.whl
+#11 0.681 Processing /wheels/tzdata-2026.6-py2.py3-none-any.whl
+#11 0.683 Processing /wheels/urllib3-2.8.0-py3-none-any.whl
+#11 0.683 Processing /wheels/uvicorn-0.54.0-py3-none-any.whl
+#11 0.684 Processing /wheels/watchdog-7.1.0-py3-none-manylinux_2_17_aarch64.whl
+#11 0.685 Processing /wheels/websockets-17.4-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl
+#11 0.761 Installing collected packages: pytz, websockets, watchdog, urllib3, tzdata, typing-extensions, threadpoolctl, rpds-py, python-multipart, pyparsing, pyarrow, protobuf, pillow, packaging, numpy, narwhals, markupsafe, kiwisolver, itsdangerous, idna, h11, fonttools, cycler, cloudpickle, click, charset-normalizer, certifi, attrs, uvicorn, scipy, requests, referencing, python-dateutil, plotly, joblib, jinja2, contourpy, anyio, starlette, scikit-learn, pydeck, pandas, matplotlib, jsonschema-specifications, jsonschema, altair, streamlit
+#11 9.935 
+#11 9.936 Successfully installed altair-6.3.0 anyio-4.16.0 attrs-26.1.0 certifi-2026.10.23 charset-normalizer-3.5.2 click-8.5.1 cloudpickle-3.1.2 contourpy-1.4.0 cycler-0.12.1 fonttools-4.68.0 h11-0.16.0 idna-3.20 itsdangerous-2.2.0 jinja2-3.1.6 joblib-1.6.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kiwisolver-1.5.1 markupsafe-3.0.4 matplotlib-3.11.2 narwhals-2.28.0 numpy-2.5.4 packaging-26.3 pandas-2.3.3 pillow-13.0.0 plotly-7.1.0 protobuf-7.36.2 pyarrow-26.0.1 pydeck-0.9.3 pyparsing-3.3.3 python-dateutil-4.0.0 python-multipart-0.0.33 pytz-2026.6 referencing-0.37.0 requests-2.34.2 rpds-py-2026.9.1 scikit-learn-1.9.1 scipy-1.18.1 starlette-1.10.0 streamlit-1.67.0 threadpoolctl-3.8.0 typing-extensions-4.16.0 tzdata-2026.6 urllib3-2.8.0 uvicorn-0.54.0 watchdog-7.1.0 websockets-17.4
+#11 9.937 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#11 10.42 Found existing installation: pip 25.2
+#11 10.42 Uninstalling pip-25.2:
+#11 10.49   Successfully uninstalled pip-25.2
+#11 DONE 10.8s
+
+#12 [runtime 5/9] RUN groupadd --system --gid 10001 agro     && useradd --system --uid 10001 --gid agro --home-dir /app --shell /usr/sbin/nologin agro
+#12 0.115 useradd warning: agro's uid 10001 is greater than SYS_UID_MAX 999
+#12 DONE 0.1s
+
+#13 [runtime 6/9] WORKDIR /app
+#13 DONE 0.0s
+
+#14 [runtime 7/9] COPY --chown=agro:agro . .
+#14 DONE 0.0s
+
+#15 [runtime 8/9] RUN mkdir -p dados logs .cache/matplotlib && chown -R agro:agro dados logs .cache
+#15 DONE 0.1s
+
+#16 [runtime 9/9] RUN python -c "import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot"
+#16 DONE 0.5s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 10.8s done
+#17 exporting manifest sha256:0c5504ffab7ab1d1366425406b6288219381de3809f33f266878496fded7d62d done
+#17 exporting config sha256:48350181bedcb76c483c83e168843d8995b68dfcfe7f05e5bed211fddf54a598 done
+#17 exporting attestation manifest sha256:26fcb37845777c7c93e8839f106116af411ce48748c6d1b2df9931be0371bcb4 done
+#17 exporting manifest list sha256:7df713022372b5134a8f02c43dba51f31324292475a19d8a11867289ce5730be done
+#17 naming to docker.io/library/agrosmart:7.0.0 done
+#17 unpacking to docker.io/library/agrosmart:7.0.0
+#17 unpacking to docker.io/library/agrosmart:7.0.0 3.3s done
+#17 DONE 14.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/m9fil3q9sedzlinx7zh7r5nff

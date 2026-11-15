@@ -1,0 +1,3 @@
+timestamp,talhao_id,sensor_id,temperatura_c,umidade_solo_pct,luminosidade_pct,movimento_detectado,irrigacao_ligada,precipitacao_mm,perc_folhas_doentes,praga_detectada
+2026-10-02 14:30:00,TAL-04,SNS-04,30.7,31.8,83.4,0,0,0.0,52.4,lagarta
+2026-10-04 23:30:00,TAL-02,SNS-02,21.8,3.5,0.0,0,0,0.0,7.6,nenhuma

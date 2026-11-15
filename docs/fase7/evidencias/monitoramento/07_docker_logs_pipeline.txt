@@ -1,0 +1,296 @@
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.orquestrador] Modo contínuo: um ciclo a cada 20s
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.orquestrador] Ciclo 1 iniciado (run_id=20261115-170816-b198c6, parametros={'seed': '42', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.079s
+agrosmart_pipeline  | 2026-11-15 17:08:16 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.548s
+agrosmart_pipeline  | 2026-11-15 17:08:17 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente] [automacao] 55 episódios de alerta ({'AVISO': 36, 'CRITICO': 18, 'ATENCAO': 1}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.949 recall=0.924 precisao=0.976 (baseline regra atual: F1=0.887 recall=0.809)
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (7%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (91%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-03: ATENCAO  risco 6h MEDIO (34%) -> Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (92%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (89%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (32%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.175s
+agrosmart_pipeline  | 2026-11-15 17:08:18 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:19 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:08:19 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:08:19 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.444s
+agrosmart_pipeline  | 2026-11-15 17:08:19 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-x3xdcagf because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 55 casos, 246 eventos, 16 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Condição normalizada (10.15h em média, 13 casos)
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] [mineracao] 10.9% das ocorrências em aberto; 61.1% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 1 ciclo(s), etapa mais lenta = Automação (regras + ML) (52.4% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.505s
+agrosmart_pipeline  | 2026-11-15 17:08:20 INFO    [agrosmart.orquestrador] Ciclo 1 finalizado com status=ok em 3.752s
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.orquestrador] Ciclo 2 iniciado (run_id=20261115-170840-dff35f, parametros={'seed': '43', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.101s
+agrosmart_pipeline  | 2026-11-15 17:08:40 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.472s
+agrosmart_pipeline  | 2026-11-15 17:08:41 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente] [automacao] 62 episódios de alerta ({'AVISO': 43, 'CRITICO': 17, 'ATENCAO': 2}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.95 recall=0.916 precisao=0.988 (baseline regra atual: F1=0.921 recall=0.863)
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (6%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (64%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-03: NORMAL   risco 6h BAIXO (27%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (80%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (94%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (40%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.206s
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.451s
+agrosmart_pipeline  | 2026-11-15 17:08:42 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:08:43 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:08:43 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-4137cjyh because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 62 casos, 274 eventos, 15 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Ocorrência em aberto (76.75h em média, 2 casos)
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.mineracao_processos] [mineracao] 8.1% das ocorrências em aberto; 47.1% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 2 ciclo(s), etapa mais lenta = Mineração de processos (40.1% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.506s
+agrosmart_pipeline  | 2026-11-15 17:08:44 INFO    [agrosmart.orquestrador] Ciclo 2 finalizado com status=ok em 3.736s
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.orquestrador] Ciclo 3 iniciado (run_id=20261115-170904-2f3ca2, parametros={'seed': '44', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.079s
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados] Traceback (most recent call last):
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     return self._engine.get_loc(casted_key)
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados] KeyError: 'millis'
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados] The above exception was the direct cause of the following exception:
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados] Traceback (most recent call last):
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/app/processamento/processar_dados.py", line 201, in <module>
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     main()
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     ~~~~^^
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/app/processamento/processar_dados.py", line 157, in main
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     tinkercad = carregar_tinkercad(args.inicio_tinkercad)
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/app/processamento/processar_dados.py", line 61, in carregar_tinkercad
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     df["timestamp"] = pd.Timestamp(inicio) + pd.to_timedelta(df["millis"], unit="ms")
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]                                                              ~~^^^^^^^^^^
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/usr/local/lib/python3.13/site-packages/pandas/core/frame.py", line 4113, in __getitem__
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     indexer = self.columns.get_loc(key)
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]   File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados]     raise KeyError(key) from err
+agrosmart_pipeline  | 2026-11-15 17:09:04 INFO    [agrosmart.processar_dados] KeyError: 'millis'
+agrosmart_pipeline  | 2026-11-15 17:09:04 ERROR   [agrosmart.orquestrador] Etapa 'Processamento' erro em 0.449s — EtapaFalhou: processamento/processar_dados.py saiu com código 1:   File "/usr/local/lib/python3.13/site-packages/pandas/core/frame.py", line 4113, in __getitem__ |     indexer = self.columns.get_loc(key) |   File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc |     raise KeyError(key) from err | KeyError: 'millis'
+agrosmart_pipeline  | 2026-11-15 17:09:04 ERROR   [agrosmart.orquestrador] Ciclo 3 finalizado com status=erro em 0.528s
+agrosmart_pipeline  | 2026-11-15 17:09:24 INFO    [agrosmart.orquestrador] Ciclo 4 iniciado (run_id=20261115-170924-59958d, parametros={'seed': '45', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:09:24 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.096s
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.497s
+agrosmart_pipeline  | 2026-11-15 17:09:25 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente] [automacao] 48 episódios de alerta ({'AVISO': 29, 'CRITICO': 16, 'ATENCAO': 3}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.99 recall=0.985 precisao=0.996 (baseline regra atual: F1=0.918 recall=0.859)
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (11%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (84%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-03: ATENCAO  risco 6h MEDIO (51%) -> Confirmar irrigação em campo e manter umidade entre 45-55%
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (96%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (92%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (41%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.2s
+agrosmart_pipeline  | 2026-11-15 17:09:26 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:27 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:09:27 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:09:27 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.468s
+agrosmart_pipeline  | 2026-11-15 17:09:27 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-q8087mfb because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 48 casos, 224 eventos, 15 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Ocorrência em aberto (75.25h em média, 2 casos)
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] [mineracao] 12.5% das ocorrências em aberto; 68.8% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 4 ciclo(s), etapa mais lenta = Mineração de processos (40.5% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.489s
+agrosmart_pipeline  | 2026-11-15 17:09:28 INFO    [agrosmart.orquestrador] Ciclo 4 finalizado com status=ok em 3.752s
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.orquestrador] Ciclo 5 iniciado (run_id=20261115-170948-ed6899, parametros={'seed': '46', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.1s
+agrosmart_pipeline  | 2026-11-15 17:09:48 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.495s
+agrosmart_pipeline  | 2026-11-15 17:09:49 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente] [automacao] 51 episódios de alerta ({'AVISO': 32, 'CRITICO': 17, 'ATENCAO': 2}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.908 recall=0.841 precisao=0.987 (baseline regra atual: F1=0.917 recall=0.856)
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (2%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (99%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-03: NORMAL   risco 6h BAIXO (19%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (90%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (78%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (47%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.207s
+agrosmart_pipeline  | 2026-11-15 17:09:50 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.46s
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:09:51 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-g4df7gh3 because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 51 casos, 234 eventos, 16 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Ocorrência em aberto (52.83h em média, 3 casos)
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.mineracao_processos] [mineracao] 9.8% das ocorrências em aberto; 70.6% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 5 ciclo(s), etapa mais lenta = Mineração de processos (40.1% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.496s
+agrosmart_pipeline  | 2026-11-15 17:09:52 INFO    [agrosmart.orquestrador] Ciclo 5 finalizado com status=ok em 3.76s
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.orquestrador] Ciclo 6 iniciado (run_id=20261115-171012-b98b01, parametros={'seed': '47', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.1s
+agrosmart_pipeline  | 2026-11-15 17:10:12 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.455s
+agrosmart_pipeline  | 2026-11-15 17:10:13 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente] [automacao] 47 episódios de alerta ({'AVISO': 29, 'CRITICO': 17, 'ATENCAO': 1}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.92 recall=0.91 precisao=0.93 (baseline regra atual: F1=0.88 recall=0.799)
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (9%) -> Condições dentro do esperado — manter monitoramento de rotina
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (80%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-03: ATENCAO  risco 6h MEDIO (37%) -> Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (90%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (67%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (36%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.209s
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.525s
+agrosmart_pipeline  | 2026-11-15 17:10:14 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:15 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:10:15 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-34s6izzz because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 47 casos, 212 eventos, 15 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Condição normalizada (9.08h em média, 12 casos)
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.mineracao_processos] [mineracao] 10.6% das ocorrências em aberto; 52.9% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 6 ciclo(s), etapa mais lenta = Mineração de processos (40.0% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.45s
+agrosmart_pipeline  | 2026-11-15 17:10:16 INFO    [agrosmart.orquestrador] Ciclo 6 finalizado com status=ok em 3.74s
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.orquestrador] Ciclo 7 iniciado (run_id=20261115-171036-eb59b4, parametros={'seed': '48', 'dias': '7', 'ia_real': False})
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.096s
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 9 linhas com campo vazio imputado por interpolação
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+agrosmart_pipeline  | 2026-11-15 17:10:36 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+agrosmart_pipeline  | 2026-11-15 17:10:37 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.478s
+agrosmart_pipeline  | 2026-11-15 17:10:37 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:37 INFO    [agrosmart.automacao_inteligente] [automacao] 54 episódios de alerta ({'AVISO': 34, 'CRITICO': 17, 'ATENCAO': 3}) -> refined/alertas.csv
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.96 recall=0.941 precisao=0.98 (baseline regra atual: F1=0.888 recall=0.812)
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-01: ATENCAO  risco 6h MEDIO (36%) -> Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (88%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-03: ATENCAO  risco 6h MEDIO (34%) -> Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (80%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (88%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (49%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 1.21s
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.414s
+agrosmart_pipeline  | 2026-11-15 17:10:38 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] /app/.cache/matplotlib is not a writable directory
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] Matplotlib created a temporary cache directory at /tmp/matplotlib-hi2rspbo because there was an issue with MPLCONFIGDIR (/app/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 54 casos, 238 eventos, 15 variantes -> refined/processo/event_log.csv (+ .xes)
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Condição normalizada (8.71h em média, 12 casos)
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] [mineracao] 9.3% das ocorrências em aberto; 64.7% das críticas antecipadas pelo ML
+agrosmart_pipeline  | 2026-11-15 17:10:39 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 7 ciclo(s), etapa mais lenta = Mineração de processos (40.1% do ciclo)
+agrosmart_pipeline  | 2026-11-15 17:10:40 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.444s
+agrosmart_pipeline  | 2026-11-15 17:10:40 INFO    [agrosmart.orquestrador] Ciclo 7 finalizado com status=ok em 3.644s

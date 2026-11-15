@@ -1,0 +1,43 @@
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Ciclo 1 iniciado (run_id=20261115-141119-baaaae, parametros={'seed': '42', 'dias': '7', 'ia_real': False})
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' iniciada
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] TAL-01: 336 leituras geradas
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] TAL-02: 336 leituras geradas
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] TAL-03: 336 leituras geradas
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] TAL-04: 336 leituras geradas
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] TAL-05: 336 leituras geradas
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
+2026-11-15 14:11:19 INFO    [agrosmart.simulador_sensores] [simulador] 1686 linhas gravadas em dados/raw/sensores_campo.csv
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Etapa 'Coleta de dados' ok em 0.026s
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Etapa 'Processamento' iniciada
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 6 duplicadas removidas
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 5 rejeitadas por valor impossível -> raw/rejeitados/rejeitados.csv
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 10 linhas com campo vazio imputado por interpolação
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 1695 linhas válidas -> trusted/leituras_processadas.csv
+2026-11-15 14:11:19 INFO    [agrosmart.processar_dados] [processamento] 36 linhas de resumo diário -> refined/resumo_diario.csv
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Etapa 'Processamento' ok em 0.238s
+2026-11-15 14:11:19 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' iniciada
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente] [automacao] 55 episódios de alerta ({'AVISO': 36, 'CRITICO': 18, 'ATENCAO': 1}) -> refined/alertas.csv
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente] [automacao] modelo treinado: F1=0.949 recall=0.924 precisao=0.976 (baseline regra atual: F1=0.887 recall=0.809)
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente] [automacao] status atual por talhão:
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-01: NORMAL   risco 6h BAIXO (7%) -> Condições dentro do esperado — manter monitoramento de rotina
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-02: CRITICO  risco 6h ALTO  (92%) -> Inspecionar bomba, válvulas e linhas de gotejamento imediatamente
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-03: ATENCAO  risco 6h MEDIO (33%) -> Sem alerta ativo, mas o modelo prevê risco nas próximas 6h: antecipar vistoria e checar irrigação
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-04: CRITICO  risco 6h ALTO  (92%) -> Inspeção visual e aplicação de controle específico conforme receituário agronômico
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-05: CRITICO  risco 6h ALTO  (89%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente]   - TAL-TC: ATENCAO  risco 6h MEDIO (33%) -> Frio/geada: irrigação noturna de proteção e cobertura das mudas sensíveis
+2026-11-15 14:11:20 INFO    [agrosmart.automacao_inteligente] [automacao] saídas em dados/refined/: alertas.csv, acoes_automaticas.log, predicoes_risco.csv, metricas_modelo.json, status_talhoes.json, relatorio_decisao.md
+2026-11-15 14:11:20 INFO    [agrosmart.orquestrador] Etapa 'Automação (regras + ML)' ok em 0.953s
+2026-11-15 14:11:20 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' iniciada
+2026-11-15 14:11:20 INFO    [agrosmart.apoio_decisao_ia] [ia] contrato da camada refined (Fase 5) com 6 talhões -> refined/resumo_talhoes.json
+2026-11-15 14:11:20 INFO    [agrosmart.apoio_decisao_ia] [ia] 6 relatório(s) de apoio à decisão -> refined/relatorios_ia/
+2026-11-15 14:11:20 INFO    [agrosmart.orquestrador] Etapa 'IA Generativa' ok em 0.214s
+2026-11-15 14:11:20 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' iniciada
+2026-11-15 14:11:21 INFO    [agrosmart.mineracao_processos] [mineracao] event log: 55 casos, 246 eventos, 16 variantes -> refined/processo/event_log.csv (+ .xes)
+2026-11-15 14:11:21 INFO    [agrosmart.mineracao_processos] [mineracao] gargalo: Escalado para CRÍTICO -> Condição normalizada (10.15h em média, 13 casos)
+2026-11-15 14:11:21 INFO    [agrosmart.mineracao_processos] [mineracao] 10.9% das ocorrências em aberto; 61.1% das críticas antecipadas pelo ML
+2026-11-15 14:11:21 INFO    [agrosmart.mineracao_processos] [mineracao] pipeline: 4 ciclo(s), etapa mais lenta = Mineração de processos (44.3% do ciclo)
+2026-11-15 14:11:21 INFO    [agrosmart.orquestrador] Etapa 'Mineração de processos' ok em 1.165s
+2026-11-15 14:11:21 INFO    [agrosmart.orquestrador] Ciclo 1 finalizado com status=ok em 2.597s
+2026-11-15 14:11:21 INFO    [agrosmart.orquestrador] Pipeline concluído. Resultados em dados/trusted, dados/refined e dados/monitoramento.
+2026-11-15 14:11:21 INFO    [agrosmart.orquestrador] Para abrir o dashboard: streamlit run dashboard/app.py

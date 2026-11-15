@@ -1,0 +1,70 @@
+# AgroSmart — Fase 7: plataforma completa em containers
+#
+#   docker compose up --build -d        # sobe pipeline contínuo + dashboard
+#   docker compose ps                   # status e saúde (healthy/unhealthy)
+#   docker compose logs -f pipeline     # logs da execução em tempo real
+#   http://localhost:8501               # dashboard (abas Monitoramento e Processo)
+#
+# Os dois serviços usam a MESMA imagem e compartilham os volumes de dados e logs.
+# (A stack de streaming da Fase 4 — Kafka, producer, motor de regras — continua em docker/docker-compose.yml.)
+
+name: agrosmart
+
+x-seguranca: &seguranca
+  read_only: true                 # sistema de arquivos da imagem somente leitura
+  tmpfs: [/tmp]
+  security_opt: ["no-new-privileges:true"]
+  cap_drop: [ALL]
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: {max-size: "10m", max-file: "3"}
+
+services:
+  pipeline:
+    <<: *seguranca
+    build: .
+    image: agrosmart:7.0.0
+    container_name: agrosmart_pipeline
+    command: ["python", "run_plataforma.py", "--loop"]
+    environment:
+      AGRO_INTERVALO_S: ${AGRO_INTERVALO_S:-300}       # 1 ciclo a cada 5 min
+      AGRO_MAX_IDADE_MIN: ${AGRO_MAX_IDADE_MIN:-15}    # unhealthy se ficar 15 min sem ciclo ok
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}        # opcional (IA real); nunca gravada na imagem
+    volumes:
+      - agro-dados:/app/dados
+      - agro-logs:/app/logs
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 1g}
+
+  dashboard:
+    <<: *seguranca
+    image: agrosmart:7.0.0
+    container_name: agrosmart_dashboard
+    command: ["python", "-m", "streamlit", "run", "dashboard/app.py",
+              "--server.address=0.0.0.0", "--server.port=8501", "--server.headless=true",
+              "--browser.gatherUsageStats=false"]
+    depends_on:
+      pipeline:
+        condition: service_healthy     # só sobe depois do 1º ciclo bem-sucedido
+    ports:
+      - "8501:8501"
+    environment:
+      HOME: /tmp
+    volumes:
+      - agro-dados:/app/dados
+      - agro-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5).status == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 1g}
+
+volumes:
+  agro-dados:
+  agro-logs:

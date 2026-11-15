@@ -10,6 +10,8 @@ com os artefatos exigidos pela atividade, organizados em fases que evoluem o mes
   como apoio à decisão e evolução do modelo de negócio (Canvas v2).
 - **Fase 6** — Plataforma inteligente integrada: coleta IoT (Arduino no TinkerCad + simulador),
   processamento de dados, automação com motor de regras + Machine Learning e dashboard analítico.
+- **Fase 7** — Entrega final como produto: execução automatizada em containers, monitoramento, pipeline
+  DevSecOps, mineração de processos e pitch. Ver [Fase 7](#fase-7).
 
 ---
 
@@ -447,6 +449,9 @@ python run_plataforma.py
 
 ✅ **Esperado no terminal** (semente padrão 42):
 
+> Desde a Fase 7 cada linha vem prefixada com horário, nível e componente (log estruturado) e há uma
+> 5ª etapa, *Mineração de processos* — ver [seção 16](#16-passo-a-passo-para-testar-a-fase-7).
+
 ```
 [simulador] problemas injetados: 6 duplicadas, 10 campos vazios, 5 valores impossíveis
 [processamento] 1706 linhas recebidas (simulador_campo: 1686, tinkercad: 20)
@@ -604,10 +609,114 @@ zip -r sarahribeirodasilva_rm97747_4esoa_fase6_atividade.zip agro-monitor \
 
 ---
 
+# Fase 7
+
+A Fase 7 é a **entrega final**: o AgroSmart sai de "plataforma que funciona na minha máquina" para um
+**produto operável** — roda sozinho em containers, se monitora, passa por um pipeline DevSecOps antes de ser
+publicado, analisa o próprio processo com mineração de processos e é apresentado como produto.
+
+```
+                 ┌──────────────────────── plataforma (Fases 4–6) ─────────────────────────┐
+ sensores IoT ─► │ raw ─► processamento ─► trusted ─► regras + ML ─► decisão ─► refined ─► │ ─► dashboard · alertas · relatórios IA
+                 └──────────────────────────────────────────────────────┬──────────────────┘
+                                                                        └─► mineração de processos (event log, DFG, gargalos)
+ operação:  run_plataforma.py --loop ─► monitoramento (log JSON, execucoes.jsonl, status.json) ─► healthcheck ─► Docker Compose
+ entrega:   git push ─► GitHub Actions: ruff · pytest · bandit · pip-audit · gitleaks · build · Trivy · smoke test ─► GHCR
+```
+
+## 14. Requisitos x artefatos entregues (Fase 7)
+
+| Requisito (peso) | Artefatos | Onde |
+|---|---|---|
+| **Arquitetura final (15%)** | Diagrama; descrição dos 17 componentes; integração entre serviços; fluxo de dados completo | [`docs/fase7/01_arquitetura_final.md`](docs/fase7/01_arquitetura_final.md), [`docs/fase7/arquitetura_final.png`](docs/fase7/arquitetura_final.png) |
+| **Execução da plataforma (20%)** | Descrição do funcionamento; exemplo de entrada e saída de cada camada; log de execução | [`docs/fase7/02_execucao_plataforma.md`](docs/fase7/02_execucao_plataforma.md), `docs/fase7/evidencias/execucao/` |
+| **Pipeline DevSecOps (20%)** | `Dockerfile`, `docker-compose.yml`, `.github/workflows/devsecops.yml`, `devsecops/pipeline_local.sh`; descrição; evidência (execução reprovada → corrigida → aprovada) | [`docs/fase7/03_pipeline_devsecops.md`](docs/fase7/03_pipeline_devsecops.md), `docs/fase7/evidencias/devsecops*/` |
+| **Monitoramento e execução (10%)** | Modo contínuo; log JSON; status e indicadores; healthcheck; teste de falha controlada; aba Monitoramento | [`docs/fase7/04_monitoramento.md`](docs/fase7/04_monitoramento.md), `docs/fase7/evidencias/monitoramento/` |
+| **Análise de processo + demonstração (25%)** | Event log (CSV/XES); mapa do processo (DFG); variantes; gargalos, variações e melhorias; vídeo de 5–8 min | [`docs/fase7/05_analise_processo.md`](docs/fase7/05_analise_processo.md), `docs/fase7/evidencias/processo/`, `docs/link_video_fase7.txt` |
+| **Pitch e visão de produto (10%)** | Slides; conteúdo do pitch; roteiro do vídeo de até 5 min | [`docs/fase7/AgroSmart_Pitch.pptx`](docs/fase7/AgroSmart_Pitch.pptx), [`docs/fase7/06_pitch_e_roteiros.md`](docs/fase7/06_pitch_e_roteiros.md) |
+
+## 15. O que foi feito na Fase 7
+
+| Item | Novo / alterado | Destaque |
+|---|---|---|
+| Execução contínua | `run_plataforma.py` | `--loop --intervalo N`; cada etapa cronometrada; falha isolada por ciclo; parada segura via SIGTERM |
+| Monitoramento | `monitoramento/monitor.py`, `monitoramento/healthcheck.py` | Log JSON rotacionado, `execucoes.jsonl`, `status.json` com disponibilidade e indicadores; healthcheck com 4 verificações |
+| Mineração de processos | `mineracao/mineracao_processos.py` | Event log operacional (55 casos) e técnico; XES; variantes; DFG; gargalos; insights automáticos |
+| Dashboard | `dashboard/app.py` | Abas **🩺 Monitoramento** e **🔀 Processo (mineração)**; recarrega os dados a cada 60 s |
+| Containers | `Dockerfile`, `docker-compose.yml`, `.dockerignore` | Imagem multi-stage, sem root, read-only, `cap_drop ALL`, healthcheck, limites de recursos |
+| DevSecOps | `.github/workflows/devsecops.yml`, `devsecops/pipeline_local.sh`, `pyproject.toml`, `.github/dependabot.yml` | 9 verificações: ruff, pytest, bandit, pip-audit, segredos, Trivy config, build, Trivy image, smoke test |
+| Testes | `tests/` | 19 testes (unitários + ponta a ponta) |
+| Correções achadas no caminho | `requirements.txt`, `automacao_inteligente.py`, `docker/*/Dockerfile`, `docker/api/main.py` | Versões fixas (pandas 3.0 quebrava a Fase 6); ML com < 6 dias de dados; containers da Fase 4 sem root; API não escuta em 0.0.0.0 por padrão |
+
+## 16. Passo a passo para testar a Fase 7
+
+```bash
+# 1. Plataforma em containers (modo produto)
+AGRO_INTERVALO_S=30 docker compose up --build -d
+docker compose ps                                   # ✅ pipeline e dashboard (healthy)
+docker compose logs -f pipeline                     # ✅ um ciclo a cada 30 s
+open http://localhost:8501                          # ✅ abas Monitoramento e Processo
+docker exec agrosmart_pipeline python monitoramento/healthcheck.py   # ✅ "saudavel": true
+
+# 2. Teste de falha (opcional)
+docker exec agrosmart_pipeline sh -c 'cp dados/raw/tinkercad_serial.txt /tmp/bk && echo x > dados/raw/tinkercad_serial.txt'
+#    aguarde 1 ciclo → healthcheck "saudavel": false; aba Monitoramento mostra o erro
+docker exec agrosmart_pipeline sh -c 'cp /tmp/bk dados/raw/tinkercad_serial.txt'   # próximo ciclo volta a healthy
+
+# 3. Pipeline DevSecOps local
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+./devsecops/pipeline_local.sh                       # ✅ "pipeline aprovado (todas as etapas OK)"
+
+# 4. Sem Docker
+python run_plataforma.py --loop --intervalo 60 --max-ciclos 3
+python mineracao/mineracao_processos.py && cat dados/refined/processo/analise_processo.md
+streamlit run dashboard/app.py
+
+# 5. Regenerar diagramas e slides
+python docs/fase7/gerar_diagramas.py
+pip install python-pptx==1.0.2 && python docs/fase7/gerar_slides.py
+
+docker compose down                                 # parar (-v apaga os volumes de dados)
+```
+
+## 17. Checklist da entrega (Fase 7)
+
+Feito (no repositório):
+
+- [x] Arquitetura final, componentes e fluxo — `docs/fase7/01_arquitetura_final.md` + PNG
+- [x] Plataforma funcional + exemplos de entrada/saída + log de execução
+- [x] Dockerfile, docker-compose, workflow do GitHub Actions e pipeline local com evidências (reprovada → aprovada)
+- [x] Monitoramento + evidências da stack rodando + teste de falha
+- [x] Event log, DFG, variantes e análise de gargalos/variações/melhorias
+- [x] Slides do pitch (`AgroSmart_Pitch.pptx`) e roteiros dos dois vídeos
+
+Falta (precisa ser feito pela equipe):
+
+- [ ] Prints das abas novas do dashboard: `docs/prints/10_monitoramento.png` e `docs/prints/11_processo.png`
+- [ ] (Opcional) print do `docker compose ps` e da execução do workflow no GitHub Actions
+- [ ] Gravar o **vídeo final** (5–8 min) — roteiro em `docs/fase7/06_pitch_e_roteiros.md` §6.4
+- [ ] Gravar o **vídeo pitch** (até 5 min) — roteiro em §6.3
+- [ ] Colar os dois links em `docs/link_video_fase7.txt`
+- [ ] Gerar o .zip (abaixo) e conferir o conteúdo antes de enviar
+
+## 18. Como montar o .zip (Fase 7)
+
+```bash
+./gerar_zip_entrega.sh                                   # usa o nome padrão abaixo
+./gerar_zip_entrega.sh nomecompleto_rm_turma_fase7_atividade.zip   # ou informe outro nome
+```
+
+Nome padrão: `sarahribeirodasilva_rm97747_4esoa_fase7_atividade.zip` (padrão pedido:
+`nomecompleto_rm_turma_fase7_atividade.zip`), gerado na pasta acima do repositório, sem `.venv`, `.git`, `.idea`,
+caches e logs locais.
+
+---
+
 ## Estrutura de Arquivos
 
 ```
-agro_monitor_entrega/
+agro-monitor/
 ├── README.md                              ← este arquivo
 │
 │   # Fase 4
@@ -674,10 +783,37 @@ agro_monitor_entrega/
 │   └── refined/                           ← resumo_diario.csv, alertas.csv, acoes_automaticas.log, predicoes_risco.csv,
 │                                            metricas_modelo.json, status_talhoes.json, relatorio_decisao.md,
 │                                            modelo_risco.joblib, resumo_talhoes.json, relatorios_ia/
+│
+│   # Fase 7
+├── Dockerfile                             ← imagem da plataforma (multi-stage, sem root, healthcheck)
+├── docker-compose.yml                     ← pipeline contínuo + dashboard (read-only, limites, healthcheck)
+├── .dockerignore
+├── pyproject.toml                         ← regras de qualidade (ruff), pytest, cobertura, bandit
+├── requirements-dev.txt                   ← ferramentas do pipeline DevSecOps
+├── gerar_zip_entrega.sh                   ← monta o .zip da entrega
+├── .github/
+│   ├── workflows/devsecops.yml            ← pipeline DevSecOps no GitHub Actions
+│   └── dependabot.yml                     ← atualização controlada de dependências
+├── devsecops/
+│   └── pipeline_local.sh                  ← mesmo pipeline, local, gravando as evidências
+├── monitoramento/
+│   ├── monitor.py                         ← log JSON, registro de execuções, status e indicadores
+│   └── healthcheck.py                     ← saúde da plataforma (usado pelo Docker e pelo CI)
+├── mineracao/
+│   └── mineracao_processos.py             ← event log, variantes, DFG, gargalos, insights
+├── tests/                                 ← 19 testes (unitários + ponta a ponta)
+├── dados/monitoramento/                   ← execucoes.jsonl, status.json
+├── dados/refined/processo/                ← event_log.csv/.xes, variantes, dfg, análise
 └── docs/
-    ├── arquitetura.png                    ← imagem do diagrama
+    ├── arquitetura.png                    ← imagem do diagrama (Fase 6)
     ├── link_video.txt                     ← link do vídeo da Fase 6
-    └── prints/                            ← capturas do dashboard (e do TinkerCad)
+    ├── link_video_fase7.txt               ← links do vídeo final e do pitch (Fase 7)
+    ├── prints/                            ← capturas do dashboard (e do TinkerCad)
+    └── fase7/
+        ├── 01_arquitetura_final.md … 06_pitch_e_roteiros.md
+        ├── arquitetura_final.png, AgroSmart_Pitch.pptx
+        ├── gerar_diagramas.py, gerar_slides.py
+        └── evidencias/                    ← execucao/, devsecops/, devsecops_execucao1_reprovada/, monitoramento/, processo/
 ```
 
 ---

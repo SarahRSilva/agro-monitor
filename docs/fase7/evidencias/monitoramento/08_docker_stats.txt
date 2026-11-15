@@ -1,0 +1,3 @@
+NAME                  CPU %     MEM USAGE / LIMIT   NET I/O
+agrosmart_pipeline    0.01%     18.04MiB / 1GiB     1.92kB / 126B
+agrosmart_dashboard   0.83%     70.67MiB / 1GiB     1.59kB / 766B

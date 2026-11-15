@@ -1,0 +1,192 @@
+2026-11-15T17:05:54Z	INFO	[vulndb] Need to update DB
+2026-11-15T17:05:54Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-11-15T17:05:54Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+271.25 KiB / 134.11 MiB [>___________________________________________________________] 0.20% ? p/s ?2.43 MiB / 134.11 MiB [->____________________________________________________________] 1.82% ? p/s ?7.37 MiB / 134.11 MiB [--->__________________________________________________________] 5.50% ? p/s ?12.56 MiB / 134.11 MiB [---->___________________________________________] 9.37% 20.50 MiB p/s ETA 5s17.78 MiB / 134.11 MiB [------>________________________________________] 13.26% 20.50 MiB p/s ETA 5s22.97 MiB / 134.11 MiB [-------->______________________________________] 17.13% 20.50 MiB p/s ETA 5s28.15 MiB / 134.11 MiB [--------->_____________________________________] 20.99% 20.85 MiB p/s ETA 5s32.95 MiB / 134.11 MiB [----------->___________________________________] 24.57% 20.85 MiB p/s ETA 4s38.20 MiB / 134.11 MiB [------------->_________________________________] 28.48% 20.85 MiB p/s ETA 4s43.43 MiB / 134.11 MiB [--------------->_______________________________] 32.38% 21.15 MiB p/s ETA 4s48.54 MiB / 134.11 MiB [----------------->_____________________________] 36.20% 21.15 MiB p/s ETA 4s53.68 MiB / 134.11 MiB [------------------>____________________________] 40.02% 21.15 MiB p/s ETA 3s58.80 MiB / 134.11 MiB [-------------------->__________________________] 43.84% 21.44 MiB p/s ETA 3s63.93 MiB / 134.11 MiB [---------------------->________________________] 47.67% 21.44 MiB p/s ETA 3s69.08 MiB / 134.11 MiB [------------------------>______________________] 51.51% 21.44 MiB p/s ETA 3s74.07 MiB / 134.11 MiB [------------------------->_____________________] 55.23% 21.70 MiB p/s ETA 2s79.17 MiB / 134.11 MiB [--------------------------->___________________] 59.03% 21.70 MiB p/s ETA 2s84.29 MiB / 134.11 MiB [----------------------------->_________________] 62.85% 21.70 MiB p/s ETA 2s89.26 MiB / 134.11 MiB [------------------------------->_______________] 66.55% 21.93 MiB p/s ETA 2s94.39 MiB / 134.11 MiB [--------------------------------->_____________] 70.38% 21.93 MiB p/s ETA 1s99.54 MiB / 134.11 MiB [---------------------------------->____________] 74.22% 21.93 MiB p/s ETA 1s104.67 MiB / 134.11 MiB [----------------------------------->__________] 78.05% 22.17 MiB p/s ETA 1s109.90 MiB / 134.11 MiB [------------------------------------->________] 81.94% 22.17 MiB p/s ETA 1s115.06 MiB / 134.11 MiB [--------------------------------------->______] 85.79% 22.17 MiB p/s ETA 0s120.24 MiB / 134.11 MiB [----------------------------------------->____] 89.66% 22.42 MiB p/s ETA 0s125.43 MiB / 134.11 MiB [------------------------------------------->__] 93.53% 22.42 MiB p/s ETA 0s128.17 MiB / 134.11 MiB [------------------------------------------->__] 95.57% 22.42 MiB p/s ETA 0s132.17 MiB / 134.11 MiB [--------------------------------------------->] 98.55% 22.25 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 22.25 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 22.25 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 21.02 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 21.02 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 21.02 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 19.67 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 19.67 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 19.67 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 18.40 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 18.40 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-------------------------------------------->] 100.00% 18.40 MiB p/s ETA 0s134.11 MiB / 134.11 MiB [-----------------------------------------------] 100.00% 17.55 MiB p/s 7.8s2026-11-15T17:06:05Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-11-15T17:06:05Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-15T17:06:05Z	INFO	[secret] Secret scanning is enabled
+2026-11-15T17:06:05Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-11-15T17:06:05Z	INFO	[secret] Please see also https://aquasecurity.github.io/trivy/v0.58/docs/scanner/secret#recommendation for faster secret detection
+2026-11-15T17:06:10Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-11-15T17:06:10Z	WARN	Recommend using Trivy to generate SBOMs
+2026-11-15T17:06:10Z	WARN	[sbom] Ignore the OS package as no OS is detected.	file_path="usr/local/lib/python3.13/site-packages/pillow-13.0.0.dist-info/sboms/auditwheel.cdx.json"
+2026-11-15T17:06:11Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-11-15T17:06:11Z	WARN	Recommend using Trivy to generate SBOMs
+2026-11-15T17:06:11Z	WARN	[sbom] Ignore the OS package as no OS is detected.	file_path="usr/local/lib/python3.13/site-packages/scikit_learn-1.9.1.dist-info/sboms/auditwheel.cdx.json"
+2026-11-15T17:06:11Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-11-15T17:06:11Z	WARN	Recommend using Trivy to generate SBOMs
+2026-11-15T17:06:11Z	WARN	[sbom] Ignore the OS package as no OS is detected.	file_path="usr/local/lib/python3.13/site-packages/scipy-1.18.1.dist-info/sboms/auditwheel.cdx.json"
+2026-11-15T17:06:12Z	WARN	[secret] The size of the scanned file is too large. It is recommended to use `--skip-files` for this file to avoid high memory consumption.	file_path="usr/local/share/jupyter/nbextensions/pydeck/index.js.map" size (MB)=18
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="altair" version="6.3.0"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="certifi" version="2026.10.23"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="cloudpickle" version="3.1.2"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="cycler" version="0.12.1"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="h11" version="0.16.0"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="kiwisolver" version="1.5.1"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="matplotlib" version="3.11.2"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="pandas" version="2.3.3"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="pytz" version="2026.6"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="requests" version="2.34.2"
+2026-11-15T17:06:20Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="scipy" version="1.18.1"
+2026-11-15T17:06:20Z	INFO	Detected OS	family="debian" version="12.12"
+2026-11-15T17:06:20Z	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=97
+2026-11-15T17:06:20Z	INFO	Number of language-specific files	num=2
+2026-11-15T17:06:20Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-11-15T17:06:20Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-15T17:06:20Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://aquasecurity.github.io/trivy/v0.58/docs/scanner/vulnerability#severity-selection for details.
+
+agrosmart:7.0.0 (debian 12.12)
+==============================
+Total: 38 (HIGH: 31, CRITICAL: 7)
+
+┌───────────────┬─────────────────┬──────────┬────────┬────────────────────┬────────────────────┬──────────────────────────────────────────────────────────────┐
+│    Library    │  Vulnerability  │ Severity │ Status │ Installed Version  │   Fixed Version    │                            Title                             │
+├───────────────┼─────────────────┼──────────┼────────┼────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ apt           │ CVE-2026-109518 │ HIGH     │ fixed  │ 2.6.1              │ 2.6.2              │ apt: apt: Remote code execution via hard link reuse during   │
+│               │                 │          │        │                    │                    │ package download...                                          │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-109518                  │
+├───────────────┼─────────────────┤          │        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ gpgv          │ CVE-2025-68973  │          │        │ 2.2.40-1.1+deb12u1 │ 2.2.40-1.1+deb12u2 │ GnuPG: GnuPG: Information disclosure and potential arbitrary │
+│               │                 │          │        │                    │                    │ code execution via out-of-bounds write...                    │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2025-68973                   │
+├───────────────┼─────────────────┤          │        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ libapt-pkg6.0 │ CVE-2026-109518 │          │        │ 2.6.1              │ 2.6.2              │ apt: apt: Remote code execution via hard link reuse during   │
+│               │                 │          │        │                    │                    │ package download...                                          │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-109518                  │
+├───────────────┼─────────────────┤          │        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ libcap2       │ CVE-2026-4878   │          │        │ 1:2.66-4+deb12u2   │ 1:2.66-4+deb12u3   │ libcap: libcap: Privilege escalation via TOCTOU race         │
+│               │                 │          │        │                    │                    │ condition in cap_set_file()                                  │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-4878                    │
+├───────────────┼─────────────────┼──────────┤        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ libgnutls30   │ CVE-2026-33845  │ CRITICAL │        │ 3.7.9-2+deb12u5    │ 3.7.9-2+deb12u7    │ gnutls: GnuTLS: Denial of Service via DTLS zero-length       │
+│               │                 │          │        │                    │                    │ fragment                                                     │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-33845                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-42010  │          │        │                    │                    │ gnutls: gnutls: Authentication Bypass via NUL Character in   │
+│               │                 │          │        │                    │                    │ Username                                                     │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-42010                   │
+│               ├─────────────────┼──────────┤        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-33846  │ HIGH     │        │                    │                    │ gnutls: GnuTLS: Denial of Service via heap buffer overflow   │
+│               │                 │          │        │                    │                    │ in DTLS handshake...                                         │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-33846                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-3833   │          │        │                    │                    │ gnutls: GnuTLS: Policy bypass due to case-sensitive          │
+│               │                 │          │        │                    │                    │ nameConstraints comparison                                   │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-3833                    │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-42009  │          │        │                    │                    │ gnutls: gnutls: Denial of Service via DTLS packet reordering │
+│               │                 │          │        │                    │                    │ vulnerability                                                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-42009                   │
+├───────────────┼─────────────────┤          │        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ libpcre2-8-0  │ CVE-2026-103111 │          │        │ 10.42-1            │ 10.42-1+deb12u2    │ pcre2: pcre2: Out-of-bounds write via crafted regular        │
+│               │                 │          │        │                    │                    │ expression                                                   │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-103111                  │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-86145  │          │        │                    │ 10.42-1+deb12u1    │ pcre2: PCRE2: Out-of-bounds write allows arbitrary code      │
+│               │                 │          │        │                    │                    │ execution via crafted regular expressions...                 │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-86145                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-89157  │          │        │                    │                    │ pcre2: PCRE2: Out-of-bounds write via large pattern input    │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-89157                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-89161  │          │        │                    │                    │ pcre2: PCRE2: Memory corruption vulnerability in             │
+│               │                 │          │        │                    │                    │ pcre2_jit_match                                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-89161                   │
+├───────────────┼─────────────────┼──────────┤        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ libssl3       │ CVE-2026-31789  │ CRITICAL │        │ 3.0.17-1~deb12u3   │ 3.0.19-1~deb12u2   │ openssl: OpenSSL: Heap buffer overflow on 32-bit systems     │
+│               │                 │          │        │                    │                    │ from large X.509 certificate...                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-31789                   │
+│               ├─────────────────┼──────────┤        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2025-15467  │ HIGH     │        │                    │ 3.0.18-1~deb12u2   │ openssl: OpenSSL: Remote code execution or Denial of Service │
+│               │                 │          │        │                    │                    │ via oversized Initialization...                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2025-15467                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2025-69421  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service via malformed PKCS#12    │
+│               │                 │          │        │                    │                    │ file processing                                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2025-69421                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28387  │          │        │                    │ 3.0.19-1~deb12u2   │ openssl: OpenSSL: Arbitrary code execution due to            │
+│               │                 │          │        │                    │                    │ use-after-free in DANE TLSA authentication...                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28387                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28388  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service due to NULL pointer      │
+│               │                 │          │        │                    │                    │ dereference in delta...                                      │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28388                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28389  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service vulnerability in CMS     │
+│               │                 │          │        │                    │                    │ processing                                                   │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28389                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28390  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service due to NULL pointer      │
+│               │                 │          │        │                    │                    │ dereference in CMS...                                        │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28390                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-45447  │          │        │                    │ 3.0.20-1~deb12u2   │ openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()       │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-45447                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-84782  │          │        │                    │ 3.0.22-1~deb12u2   │ openssl: compat-openssl: openssl: Information disclosure via │
+│               │                 │          │        │                    │                    │ DTLS handshake retransmission                                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-84782                   │
+├───────────────┼─────────────────┼──────────┤        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│ openssl       │ CVE-2026-31789  │ CRITICAL │        │                    │ 3.0.19-1~deb12u2   │ openssl: OpenSSL: Heap buffer overflow on 32-bit systems     │
+│               │                 │          │        │                    │                    │ from large X.509 certificate...                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-31789                   │
+│               ├─────────────────┼──────────┤        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2025-15467  │ HIGH     │        │                    │ 3.0.18-1~deb12u2   │ openssl: OpenSSL: Remote code execution or Denial of Service │
+│               │                 │          │        │                    │                    │ via oversized Initialization...                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2025-15467                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2025-69421  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service via malformed PKCS#12    │
+│               │                 │          │        │                    │                    │ file processing                                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2025-69421                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28387  │          │        │                    │ 3.0.19-1~deb12u2   │ openssl: OpenSSL: Arbitrary code execution due to            │
+│               │                 │          │        │                    │                    │ use-after-free in DANE TLSA authentication...                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28387                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28388  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service due to NULL pointer      │
+│               │                 │          │        │                    │                    │ dereference in delta...                                      │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28388                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28389  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service vulnerability in CMS     │
+│               │                 │          │        │                    │                    │ processing                                                   │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28389                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-28390  │          │        │                    │                    │ openssl: OpenSSL: Denial of Service due to NULL pointer      │
+│               │                 │          │        │                    │                    │ dereference in CMS...                                        │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-28390                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-45447  │          │        │                    │ 3.0.20-1~deb12u2   │ openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()       │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-45447                   │
+│               ├─────────────────┤          │        │                    ├────────────────────┼──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-84782  │          │        │                    │ 3.0.22-1~deb12u2   │ openssl: compat-openssl: openssl: Information disclosure via │
+│               │                 │          │        │                    │                    │ DTLS handshake retransmission                                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-84782                   │
+├───────────────┼─────────────────┼──────────┤        ├────────────────────┼────────────────────┼──────────────────────────────────────────────────────────────┤
+│ perl-base     │ CVE-2026-13221  │ CRITICAL │        │ 5.36.0-7+deb12u3   │ 5.36.0-7+deb12u4   │ perl: Perl: Incorrect regular expression processing via      │
+│               │                 │          │        │                    │                    │ large regular expressions                                    │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-13221                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-42496  │          │        │                    │                    │ perl-archive-tar: perl-archive-tar: Path traversal via       │
+│               │                 │          │        │                    │                    │ crafted symlinks allows arbitrary file access                │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-42496                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-8376   │          │        │                    │                    │ perl: Perl: Heap buffer overflow when compiling regular      │
+│               │                 │          │        │                    │                    │ expressions on 32-bit builds...                              │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-8376                    │
+│               ├─────────────────┼──────────┤        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-42497  │ HIGH     │        │                    │                    │ perl-Archive-Tar: perl-Archive-Tar: Arbitrary file           │
+│               │                 │          │        │                    │                    │ modification via crafted hardlinks during archive extraction │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-42497                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-48962  │          │        │                    │                    │ perl-IO-Compress: perl-IO-Compress: Arbitrary code execution │
+│               │                 │          │        │                    │                    │ via attacker-controlled output glob                          │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-48962                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-57432  │          │        │                    │                    │ perl: Perl: Information disclosure via integer overflow in   │
+│               │                 │          │        │                    │                    │ pack/unpack operations                                       │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-57432                   │
+│               ├─────────────────┤          │        │                    │                    ├──────────────────────────────────────────────────────────────┤
+│               │ CVE-2026-57433  │          │        │                    │                    │ Storable: Storable: Denial of Service via signed integer     │
+│               │                 │          │        │                    │                    │ overflow in deserialization                                  │
+│               │                 │          │        │                    │                    │ https://avd.aquasec.com/nvd/cve-2026-57433                   │
+└───────────────┴─────────────────┴──────────┴────────┴────────────────────┴────────────────────┴──────────────────────────────────────────────────────────────┘

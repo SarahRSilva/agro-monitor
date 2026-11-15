@@ -1,0 +1,35 @@
+# Só o código e os dados de entrada vão para a imagem
+.git
+.github
+.idea
+.junie
+.serena
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ruff_cache
+.coverage
+*.zip
+logs
+docs
+canvas
+business-model
+data-lake
+ingestion
+ia-generativa
+tests
+# camadas geradas pelo próprio pipeline
+dados/trusted
+dados/refined
+dados/monitoramento
+dados/raw/sensores_campo.csv
+dados/raw/rejeitados
+# componentes da Fase 4 (têm imagens próprias em docker/)
+docker/producer
+docker/rules-engine
+docker/docker-compose.yml
+docker/api/Dockerfile
+docker/api/main.py
+docker/api/gerador.py
+datalake-demo/datalake

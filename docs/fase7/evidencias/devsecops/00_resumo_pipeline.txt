@@ -1,0 +1,12 @@
+Pipeline DevSecOps AgroSmart — 2026-11-15 14:06:51 — commit 8155342
+1.1 Lint + complexidade (ruff)                   OK         0s  -> 01_ruff.txt
+1.2 Testes + cobertura (pytest)                  OK         5s  -> 02_pytest.txt
+2.1 SAST (bandit)                                OK         0s  -> 03_bandit.txt
+2.2 SCA dependências (pip-audit)                OK         3s  -> 04_pip_audit.txt
+2.3 Segredos no repositório (trivy secret)      OK         0s  -> 05_segredos.txt
+3.1 Scan do Dockerfile/compose (trivy config)    OK         7s  -> 06_trivy_config.txt
+3.2 Build da imagem (docker build)               OK        33s  -> 07_docker_build.txt
+3.3 Vulnerabilidades da imagem (trivy image)     OK        26s  -> 08_trivy_image.txt
+3.4 Smoke test do container (ciclo + health)     OK         4s  -> 09_smoke_test.txt
+
+RESULTADO: pipeline aprovado (todas as etapas OK)

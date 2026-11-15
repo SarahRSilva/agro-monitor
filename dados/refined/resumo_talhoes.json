@@ -19,12 +19,12 @@
     "previsao_precipitacao_3d_mm": null,
     "deteccoes_imagem_relevantes": [],
     "alertas": [],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [],
     "risco_previsto_6h": {
       "classe": "BAIXO",
-      "probabilidade": 0.065
+      "probabilidade": 0.067
     },
     "nivel_final": "NORMAL"
   },
@@ -59,7 +59,7 @@
         "detalhe": "DEFICIT_HIDRICO (CRITICO) ativo há 35.0h, pior valor 3.0"
       }
     ],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [
       {
@@ -97,7 +97,7 @@
     "previsao_precipitacao_3d_mm": null,
     "deteccoes_imagem_relevantes": [],
     "alertas": [],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [],
     "risco_previsto_6h": {
@@ -146,7 +146,7 @@
         "detalhe": "MOVIMENTO_NOTURNO (AVISO) ativo há 0.5h, pior valor 1.0"
       }
     ],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [
       {
@@ -160,7 +160,7 @@
     ],
     "risco_previsto_6h": {
       "classe": "ALTO",
-      "probabilidade": 0.923
+      "probabilidade": 0.921
     },
     "nivel_final": "CRITICO"
   },
@@ -190,7 +190,7 @@
         "detalhe": "TEMPERATURA_EXTREMA (CRITICO) ativo há 1.5h, pior valor 2.0"
       }
     ],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [
       {
@@ -230,7 +230,7 @@
         "detalhe": "TEMPERATURA_EXTREMA (AVISO) ativo há 0.0h, pior valor 10.9"
       }
     ],
-    "gerado_em": "2026-10-09T22:40:04",
+    "gerado_em": "2026-11-15T14:11:20",
     "chuva_24h_mm": 0.0,
     "alertas_automacao": [
       {

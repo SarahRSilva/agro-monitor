@@ -44,8 +44,7 @@ REFINED_DIR = ROOT_DIR / "dados" / "refined"
 
 # Motor de regras da Fase 4 — o mesmo módulo usado pela API Flask em docker/api/
 sys.path.insert(0, str(ROOT_DIR / "docker" / "api"))
-from regras import (LIMIAR_FOLHAS_DOENTES_PCT, LIMIAR_TEMP_ALTA_C,  # noqa: E402
-                    LIMIAR_TEMP_BAIXA_C, LIMIAR_UMIDADE_SECA_PCT, MotorDeRegras)
+from regras import LIMIAR_FOLHAS_DOENTES_PCT, LIMIAR_TEMP_ALTA_C, LIMIAR_TEMP_BAIXA_C, LIMIAR_UMIDADE_SECA_PCT, MotorDeRegras  # noqa: E402
 
 NIVEIS = {"AVISO": 1, "ATENCAO": 2, "CRITICO": 3}
 HORIZONTE_PREVISAO = "6h"
@@ -245,6 +244,10 @@ def classe_risco(prob: float) -> str:
 def treinar_modelo(df: pd.DataFrame):
     campo = df[(df["fonte"] == "simulador_campo") & df["alvo_evento_6h"].notna()]
     corte = campo["timestamp"].min().normalize() + pd.Timedelta(days=DIAS_TREINO)
+    if corte >= campo["timestamp"].max():
+        # janela curta (ex.: --dias 3): mantém a divisão temporal, mas em 70% / 30% do período
+        inicio, fim = campo["timestamp"].min(), campo["timestamp"].max()
+        corte = (inicio + (fim - inicio) * 0.7).floor("30min")
     treino, teste = campo[campo["timestamp"] < corte], campo[campo["timestamp"] >= corte]
 
     modelo = RandomForestClassifier(n_estimators=200, max_depth=8, min_samples_leaf=3,
@@ -264,7 +267,7 @@ def treinar_modelo(df: pd.DataFrame):
             "f1": round(f1_score(y_true, y_hat, zero_division=0), 3),
         }
 
-    importancias = sorted(zip(FEATURES, modelo.feature_importances_), key=lambda x: -x[1])
+    importancias = sorted(zip(FEATURES, modelo.feature_importances_, strict=True), key=lambda x: -x[1])
     relatorio = {
         "modelo": "RandomForestClassifier(n_estimators=200, max_depth=8, class_weight='balanced')",
         "alvo": f"evento crítico nas próximas {HORIZONTE_PREVISAO} "

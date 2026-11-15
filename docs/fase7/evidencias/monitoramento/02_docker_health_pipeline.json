@@ -1,0 +1,36 @@
+{
+    "Status": "healthy",
+    "FailingStreak": 0,
+    "Log": [
+        {
+            "Start": "2026-11-15T17:08:21.682635043Z",
+            "End": "2026-11-15T17:08:21.809392209Z",
+            "ExitCode": 0,
+            "Output": "{\n  \"saudavel\": true,\n  \"checks\": {\n    \"status_existe\": true,\n    \"ultimo_ciclo_ok\": true,\n    \"dados_recentes\": true,\n    \"saidas_refined\": true\n  },\n  \"idade_ultimo_sucesso_min\": 0.0,\n  \"max_idade_min\": 15.0,\n  \"saidas_faltando\": [],\n  \"ultimo_run_id\": \"20261115-170816-b198c6\",\n  \"indicadores\": {\n    \"linhas_recebidas\": 1706,\n    \"linhas_processadas\": 1695,\n    \"linhas_rejeitadas\": 5,\n    \"taxa_rejeicao_pct\": 0.29,\n    \"duplicadas_removidas\": 6,\n    \"ultima_leitura_dados\": \"2026-10-04 23:30:00\",\n    \"f1_modelo\": 0.949,\n    \"f1_baseline\": 0.887,\n    \"talhoes_monitorados\": 6,\n    \"talhoes_criticos\": 3,\n    \"talhoes_atencao\": 2,\n    \"alertas_ativos\": 6,\n    \"episodios_alerta\": 55,\n    \"episodios_criticos\": 18\n  }\n}\n"
+        },
+        {
+            "Start": "2026-11-15T17:08:51.809867626Z",
+            "End": "2026-11-15T17:08:51.917220626Z",
+            "ExitCode": 0,
+            "Output": "{\n  \"saudavel\": true,\n  \"checks\": {\n    \"status_existe\": true,\n    \"ultimo_ciclo_ok\": true,\n    \"dados_recentes\": true,\n    \"saidas_refined\": true\n  },\n  \"idade_ultimo_sucesso_min\": 0.1,\n  \"max_idade_min\": 15.0,\n  \"saidas_faltando\": [],\n  \"ultimo_run_id\": \"20261115-170840-dff35f\",\n  \"indicadores\": {\n    \"linhas_recebidas\": 1706,\n    \"linhas_processadas\": 1695,\n    \"linhas_rejeitadas\": 5,\n    \"taxa_rejeicao_pct\": 0.29,\n    \"duplicadas_removidas\": 6,\n    \"ultima_leitura_dados\": \"2026-10-04 23:30:00\",\n    \"f1_modelo\": 0.95,\n    \"f1_baseline\": 0.921,\n    \"talhoes_monitorados\": 6,\n    \"talhoes_criticos\": 3,\n    \"talhoes_atencao\": 1,\n    \"alertas_ativos\": 5,\n    \"episodios_alerta\": 62,\n    \"episodios_criticos\": 17\n  }\n}\n"
+        },
+        {
+            "Start": "2026-11-15T17:09:21.918954084Z",
+            "End": "2026-11-15T17:09:22.043486918Z",
+            "ExitCode": 1,
+            "Output": "{\n  \"saudavel\": false,\n  \"checks\": {\n    \"status_existe\": true,\n    \"ultimo_ciclo_ok\": false,\n    \"dados_recentes\": true,\n    \"saidas_refined\": true\n  },\n  \"idade_ultimo_sucesso_min\": 0.6,\n  \"max_idade_min\": 15.0,\n  \"saidas_faltando\": [],\n  \"ultimo_run_id\": \"20261115-170904-2f3ca2\",\n  \"indicadores\": {\n    \"linhas_recebidas\": 1706,\n    \"linhas_processadas\": 1695,\n    \"linhas_rejeitadas\": 5,\n    \"taxa_rejeicao_pct\": 0.29,\n    \"duplicadas_removidas\": 6,\n    \"ultima_leitura_dados\": \"2026-10-04 23:30:00\",\n    \"f1_modelo\": 0.95,\n    \"f1_baseline\": 0.921,\n    \"talhoes_monitorados\": 6,\n    \"talhoes_criticos\": 3,\n    \"talhoes_atencao\": 1,\n    \"alertas_ativos\": 5,\n    \"episodios_alerta\": 62,\n    \"episodios_criticos\": 17\n  }\n}\n"
+        },
+        {
+            "Start": "2026-11-15T17:09:52.044238376Z",
+            "End": "2026-11-15T17:09:52.205483376Z",
+            "ExitCode": 0,
+            "Output": "{\n  \"saudavel\": true,\n  \"checks\": {\n    \"status_existe\": true,\n    \"ultimo_ciclo_ok\": true,\n    \"dados_recentes\": true,\n    \"saidas_refined\": true\n  },\n  \"idade_ultimo_sucesso_min\": 0.4,\n  \"max_idade_min\": 15.0,\n  \"saidas_faltando\": [],\n  \"ultimo_run_id\": \"20261115-170948-ed6899\",\n  \"indicadores\": {\n    \"linhas_recebidas\": 1706,\n    \"linhas_processadas\": 1695,\n    \"linhas_rejeitadas\": 5,\n    \"taxa_rejeicao_pct\": 0.29,\n    \"duplicadas_removidas\": 6,\n    \"ultima_leitura_dados\": \"2026-10-04 23:30:00\",\n    \"f1_modelo\": 0.99,\n    \"f1_baseline\": 0.918,\n    \"talhoes_monitorados\": 6,\n    \"talhoes_criticos\": 3,\n    \"talhoes_atencao\": 2,\n    \"alertas_ativos\": 6,\n    \"episodios_alerta\": 48,\n    \"episodios_criticos\": 16\n  }\n}\n"
+        },
+        {
+            "Start": "2026-11-15T17:10:22.20593696Z",
+            "End": "2026-11-15T17:10:22.330381793Z",
+            "ExitCode": 0,
+            "Output": "{\n  \"saudavel\": true,\n  \"checks\": {\n    \"status_existe\": true,\n    \"ultimo_ciclo_ok\": true,\n    \"dados_recentes\": true,\n    \"saidas_refined\": true\n  },\n  \"idade_ultimo_sucesso_min\": 0.1,\n  \"max_idade_min\": 15.0,\n  \"saidas_faltando\": [],\n  \"ultimo_run_id\": \"20261115-171012-b98b01\",\n  \"indicadores\": {\n    \"linhas_recebidas\": 1706,\n    \"linhas_processadas\": 1695,\n    \"linhas_rejeitadas\": 5,\n    \"taxa_rejeicao_pct\": 0.29,\n    \"duplicadas_removidas\": 6,\n    \"ultima_leitura_dados\": \"2026-10-04 23:30:00\",\n    \"f1_modelo\": 0.92,\n    \"f1_baseline\": 0.88,\n    \"talhoes_monitorados\": 6,\n    \"talhoes_criticos\": 3,\n    \"talhoes_atencao\": 2,\n    \"alertas_ativos\": 5,\n    \"episodios_alerta\": 47,\n    \"episodios_criticos\": 17\n  }\n}\n"
+        }
+    ]
+}

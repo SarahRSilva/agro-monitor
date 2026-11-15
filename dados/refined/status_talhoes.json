@@ -7,7 +7,7 @@
     "luminosidade_pct": 1.9,
     "perc_folhas_doentes": 6.9,
     "irrigacao_ligada": true,
-    "prob_evento_6h": 0.065,
+    "prob_evento_6h": 0.067,
     "risco_previsto": "BAIXO",
     "alertas_ativos": [],
     "nivel_final": "NORMAL",
@@ -69,7 +69,7 @@
     "luminosidade_pct": 1.9,
     "perc_folhas_doentes": 75.0,
     "irrigacao_ligada": false,
-    "prob_evento_6h": 0.923,
+    "prob_evento_6h": 0.921,
     "risco_previsto": "ALTO",
     "alertas_ativos": [
       {
