@@ -51,7 +51,7 @@ jobs:
       - name: Testes unitários + integração ponta a ponta (pytest)
         run: pytest --cov --cov-report=xml:reports/coverage.xml --cov-report=term --cov-fail-under=40 --junitxml=reports/junit.xml
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: relatorios-qualidade
@@ -85,7 +85,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: relatorios-seguranca
