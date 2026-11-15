@@ -1,7 +1,7 @@
 # Dependências da plataforma AgroSmart — versões FIXAS (Fase 7 / DevSecOps):
 # builds reproduzíveis e auditáveis pelo pip-audit. Atualize de forma controlada
 # (ex.: Dependabot) — a Fase 6 quebrou quando o pandas 3.0 saiu sem pin de versão.
-pandas==2.3.3
+pandas==3.1.1
 numpy==2.5.4
 scikit-learn==1.9.1
 joblib==1.6.0
