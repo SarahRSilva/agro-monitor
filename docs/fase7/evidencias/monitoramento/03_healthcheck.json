@@ -1,0 +1,29 @@
+{
+  "saudavel": true,
+  "checks": {
+    "status_existe": true,
+    "ultimo_ciclo_ok": true,
+    "dados_recentes": true,
+    "saidas_refined": true
+  },
+  "idade_ultimo_sucesso_min": 0.1,
+  "max_idade_min": 15.0,
+  "saidas_faltando": [],
+  "ultimo_run_id": "20261115-171036-eb59b4",
+  "indicadores": {
+    "linhas_recebidas": 1706,
+    "linhas_processadas": 1695,
+    "linhas_rejeitadas": 5,
+    "taxa_rejeicao_pct": 0.29,
+    "duplicadas_removidas": 6,
+    "ultima_leitura_dados": "2026-10-04 23:30:00",
+    "f1_modelo": 0.96,
+    "f1_baseline": 0.888,
+    "talhoes_monitorados": 6,
+    "talhoes_criticos": 3,
+    "talhoes_atencao": 3,
+    "alertas_ativos": 5,
+    "episodios_alerta": 54,
+    "episodios_criticos": 17
+  }
+}

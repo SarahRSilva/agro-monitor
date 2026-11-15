@@ -1,0 +1,151 @@
+# AgroSmart — Pipeline DevSecOps (Fase 7)
+#
+#   1. qualidade   lint + complexidade (ruff) · testes + cobertura (pytest)
+#   2. seguranca   SAST (bandit) · SCA/dependências (pip-audit) · segredos (gitleaks)
+#   3. build       build da imagem Docker · scan de vulnerabilidades da imagem e do Dockerfile (Trivy)
+#                  · smoke test do container (pipeline roda + healthcheck) · publica no GHCR (main)
+#
+# Os relatórios de cada etapa ficam como artifacts da execução. Mesmo fluxo roda localmente com
+# ./devsecops/pipeline_local.sh
+
+name: DevSecOps
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 1"   # toda segunda: re-scan de vulnerabilidades novas (CVE) mesmo sem commit
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devsecops-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.13"
+  IMAGE: ghcr.io/${{ github.repository_owner }}/agrosmart
+
+jobs:
+  qualidade:
+    name: Qualidade de código e testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+
+      - name: Lint e complexidade (ruff)
+        run: |
+          mkdir -p reports
+          ruff check . --output-format=github
+          ruff check . --output-format=json > reports/ruff.json
+
+      - name: Testes unitários + integração ponta a ponta (pytest)
+        run: pytest --cov --cov-report=xml:reports/coverage.xml --cov-report=term --cov-fail-under=40 --junitxml=reports/junit.xml
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorios-qualidade
+          path: reports/
+
+  seguranca:
+    name: Segurança do código e dependências
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # gitleaks varre o histórico inteiro
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install bandit==1.9.4 pip-audit==2.10.1
+
+      - name: SAST — análise estática de segurança (bandit)
+        run: |
+          mkdir -p reports
+          bandit -c pyproject.toml -r . -f json -o reports/bandit.json || true
+          bandit -c pyproject.toml -r . --severity-level medium
+
+      - name: SCA — vulnerabilidades conhecidas nas dependências (pip-audit)
+        run: |
+          pip-audit -r requirements.txt -f json -o reports/pip-audit.json || true
+          pip-audit -r requirements.txt --strict
+
+      - name: Segredos no código e no histórico (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorios-seguranca
+          path: reports/
+
+  build:
+    name: Build, scan e smoke test do container
+    needs: [qualidade, seguranca]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan de configuração do Dockerfile/compose (Trivy config)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+
+      - name: Build da imagem
+        run: docker build -t agrosmart:${{ github.sha }} .
+
+      - name: Scan de vulnerabilidades da imagem (Trivy)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: agrosmart:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          format: table
+
+      - name: Relatório SARIF do Trivy (aba Security do GitHub)
+        if: always()
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: agrosmart:${{ github.sha }}
+          format: sarif
+          output: trivy.sarif
+          exit-code: "0"
+      - uses: github/codeql-action/upload-sarif@v4
+        if: always() && hashFiles('trivy.sarif') != ''
+        with:
+          sarif_file: trivy.sarif
+
+      - name: Smoke test — um ciclo completo dentro do container + healthcheck
+        run: |
+          docker run --name smoke --read-only --tmpfs /tmp -v agro-dados:/app/dados -v agro-logs:/app/logs \
+            agrosmart:${{ github.sha }} python run_plataforma.py --dias 7
+          docker run --rm -v agro-dados:/app/dados agrosmart:${{ github.sha }} python monitoramento/healthcheck.py
+
+      - name: Publica a imagem no GitHub Container Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker tag agrosmart:${{ github.sha }} ${{ env.IMAGE }}:${{ github.sha }}
+          docker tag agrosmart:${{ github.sha }} ${{ env.IMAGE }}:latest
+          docker push ${{ env.IMAGE }}:${{ github.sha }}
+          docker push ${{ env.IMAGE }}:latest

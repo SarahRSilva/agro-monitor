@@ -100,7 +100,7 @@ def gerar_csv_inicial(qtd_linhas: int = 50, caminho: str = "dados/leituras.csv")
     if os.path.exists(caminho):
         os.remove(caminho)
 
-    for i in range(qtd_linhas):
+    for _ in range(qtd_linhas):
 
         # Aproximadamente 20% das linhas terão alertas forçados
         if random.random() < 0.2:

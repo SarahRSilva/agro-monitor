@@ -1,0 +1,17 @@
+...................                                                      [100%]
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.13.13-final-0 _______________
+
+Name                                 Stmts   Miss  Cover
+--------------------------------------------------------
+automacao/apoio_decisao_ia.py           63     63     0%
+automacao/automacao_inteligente.py     194     85    56%
+iot/simulador_sensores.py              102    102     0%
+mineracao/mineracao_processos.py       264    157    41%
+monitoramento/healthcheck.py            34      4    88%
+monitoramento/monitor.py               135      4    97%
+processamento/processar_dados.py       112     72    36%
+--------------------------------------------------------
+TOTAL                                  904    487    46%
+Required test coverage of 40% reached. Total coverage: 46.13%
+19 passed in 3.74s

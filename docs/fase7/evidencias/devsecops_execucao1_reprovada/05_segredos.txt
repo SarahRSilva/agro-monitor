@@ -1,0 +1,4 @@
+2026-11-15T17:05:46Z	INFO	[secret] Secret scanning is enabled
+2026-11-15T17:05:46Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-11-15T17:05:46Z	INFO	[secret] Please see also https://aquasecurity.github.io/trivy/v0.58/docs/scanner/secret#recommendation for faster secret detection
+2026-11-15T17:05:46Z	WARN	[pip] Unable to find python `site-packages` directory. License detection is skipped.	err="unable to find path to Python executable"

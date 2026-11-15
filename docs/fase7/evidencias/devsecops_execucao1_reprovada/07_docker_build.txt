@@ -1,0 +1,62 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.53kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13.9-slim-bookworm
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 624B done
+#3 DONE 0.0s
+
+#4 [build 1/4] FROM docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34
+#4 resolve docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 5.00kB done
+#5 DONE 0.0s
+
+#6 [runtime 4/8] RUN groupadd --system --gid 10001 agro     && useradd --system --uid 10001 --gid agro --home-dir /app --shell /usr/sbin/nologin agro
+#6 CACHED
+
+#7 [build 3/4] COPY requirements.txt .
+#7 CACHED
+
+#8 [build 4/4] RUN pip wheel --wheel-dir /wheels -r requirements.txt
+#8 CACHED
+
+#9 [runtime 2/8] COPY --from=build /wheels /wheels
+#9 CACHED
+
+#10 [runtime 3/8] RUN pip install --no-index --find-links=/wheels /wheels/*     && rm -rf /wheels     && pip uninstall -y pip setuptools wheel 2>/dev/null || true
+#10 CACHED
+
+#11 [build 2/4] WORKDIR /build
+#11 CACHED
+
+#12 [runtime 5/8] WORKDIR /app
+#12 CACHED
+
+#13 [runtime 6/8] COPY --chown=agro:agro . .
+#13 DONE 0.0s
+
+#14 [runtime 7/8] RUN mkdir -p dados logs .cache/matplotlib && chown -R agro:agro dados logs .cache
+#14 DONE 0.1s
+
+#15 [runtime 8/8] RUN python -c "import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot"
+#15 DONE 0.5s
+
+#16 exporting to image
+#16 exporting layers 0.0s done
+#16 exporting manifest sha256:a2f9f90cd7644c3086eb6be74d6410a591d2f6447c4f3cde46f87ec89c8bfb09 done
+#16 exporting config sha256:edbb716bb0a1ac60423021fa06c951ec46c34227f55bdbd02bc0360e0c6ca599 done
+#16 exporting attestation manifest sha256:8f6eafdc35481d31df5a569936f7975d746d473113a9469bd1ddc1035b12d5b5 done
+#16 exporting manifest list sha256:ecb7beeae1fdea730de0078ef6e3bf9b854d05ac8df4e2a373f0080545ef754f done
+#16 naming to docker.io/library/agrosmart:7.0.0 done
+#16 unpacking to docker.io/library/agrosmart:7.0.0 0.0s done
+#16 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/441usyhuym3xcb4ie2ms7m2mm

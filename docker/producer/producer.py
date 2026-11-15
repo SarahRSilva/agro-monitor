@@ -59,5 +59,6 @@ if __name__ == "__main__":
         leitura = gerar_leitura()
         producer.send(TOPIC, leitura)
         producer.flush()
-        print(f"[PRODUCER] Enviado: {leitura['talhao_id']} | temp={leitura['temperatura_c']}°C | umid={leitura['umidade_solo_pct']}%")
+        print(f"[PRODUCER] Enviado: {leitura['talhao_id']} | temp={leitura['temperatura_c']}°C "
+              f"| umid={leitura['umidade_solo_pct']}%")
         time.sleep(INTERVALO)

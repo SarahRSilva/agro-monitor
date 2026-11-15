@@ -11,7 +11,6 @@ import json
 import os
 import time
 from collections import deque
-from datetime import datetime
 
 from kafka import KafkaConsumer, KafkaProducer
 from kafka.errors import NoBrokersAvailable
@@ -137,7 +136,7 @@ def conectar_consumer(retries=15, delay=5) -> KafkaConsumer:
 
 
 def conectar_producer(retries=15, delay=5) -> KafkaProducer:
-    for i in range(1, retries + 1):
+    for _tentativa in range(1, retries + 1):
         try:
             producer = KafkaProducer(
                 bootstrap_servers=BOOTSTRAP,

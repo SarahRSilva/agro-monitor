@@ -1,0 +1,32 @@
+{"run_id": "20261115-170816-b198c6", "ciclo": 1, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:08:16", "status": "ok", "fim": "2026-11-15 17:08:16", "duracao_s": 0.079}
+{"run_id": "20261115-170816-b198c6", "ciclo": 1, "etapa": "Processamento", "inicio": "2026-11-15 17:08:16", "status": "ok", "fim": "2026-11-15 17:08:17", "duracao_s": 0.548}
+{"run_id": "20261115-170816-b198c6", "ciclo": 1, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:08:17", "status": "ok", "fim": "2026-11-15 17:08:18", "duracao_s": 1.175}
+{"run_id": "20261115-170816-b198c6", "ciclo": 1, "etapa": "IA Generativa", "inicio": "2026-11-15 17:08:18", "status": "ok", "fim": "2026-11-15 17:08:19", "duracao_s": 0.444}
+{"run_id": "20261115-170816-b198c6", "ciclo": 1, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:08:19", "status": "ok", "fim": "2026-11-15 17:08:20", "duracao_s": 1.505}
+{"run_id": "20261115-170840-dff35f", "ciclo": 2, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:08:40", "status": "ok", "fim": "2026-11-15 17:08:40", "duracao_s": 0.101}
+{"run_id": "20261115-170840-dff35f", "ciclo": 2, "etapa": "Processamento", "inicio": "2026-11-15 17:08:40", "status": "ok", "fim": "2026-11-15 17:08:41", "duracao_s": 0.472}
+{"run_id": "20261115-170840-dff35f", "ciclo": 2, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:08:41", "status": "ok", "fim": "2026-11-15 17:08:42", "duracao_s": 1.206}
+{"run_id": "20261115-170840-dff35f", "ciclo": 2, "etapa": "IA Generativa", "inicio": "2026-11-15 17:08:42", "status": "ok", "fim": "2026-11-15 17:08:42", "duracao_s": 0.451}
+{"run_id": "20261115-170840-dff35f", "ciclo": 2, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:08:42", "status": "ok", "fim": "2026-11-15 17:08:44", "duracao_s": 1.506}
+{"run_id": "20261115-170904-2f3ca2", "ciclo": 3, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:09:04", "status": "ok", "fim": "2026-11-15 17:09:04", "duracao_s": 0.079}
+{"run_id": "20261115-170904-2f3ca2", "ciclo": 3, "etapa": "Processamento", "inicio": "2026-11-15 17:09:04", "status": "erro", "erro": "EtapaFalhou: processamento/processar_dados.py saiu com código 1:   File \"/usr/local/lib/python3.13/site-packages/pandas/core/frame.py\", line 4113, in __getitem__ |     indexer = self.columns.get_loc(key) |   File \"/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py\", line 3819, in get_loc |     raise KeyError(key) from err | KeyError: 'millis'", "fim": "2026-11-15 17:09:04", "duracao_s": 0.449}
+{"run_id": "20261115-170924-59958d", "ciclo": 4, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:09:24", "status": "ok", "fim": "2026-11-15 17:09:25", "duracao_s": 0.096}
+{"run_id": "20261115-170924-59958d", "ciclo": 4, "etapa": "Processamento", "inicio": "2026-11-15 17:09:25", "status": "ok", "fim": "2026-11-15 17:09:25", "duracao_s": 0.497}
+{"run_id": "20261115-170924-59958d", "ciclo": 4, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:09:25", "status": "ok", "fim": "2026-11-15 17:09:26", "duracao_s": 1.2}
+{"run_id": "20261115-170924-59958d", "ciclo": 4, "etapa": "IA Generativa", "inicio": "2026-11-15 17:09:26", "status": "ok", "fim": "2026-11-15 17:09:27", "duracao_s": 0.468}
+{"run_id": "20261115-170924-59958d", "ciclo": 4, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:09:27", "status": "ok", "fim": "2026-11-15 17:09:28", "duracao_s": 1.489}
+{"run_id": "20261115-170948-ed6899", "ciclo": 5, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:09:48", "status": "ok", "fim": "2026-11-15 17:09:48", "duracao_s": 0.1}
+{"run_id": "20261115-170948-ed6899", "ciclo": 5, "etapa": "Processamento", "inicio": "2026-11-15 17:09:48", "status": "ok", "fim": "2026-11-15 17:09:49", "duracao_s": 0.495}
+{"run_id": "20261115-170948-ed6899", "ciclo": 5, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:09:49", "status": "ok", "fim": "2026-11-15 17:09:50", "duracao_s": 1.207}
+{"run_id": "20261115-170948-ed6899", "ciclo": 5, "etapa": "IA Generativa", "inicio": "2026-11-15 17:09:50", "status": "ok", "fim": "2026-11-15 17:09:51", "duracao_s": 0.46}
+{"run_id": "20261115-170948-ed6899", "ciclo": 5, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:09:51", "status": "ok", "fim": "2026-11-15 17:09:52", "duracao_s": 1.496}
+{"run_id": "20261115-171012-b98b01", "ciclo": 6, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:10:12", "status": "ok", "fim": "2026-11-15 17:10:12", "duracao_s": 0.1}
+{"run_id": "20261115-171012-b98b01", "ciclo": 6, "etapa": "Processamento", "inicio": "2026-11-15 17:10:12", "status": "ok", "fim": "2026-11-15 17:10:13", "duracao_s": 0.455}
+{"run_id": "20261115-171012-b98b01", "ciclo": 6, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:10:13", "status": "ok", "fim": "2026-11-15 17:10:14", "duracao_s": 1.209}
+{"run_id": "20261115-171012-b98b01", "ciclo": 6, "etapa": "IA Generativa", "inicio": "2026-11-15 17:10:14", "status": "ok", "fim": "2026-11-15 17:10:14", "duracao_s": 0.525}
+{"run_id": "20261115-171012-b98b01", "ciclo": 6, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:10:14", "status": "ok", "fim": "2026-11-15 17:10:16", "duracao_s": 1.45}
+{"run_id": "20261115-171036-eb59b4", "ciclo": 7, "etapa": "Coleta de dados", "inicio": "2026-11-15 17:10:36", "status": "ok", "fim": "2026-11-15 17:10:36", "duracao_s": 0.096}
+{"run_id": "20261115-171036-eb59b4", "ciclo": 7, "etapa": "Processamento", "inicio": "2026-11-15 17:10:36", "status": "ok", "fim": "2026-11-15 17:10:37", "duracao_s": 0.478}
+{"run_id": "20261115-171036-eb59b4", "ciclo": 7, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 17:10:37", "status": "ok", "fim": "2026-11-15 17:10:38", "duracao_s": 1.21}
+{"run_id": "20261115-171036-eb59b4", "ciclo": 7, "etapa": "IA Generativa", "inicio": "2026-11-15 17:10:38", "status": "ok", "fim": "2026-11-15 17:10:38", "duracao_s": 0.414}
+{"run_id": "20261115-171036-eb59b4", "ciclo": 7, "etapa": "Mineração de processos", "inicio": "2026-11-15 17:10:38", "status": "ok", "fim": "2026-11-15 17:10:40", "duracao_s": 1.444}

@@ -1,0 +1,46 @@
+{
+  "casos": 55,
+  "eventos": 246,
+  "atividades": 9,
+  "variantes": 16,
+  "variante_principal": {
+    "sequencia": "Reincidência detectada → Alerta disparado → Ação automática executada → Condição normalizada",
+    "pct": 32.7
+  },
+  "top3_variantes_pct": 70.9,
+  "casos_em_aberto": 6,
+  "pct_casos_em_aberto": 10.9,
+  "gargalo_transicao": {
+    "de": "Escalado para CRÍTICO",
+    "para": "Condição normalizada",
+    "frequencia": 13,
+    "tempo_medio_h": 10.15,
+    "tempo_total_h": 132.0
+  },
+  "regra_resolucao_mais_lenta": {
+    "regra": "FALHA_IRRIGACAO",
+    "resolucao_media_h": 45.5
+  },
+  "regra_mais_reincidente": {
+    "regra": "TEMPERATURA_EXTREMA",
+    "pct": 78.6
+  },
+  "pct_criticos_antecipados_ml": 61.1,
+  "antecedencia_ml_media_h": 4.7,
+  "ocorrencias_por_talhao": {
+    "TAL-04": 20,
+    "TAL-03": 12,
+    "TAL-05": 11,
+    "TAL-02": 5,
+    "TAL-TC": 4,
+    "TAL-01": 3
+  },
+  "pipeline": {
+    "ciclos": 4,
+    "ciclos_com_erro": 0,
+    "duracao_media_ciclo_s": 2.33,
+    "etapa_gargalo": "Mineração de processos",
+    "etapa_gargalo_pct_tempo": 44.3,
+    "etapa_gargalo_media_s": 1.16
+  }
+}

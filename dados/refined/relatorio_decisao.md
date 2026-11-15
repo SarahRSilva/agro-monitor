@@ -1,4 +1,4 @@
-# Relatório de Apoio à Decisão — AgroSmart (gerado em 09/10/2026 22:40)
+# Relatório de Apoio à Decisão — AgroSmart (gerado em 15/11/2026 14:11)
 
 Episódios de alerta no período: **55** (18 críticos). Modelo preditivo — F1 no teste: **0.949** (baseline regra: 0.887).
 
@@ -41,7 +41,7 @@ Episódios de alerta no período: **55** (18 críticos). Modelo preditivo — F1
 
 ## TAL-01 — NORMAL
 - Última leitura (2026-10-04 23:30): 20.3 °C, umidade do solo 45.1%, luminosidade 1.9%, folhas doentes 6.9%
-- Risco previsto para as próximas 6h: **BAIXO** (probabilidade 6%)
+- Risco previsto para as próximas 6h: **BAIXO** (probabilidade 7%)
 - Alertas ativos: nenhum
 - Recomendação:
   1. Condições dentro do esperado — manter monitoramento de rotina

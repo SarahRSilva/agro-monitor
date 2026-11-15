@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/app/run_plataforma.py", line 43, in <module>
+    log = configurar_logger("agrosmart.orquestrador")
+  File "/app/monitoramento/monitor.py", line 76, in configurar_logger
+    arquivo = RotatingFileHandler(ARQ_LOG, maxBytes=2_000_000, backupCount=3, encoding="utf-8")
+  File "/usr/local/lib/python3.13/logging/handlers.py", line 161, in __init__
+    BaseRotatingHandler.__init__(self, filename, mode, encoding=encoding,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                 delay=delay, errors=errors)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/logging/handlers.py", line 64, in __init__
+    logging.FileHandler.__init__(self, filename, mode=mode,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                 encoding=encoding, delay=delay,
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                 errors=errors)
+                                 ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/logging/__init__.py", line 1219, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+OSError: [Errno 30] Read-only file system: '/app/logs/agrosmart.log'

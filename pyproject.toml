@@ -1,0 +1,48 @@
+[project]
+name = "agrosmart"
+version = "7.0.0"
+description = "AgroSmart — plataforma de monitoramento agrícola inteligente (FIAP 4ESOA, Fase 7)"
+requires-python = ">=3.11"
+
+# ── Qualidade de código (ruff = lint + complexidade) ────────────────────────
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+extend-exclude = [".venv", "docker/api/main.py", "datalake-demo", "pipeline"]
+
+[tool.ruff.lint]
+# E/W pycodestyle · F pyflakes · I imports · B bugbear · C90 complexidade · S segurança (bandit) · UP pyupgrade
+select = ["E", "W", "F", "I", "B", "C90", "S", "UP"]
+ignore = [
+    "S311",   # random é usado só para SIMULAR sensores, não para criptografia
+    "S603",   # subprocess sem shell=True, com argumentos controlados pela própria plataforma
+    "B023",   # closures em loops usadas de forma intencional e imediata
+    "E731",
+    "UP017",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]   # assert é o idioma do pytest
+"docs/fase7/gerar_slides.py" = ["E501"]   # linhas = texto corrido dos slides
+
+# ── Testes e cobertura ─────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["monitoramento", "mineracao", "processamento", "automacao", "iot"]
+omit = ["*/__init__.py"]
+
+[tool.coverage.report]
+show_missing = false
+skip_empty = true
+
+# ── Segurança (SAST) ───────────────────────────────────────────────────────
+[tool.bandit]
+exclude_dirs = [".venv", "tests", "datalake-demo", "pipeline"]
+skips = ["B311", "B404", "B603"]  # random p/ simulação; subprocess com lista de argumentos fixa

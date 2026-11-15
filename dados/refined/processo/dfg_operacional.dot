@@ -1,0 +1,37 @@
+digraph DFG {
+  rankdir=LR; bgcolor="transparent";
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=9];
+  "▶ Início" [shape=circle, fillcolor="#e0e0e0", label="▶", width=0.5];
+  "Risco previsto pelo ML" [fillcolor="#e3f0e3", label="Risco previsto pelo ML\n(14)"];
+  "Reincidência detectada" [fillcolor="#e3f0e3", label="Reincidência detectada\n(33)"];
+  "Alerta disparado" [fillcolor="#e3f0e3", label="Alerta disparado\n(55)"];
+  "Ação automática executada" [fillcolor="#e3f0e3", label="Ação automática executada\n(55)"];
+  "Gestor notificado" [fillcolor="#e3f0e3", label="Gestor notificado\n(17)"];
+  "Ordem de manutenção aberta" [fillcolor="#e3f0e3", label="Ordem de manutenção aberta\n(2)"];
+  "Escalado para CRÍTICO" [fillcolor="#fde2e1", label="Escalado para CRÍTICO\n(15)"];
+  "Condição normalizada" [fillcolor="#e3f0e3", label="Condição normalizada\n(49)"];
+  "Ocorrência em aberto" [fillcolor="#fde2e1", label="Ocorrência em aberto\n(6)"];
+  "■ Fim" [shape=circle, fillcolor="#e0e0e0", label="■", width=0.5];
+  "Alerta disparado" -> "Ação automática executada" [label="55", penwidth=5.0, color="#555555"];
+  "Condição normalizada" -> "■ Fim" [label="49", penwidth=4.6, color="#555555"];
+  "Ação automática executada" -> "Condição normalizada" [label="34 · 1.1h", penwidth=3.5, color="#555555"];
+  "Reincidência detectada" -> "Alerta disparado" [label="33", penwidth=3.4, color="#555555"];
+  "▶ Início" -> "Reincidência detectada" [label="21", penwidth=2.5, color="#555555"];
+  "▶ Início" -> "Alerta disparado" [label="20", penwidth=2.5, color="#555555"];
+  "Ação automática executada" -> "Gestor notificado" [label="17", penwidth=2.2, color="#555555"];
+  "▶ Início" -> "Risco previsto pelo ML" [label="14", penwidth=2.0, color="#555555"];
+  "Gestor notificado" -> "Escalado para CRÍTICO" [label="13 · 3.1h", penwidth=1.9, color="#555555"];
+  "Escalado para CRÍTICO" -> "Condição normalizada" [label="13 · 10.2h", penwidth=1.9, color="#555555"];
+  "Risco previsto pelo ML" -> "Reincidência detectada" [label="12 · 3.8h", penwidth=1.9, color="#555555"];
+  "Ocorrência em aberto" -> "■ Fim" [label="6", penwidth=1.4, color="#555555"];
+  "Escalado para CRÍTICO" -> "Ocorrência em aberto" [label="2 · 43.5h", penwidth=1.1, color="#c0392b"];
+  "Gestor notificado" -> "Ordem de manutenção aberta" [label="2", penwidth=1.1, color="#555555"];
+  "Risco previsto pelo ML" -> "Alerta disparado" [label="2 · 5.5h", penwidth=1.1, color="#555555"];
+  "Ação automática executada" -> "Ocorrência em aberto" [label="2 · 17.8h", penwidth=1.1, color="#c0392b"];
+  "Ação automática executada" -> "Escalado para CRÍTICO" [label="2 · 8.2h", penwidth=1.1, color="#555555"];
+  "Gestor notificado" -> "Condição normalizada" [label="1", penwidth=1.1, color="#555555"];
+  "Ordem de manutenção aberta" -> "Condição normalizada" [label="1 · 45.5h", penwidth=1.1, color="#c0392b"];
+  "Ordem de manutenção aberta" -> "Ocorrência em aberto" [label="1 · 18.5h", penwidth=1.1, color="#c0392b"];
+  "Gestor notificado" -> "Ocorrência em aberto" [label="1", penwidth=1.1, color="#555555"];
+}

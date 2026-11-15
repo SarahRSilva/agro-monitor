@@ -1,0 +1,68 @@
+{
+  "plataforma": "AgroSmart",
+  "run_id": "20261115-141119-baaaae",
+  "ciclo": 1,
+  "status": "ok",
+  "inicio": "2026-11-15 14:11:19",
+  "fim": "2026-11-15 14:11:21",
+  "duracao_s": 2.597,
+  "parametros": {
+    "seed": "42",
+    "dias": "7",
+    "ia_real": false
+  },
+  "etapas": [
+    {
+      "etapa": "Coleta de dados",
+      "status": "ok",
+      "duracao_s": 0.026,
+      "erro": null
+    },
+    {
+      "etapa": "Processamento",
+      "status": "ok",
+      "duracao_s": 0.238,
+      "erro": null
+    },
+    {
+      "etapa": "Automação (regras + ML)",
+      "status": "ok",
+      "duracao_s": 0.953,
+      "erro": null
+    },
+    {
+      "etapa": "IA Generativa",
+      "status": "ok",
+      "duracao_s": 0.214,
+      "erro": null
+    },
+    {
+      "etapa": "Mineração de processos",
+      "status": "ok",
+      "duracao_s": 1.165,
+      "erro": null
+    }
+  ],
+  "ultimo_sucesso": "2026-11-15 14:11:21",
+  "historico": {
+    "ciclos_ok": 4,
+    "ciclos_erro": 0,
+    "disponibilidade_pct": 100.0
+  },
+  "indicadores": {
+    "linhas_recebidas": 1706,
+    "linhas_processadas": 1695,
+    "linhas_rejeitadas": 5,
+    "taxa_rejeicao_pct": 0.29,
+    "duplicadas_removidas": 6,
+    "ultima_leitura_dados": "2026-10-04 23:30:00",
+    "f1_modelo": 0.949,
+    "f1_baseline": 0.887,
+    "talhoes_monitorados": 6,
+    "talhoes_criticos": 3,
+    "talhoes_atencao": 2,
+    "alertas_ativos": 6,
+    "episodios_alerta": 55,
+    "episodios_criticos": 18
+  }
+}

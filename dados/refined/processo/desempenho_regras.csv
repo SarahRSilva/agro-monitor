@@ -1,0 +1,6 @@
+regra,casos,criticos,pct_em_aberto,resolucao_media_h,resolucao_mediana_h,resolucao_max_h,pct_reincidencia,pct_escalados,pct_antecipado_ml,antecedencia_ml_media_h
+MOVIMENTO_NOTURNO,29,0,3.4,0.6,0.5,1.5,65.5,0.0,,
+TEMPERATURA_EXTREMA,14,12,14.3,9.9,9.5,14.0,78.6,85.7,71.4,3.8
+DEFICIT_HIDRICO,9,3,11.1,8.4,3.2,47.0,33.3,22.2,33.3,4.2
+FALHA_IRRIGACAO,2,2,50.0,45.5,45.5,45.5,0.0,0.0,50.0,6.0
+INFESTACAO,1,1,100.0,,,,0.0,100.0,0.0,

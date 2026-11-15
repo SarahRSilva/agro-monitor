@@ -1,0 +1,55 @@
+2026-09-28 00:00 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-09-28 03:00 | TAL-03 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-28 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-09-28 22:30 | TAL-05 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-29 12:30 | TAL-01 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-09-29 20:00 | TAL-03 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-29 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-09-29 23:00 | TAL-01 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-30 05:00 | TAL-03 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-30 11:00 | TAL-04 | CRITICO | INFESTACAO          | Talhão marcado como 'Monitoramento Intensivo'; equipe de campo acionada
+2026-09-30 16:00 | TAL-04 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-09-30 18:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-30 20:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-30 22:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-09-30 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-01 05:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-01 06:00 | TAL-02 | CRITICO | FALHA_IRRIGACAO     | Ordem de manutenção aberta para o sistema de irrigação; gestor notificado
+2026-10-01 06:00 | TAL-02 | CRITICO | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-01 09:00 | TAL-03 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-01 19:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-01 21:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-01 22:00 | TAL-05 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-01 22:30 | TAL-03 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-01 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-01 23:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 00:30 | TAL-03 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 00:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 02:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 05:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 08:00 | TAL-03 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-02 19:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 20:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-02 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-03 01:30 | TAL-03 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-03 04:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-03 05:00 | TAL-02 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-03 09:00 | TAL-03 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-03 12:00 | TAL-03 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-03 12:30 | TAL-02 | CRITICO | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-03 22:30 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-04 01:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 01:00 | TAL-05 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 02:30 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 04:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 05:00 | TAL-02 | CRITICO | FALHA_IRRIGACAO     | Ordem de manutenção aberta para o sistema de irrigação; gestor notificado
+2026-10-04 08:00 | TAL-03 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-04 12:00 | TAL-TC | CRITICO | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-04 12:00 | TAL-TC | ATENCAO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-04 12:00 | TAL-TC | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 12:00 | TAL-TC | AVISO   | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-04 13:00 | TAL-01 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-04 13:00 | TAL-03 | AVISO   | DEFICIT_HIDRICO     | Comando IRRIGACAO_ON enviado ao controlador do talhão (ciclo de 30 min)
+2026-10-04 21:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada
+2026-10-04 22:00 | TAL-05 | CRITICO | TEMPERATURA_EXTREMA | Frequência de leitura elevada para 5 min; alerta enviado ao gestor
+2026-10-04 23:00 | TAL-04 | AVISO   | MOVIMENTO_NOTURNO   | Registro de evento gravado; câmera do talhão acionada

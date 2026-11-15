@@ -1,0 +1,6 @@
+timestamp,talhao_id,sensor_id,temperatura_c,umidade_solo_pct,luminosidade_pct,movimento_detectado,irrigacao_ligada,precipitacao_mm,perc_folhas_doentes,praga_detectada,fonte,motivo_rejeicao
+2026-09-29 07:30:00,TAL-04,SNS-04,21.8,36.2,-12.0,0,0,0.0,5.3,nenhuma,simulador_campo,"luminosidade_pct=-12.0 fora da faixa [0, 100]"
+2026-10-02 04:00:00,TAL-03,SNS-03,30.0,32.9,-12.0,0,0,0.0,4.3,nenhuma,simulador_campo,"luminosidade_pct=-12.0 fora da faixa [0, 100]"
+2026-09-30 03:00:00,TAL-04,SNS-04,-99.0,39.9,3.4,0,0,0.0,9.3,nenhuma,simulador_campo,"temperatura_c=-99.0 fora da faixa [-10, 55]"
+2026-09-29 00:00:00,TAL-03,SNS-03,85.3,32.9,2.3,0,0,0.0,2.7,nenhuma,simulador_campo,"temperatura_c=85.3 fora da faixa [-10, 55]"
+2026-09-29 00:30:00,TAL-03,SNS-03,21.2,137.4,0.0,0,0,0.0,2.9,nenhuma,simulador_campo,"umidade_solo_pct=137.4 fora da faixa [0, 100]"

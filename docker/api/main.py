@@ -918,4 +918,5 @@ if __name__ == "__main__":
     t = threading.Thread(target=loop_geracao, daemon=True)
     t.start()
 
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    # padrão seguro (só localhost); no container o compose define API_HOST=0.0.0.0
+    app.run(debug=False, host=os.environ.get("API_HOST", "127.0.0.1"), port=5000)

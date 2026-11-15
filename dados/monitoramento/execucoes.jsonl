@@ -1,0 +1,20 @@
+{"run_id": "20261115-141109-f99363", "ciclo": 1, "etapa": "Coleta de dados", "inicio": "2026-11-15 14:11:09", "status": "ok", "fim": "2026-11-15 14:11:09", "duracao_s": 0.026}
+{"run_id": "20261115-141109-f99363", "ciclo": 1, "etapa": "Processamento", "inicio": "2026-11-15 14:11:09", "status": "ok", "fim": "2026-11-15 14:11:09", "duracao_s": 0.244}
+{"run_id": "20261115-141109-f99363", "ciclo": 1, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 14:11:09", "status": "ok", "fim": "2026-11-15 14:11:10", "duracao_s": 0.975}
+{"run_id": "20261115-141109-f99363", "ciclo": 1, "etapa": "IA Generativa", "inicio": "2026-11-15 14:11:10", "status": "ok", "fim": "2026-11-15 14:11:10", "duracao_s": 0.217}
+{"run_id": "20261115-141109-f99363", "ciclo": 1, "etapa": "Mineração de processos", "inicio": "2026-11-15 14:11:10", "status": "ok", "fim": "2026-11-15 14:11:12", "duracao_s": 1.149}
+{"run_id": "20261115-141113-09ce35", "ciclo": 2, "etapa": "Coleta de dados", "inicio": "2026-11-15 14:11:13", "status": "ok", "fim": "2026-11-15 14:11:13", "duracao_s": 0.046}
+{"run_id": "20261115-141113-09ce35", "ciclo": 2, "etapa": "Processamento", "inicio": "2026-11-15 14:11:13", "status": "ok", "fim": "2026-11-15 14:11:13", "duracao_s": 0.243}
+{"run_id": "20261115-141113-09ce35", "ciclo": 2, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 14:11:13", "status": "ok", "fim": "2026-11-15 14:11:14", "duracao_s": 0.96}
+{"run_id": "20261115-141113-09ce35", "ciclo": 2, "etapa": "IA Generativa", "inicio": "2026-11-15 14:11:14", "status": "ok", "fim": "2026-11-15 14:11:14", "duracao_s": 0.213}
+{"run_id": "20261115-141113-09ce35", "ciclo": 2, "etapa": "Mineração de processos", "inicio": "2026-11-15 14:11:14", "status": "ok", "fim": "2026-11-15 14:11:15", "duracao_s": 1.157}
+{"run_id": "20261115-141116-9c0bc4", "ciclo": 3, "etapa": "Coleta de dados", "inicio": "2026-11-15 14:11:16", "status": "ok", "fim": "2026-11-15 14:11:16", "duracao_s": 0.053}
+{"run_id": "20261115-141116-9c0bc4", "ciclo": 3, "etapa": "Processamento", "inicio": "2026-11-15 14:11:16", "status": "ok", "fim": "2026-11-15 14:11:17", "duracao_s": 0.242}
+{"run_id": "20261115-141116-9c0bc4", "ciclo": 3, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 14:11:17", "status": "ok", "fim": "2026-11-15 14:11:17", "duracao_s": 0.974}
+{"run_id": "20261115-141116-9c0bc4", "ciclo": 3, "etapa": "IA Generativa", "inicio": "2026-11-15 14:11:17", "status": "ok", "fim": "2026-11-15 14:11:18", "duracao_s": 0.212}
+{"run_id": "20261115-141116-9c0bc4", "ciclo": 3, "etapa": "Mineração de processos", "inicio": "2026-11-15 14:11:18", "status": "ok", "fim": "2026-11-15 14:11:19", "duracao_s": 1.162}
+{"run_id": "20261115-141119-baaaae", "ciclo": 1, "etapa": "Coleta de dados", "inicio": "2026-11-15 14:11:19", "status": "ok", "fim": "2026-11-15 14:11:19", "duracao_s": 0.026}
+{"run_id": "20261115-141119-baaaae", "ciclo": 1, "etapa": "Processamento", "inicio": "2026-11-15 14:11:19", "status": "ok", "fim": "2026-11-15 14:11:19", "duracao_s": 0.238}
+{"run_id": "20261115-141119-baaaae", "ciclo": 1, "etapa": "Automação (regras + ML)", "inicio": "2026-11-15 14:11:19", "status": "ok", "fim": "2026-11-15 14:11:20", "duracao_s": 0.953}
+{"run_id": "20261115-141119-baaaae", "ciclo": 1, "etapa": "IA Generativa", "inicio": "2026-11-15 14:11:20", "status": "ok", "fim": "2026-11-15 14:11:20", "duracao_s": 0.214}
+{"run_id": "20261115-141119-baaaae", "ciclo": 1, "etapa": "Mineração de processos", "inicio": "2026-11-15 14:11:20", "status": "ok", "fim": "2026-11-15 14:11:21", "duracao_s": 1.165}

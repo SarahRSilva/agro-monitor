@@ -1,0 +1,2 @@
+timestamp,talhao_id,sensor_id,temperatura_c,umidade_solo_pct,luminosidade_pct,movimento_detectado,irrigacao_ligada,precipitacao_mm,perc_folhas_doentes,praga_detectada,fonte,valor_imputado,umidade_media_3h,temp_media_3h,tendencia_umidade_6h,chuva_24h_mm,temp_max_24h,temp_min_24h,data,hora,periodo_dia,praga_presente
+2026-10-04 23:30:00,TAL-02,SNS-02,21.8,3.5,0.0,0,0,0.0,7.6,nenhuma,simulador_campo,0,3.2,23.9,0.5,0.0,34.1,18.1,2026-10-04,23,noite,0

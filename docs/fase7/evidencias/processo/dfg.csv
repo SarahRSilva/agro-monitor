@@ -1,0 +1,22 @@
+de,para,frequencia,tempo_medio_h,tempo_mediana_h,tempo_max_h,tempo_total_h
+Alerta disparado,Ação automática executada,55,0.0,0.0,0.0,0.0
+Condição normalizada,■ Fim,49,0.0,0.0,0.0,0.0
+Ação automática executada,Condição normalizada,34,1.06,0.5,7.0,36.0
+Reincidência detectada,Alerta disparado,33,0.0,0.0,0.0,0.0
+▶ Início,Reincidência detectada,21,0.0,0.0,0.0,0.0
+▶ Início,Alerta disparado,20,0.0,0.0,0.0,0.0
+Ação automática executada,Gestor notificado,17,0.0,0.0,0.0,0.0
+▶ Início,Risco previsto pelo ML,14,0.0,0.0,0.0,0.0
+Gestor notificado,Escalado para CRÍTICO,13,3.08,1.5,21.5,40.0
+Escalado para CRÍTICO,Condição normalizada,13,10.15,8.0,30.5,132.0
+Risco previsto pelo ML,Reincidência detectada,12,3.79,4.0,6.0,45.5
+Ocorrência em aberto,■ Fim,6,0.0,0.0,0.0,0.0
+Escalado para CRÍTICO,Ocorrência em aberto,2,43.5,43.5,87.0,87.0
+Gestor notificado,Ordem de manutenção aberta,2,0.0,0.0,0.0,0.0
+Risco previsto pelo ML,Alerta disparado,2,5.5,5.5,6.0,11.0
+Ação automática executada,Ocorrência em aberto,2,17.75,17.75,35.0,35.5
+Ação automática executada,Escalado para CRÍTICO,2,8.25,8.25,16.5,16.5
+Gestor notificado,Condição normalizada,1,0.0,0.0,0.0,0.0
+Ordem de manutenção aberta,Condição normalizada,1,45.5,45.5,45.5,45.5
+Ordem de manutenção aberta,Ocorrência em aberto,1,18.5,18.5,18.5,18.5
+Gestor notificado,Ocorrência em aberto,1,0.0,0.0,0.0,0.0
