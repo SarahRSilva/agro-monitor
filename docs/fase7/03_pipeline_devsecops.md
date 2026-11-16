@@ -47,6 +47,8 @@ uma verificação que **bloqueia** a entrega se encontrar problema.
 
 O agendamento semanal (`cron`) re-escaneia a imagem mesmo sem commits: CVEs novas aparecem todos os dias.
 
+O relatório SARIF enviado para a aba **Security** do GitHub usa o mesmo critério da barreira (HIGH/CRITICAL com correção disponível). CVEs de severidade menor ou sem correção publicada na imagem base podem ser listadas rodando o Trivy sem filtro (`trivy image agrosmart:7.0.0`), mas não geram alerta, já que não há ação possível até o fornecedor publicar a correção.
+
 ## 3.3 Endurecimento do container
 
 | Medida | Onde |
