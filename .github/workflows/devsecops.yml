@@ -129,6 +129,10 @@ jobs:
           image-ref: agrosmart:${{ github.sha }}
           format: sarif
           output: trivy.sarif
+          # mesmo critério da barreira acima: só HIGH/CRITICAL com correção disponível
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          limit-severities-for-sarif: true
           exit-code: "0"
       - uses: github/codeql-action/upload-sarif@v4
         if: always() && hashFiles('trivy.sarif') != ''
