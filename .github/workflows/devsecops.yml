@@ -144,8 +144,10 @@ jobs:
       - name: Publica a imagem no GitHub Container Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
+          # o GHCR exige nome de repositório em minúsculas (o dono do repo é "SarahRSilva")
+          IMAGEM=$(echo "${{ env.IMAGE }}" | tr '[:upper:]' '[:lower:]')
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker tag agrosmart:${{ github.sha }} ${{ env.IMAGE }}:${{ github.sha }}
-          docker tag agrosmart:${{ github.sha }} ${{ env.IMAGE }}:latest
-          docker push ${{ env.IMAGE }}:${{ github.sha }}
-          docker push ${{ env.IMAGE }}:latest
+          docker tag agrosmart:${{ github.sha }} "$IMAGEM:${{ github.sha }}"
+          docker tag agrosmart:${{ github.sha }} "$IMAGEM:latest"
+          docker push "$IMAGEM:${{ github.sha }}"
+          docker push "$IMAGEM:latest"

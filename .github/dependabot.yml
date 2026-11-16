@@ -4,9 +4,17 @@ updates:
   - package-ecosystem: pip
     directory: /
     schedule: {interval: weekly}
+    ignore:
+      # pandas 3.x quebra o processamento (dtype 'str' do Arrow); migração planejada à parte
+      - dependency-name: pandas
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: docker
     directory: /
     schedule: {interval: weekly}
+    ignore:
+      # a versão do Python é escolha de projeto (3.13): só patches de segurança da imagem base
+      - dependency-name: python
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
   - package-ecosystem: github-actions
     directory: /
     schedule: {interval: monthly}
