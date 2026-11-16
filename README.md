@@ -822,8 +822,8 @@ agro-monitor/
 
 | Nome | RM | Turma |
 |---|---|---|
-| Gabriel Genaro Dalaqua | 551986 | 4ESOA |
-| Alairton Rocha Scabelli | 551454 | 4ESOA |
-| Carolina Nascimento Amorim | 97930 | 4ESOA |
-| Eduardo Marins | 551892 | 4ESOA |
 | Sarah Ribeiro da Silva | 97747 | 4ESOA |
+| Alairton Rocha Scabelli | 551454 | 4ESOA |
+| Eduardo Marins | 551892 | 4ESOA |
+| Mateus Iago Sousa Conceição | 550270 | 4ESOA |
+| Leonardo Nicastro Mansur Castillo | 551659 | 4ESOA |

@@ -243,9 +243,9 @@ cartao(s, 0.6, 1.5, 6.2, 5.0, "Roadmap",
         "Verificação automática do efeito da irrigação", "SLA de manutenção integrado ao app",
         "App mobile + notificação por WhatsApp", "Piloto com uma cooperativa"], tam=16)
 cartao(s, 7.1, 1.5, 5.6, 5.0, "Equipe — 4ESOA",
-       ["Gabriel Genaro Dalaqua — RM 551986", "Alairton Rocha Scabelli — RM 551454",
-        "Carolina Nascimento Amorim — RM 97930", "Eduardo Marins — RM 551892",
-        "Sarah Ribeiro da Silva — RM 97747"], tam=16, fundo=CINZA_CLARO)
+       ["Sarah Ribeiro da Silva — RM 97747", "Alairton Rocha Scabelli — RM 551454",
+        "Eduardo Marins — RM 551892", "Mateus Iago Sousa Conceição — RM 550270",
+        "Leonardo Nicastro Mansur Castillo — RM 551659"], tam=16, fundo=CINZA_CLARO)
 
 prs.save(SAIDA)
 print(f"{len(prs.slides)} slides salvos em {SAIDA}")
