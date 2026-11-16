@@ -93,7 +93,7 @@ os alertas críticos ativos e o risco de 92%, e recomenda inspecionar a bomba an
 | Containers rodando e saudáveis | `evidencias/monitoramento/01_docker_compose_ps.txt` |
 | Ciclos contínuos dentro do container | `evidencias/monitoramento/07_docker_logs_pipeline.txt` |
 | Prints do dashboard (Fase 6) | `docs/prints/01..06_*.png` |
-| Prints das abas novas (Fase 7) | `docs/prints/10_monitoramento.png`, `11_processo.png` *(capturar — ver checklist no README)* |
+| Prints das abas novas (Fase 7) | `docs/prints/10_monitoramento.png`, `11_processo.png` |
 
 Resumo do ciclo (semente 42), extraído do log:
 
