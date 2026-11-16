@@ -693,7 +693,7 @@ Feito (no repositório):
 
 Falta (precisa ser feito pela equipe):
 
-- [ ] Prints das abas novas do dashboard: `docs/prints/10_monitoramento.png` e `docs/prints/11_processo.png`
+- [x] Prints das abas novas do dashboard: `docs/prints/10_monitoramento.png` e `docs/prints/11_processo.png`
 - [ ] (Opcional) print do `docker compose ps` e da execução do workflow no GitHub Actions
 - [ ] Gravar o **vídeo final** (5–8 min) — roteiro em `docs/fase7/06_pitch_e_roteiros.md` §6.4
 - [ ] Gravar o **vídeo pitch** (até 5 min) — roteiro em §6.3
