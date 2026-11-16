@@ -8,14 +8,14 @@
 #   - pacotes do SO atualizados no build    - HEALTHCHECK baseado no status real do pipeline
 
 # ── estágio 1: build das dependências ────────────────────────────────────────
-FROM python:3.13.9-slim-bookworm AS build
+FROM python:3.13.18-slim-bookworm AS build
 ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 WORKDIR /build
 COPY requirements.txt .
 RUN pip wheel --wheel-dir /wheels -r requirements.txt
 
 # ── estágio 2: runtime ───────────────────────────────────────────────────────
-FROM python:3.13.9-slim-bookworm AS runtime
+FROM python:3.13.18-slim-bookworm AS runtime
 # aplica as correções de segurança do Debian publicadas depois da imagem base
 # (1ª execução do pipeline: o Trivy barrou 38 CVEs HIGH/CRITICAL em openssl, gnutls, perl...)
 RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
