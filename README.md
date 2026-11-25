@@ -696,7 +696,7 @@ Falta (precisa ser feito pela equipe):
 - [x] Prints das abas novas do dashboard: `docs/prints/10_monitoramento.png` e `docs/prints/11_processo.png`
 - [x] (Opcional) print do `docker compose ps` + healthcheck (`docs/prints/14_docker_compose_ps.png`) e da execução do workflow no GitHub Actions (`docs/prints/12_github_actions_pipeline.png`, `13_github_actions_build.png`) e da aba Security sem alertas abertos (`15_github_security_code_scanning.png`)
 - [x] Gravar o **vídeo final** (5–8 min) — roteiro em `docs/fase7/06_pitch_e_roteiros.md` §6.4 e slides em `docs/fase7/AgroSmart_Video_Final.pptx` (fala nas notas)
-- [ ] Gravar o **vídeo pitch** (até 5 min) — roteiro em §6.3
+- [x] Gravar o **vídeo pitch** (até 5 min) — roteiro em §6.3
 - [x] Colar os dois links em `docs/link_video_fase7.txt`
 - [x] Gerar o .zip (abaixo) e conferir o conteúdo antes de enviar
 
