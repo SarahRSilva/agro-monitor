@@ -92,6 +92,8 @@ SLA de manutenção integrado · piloto com uma cooperativa.
 
 ## 6.4 Roteiro do vídeo final (5 a 8 min)
 
+Slides: [`AgroSmart_Video_Final.pptx`](AgroSmart_Video_Final.pptx) — 12 slides, com a fala de cada trecho nas notas do apresentador.
+
 **Preparação:** `AGRO_INTERVALO_S=30 docker compose up -d` alguns minutos antes; dashboard aberto em
 http://localhost:8501; terminal na raiz; `docs/fase7/arquitetura_final.png` aberto.
 

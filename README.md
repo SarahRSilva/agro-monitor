@@ -632,7 +632,7 @@ publicado, analisa o próprio processo com mineração de processos e é apresen
 | **Execução da plataforma (20%)** | Descrição do funcionamento; exemplo de entrada e saída de cada camada; log de execução | [`docs/fase7/02_execucao_plataforma.md`](docs/fase7/02_execucao_plataforma.md), `docs/fase7/evidencias/execucao/` |
 | **Pipeline DevSecOps (20%)** | `Dockerfile`, `docker-compose.yml`, `.github/workflows/devsecops.yml`, `devsecops/pipeline_local.sh`; descrição; evidência (execução reprovada → corrigida → aprovada) | [`docs/fase7/03_pipeline_devsecops.md`](docs/fase7/03_pipeline_devsecops.md), `docs/fase7/evidencias/devsecops*/` |
 | **Monitoramento e execução (10%)** | Modo contínuo; log JSON; status e indicadores; healthcheck; teste de falha controlada; aba Monitoramento | [`docs/fase7/04_monitoramento.md`](docs/fase7/04_monitoramento.md), `docs/fase7/evidencias/monitoramento/` |
-| **Análise de processo + demonstração (25%)** | Event log (CSV/XES); mapa do processo (DFG); variantes; gargalos, variações e melhorias; vídeo de 5–8 min | [`docs/fase7/05_analise_processo.md`](docs/fase7/05_analise_processo.md), `docs/fase7/evidencias/processo/`, `docs/link_video_fase7.txt` |
+| **Análise de processo + demonstração (25%)** | Event log (CSV/XES); mapa do processo (DFG); variantes; gargalos, variações e melhorias; vídeo de 5–8 min (slides com a fala nas notas) | [`docs/fase7/05_analise_processo.md`](docs/fase7/05_analise_processo.md), `docs/fase7/evidencias/processo/`, [`docs/fase7/AgroSmart_Video_Final.pptx`](docs/fase7/AgroSmart_Video_Final.pptx), `docs/link_video_fase7.txt` |
 | **Pitch e visão de produto (10%)** | Slides; conteúdo do pitch; roteiro do vídeo de até 5 min | [`docs/fase7/AgroSmart_Pitch.pptx`](docs/fase7/AgroSmart_Pitch.pptx), [`docs/fase7/06_pitch_e_roteiros.md`](docs/fase7/06_pitch_e_roteiros.md) |
 
 ## 15. O que foi feito na Fase 7
@@ -689,13 +689,13 @@ Feito (no repositório):
 - [x] Dockerfile, docker-compose, workflow do GitHub Actions e pipeline local com evidências (reprovada → aprovada)
 - [x] Monitoramento + evidências da stack rodando + teste de falha
 - [x] Event log, DFG, variantes e análise de gargalos/variações/melhorias
-- [x] Slides do pitch (`AgroSmart_Pitch.pptx`) e roteiros dos dois vídeos
+- [x] Slides do pitch (`AgroSmart_Pitch.pptx`), slides do vídeo final (`AgroSmart_Video_Final.pptx`) e roteiros dos dois vídeos
 
 Falta (precisa ser feito pela equipe):
 
 - [x] Prints das abas novas do dashboard: `docs/prints/10_monitoramento.png` e `docs/prints/11_processo.png`
 - [x] (Opcional) print do `docker compose ps` + healthcheck (`docs/prints/14_docker_compose_ps.png`) e da execução do workflow no GitHub Actions (`docs/prints/12_github_actions_pipeline.png`, `13_github_actions_build.png`) e da aba Security sem alertas abertos (`15_github_security_code_scanning.png`)
-- [ ] Gravar o **vídeo final** (5–8 min) — roteiro em `docs/fase7/06_pitch_e_roteiros.md` §6.4
+- [ ] Gravar o **vídeo final** (5–8 min) — roteiro em `docs/fase7/06_pitch_e_roteiros.md` §6.4 e slides em `docs/fase7/AgroSmart_Video_Final.pptx` (fala nas notas)
 - [ ] Gravar o **vídeo pitch** (até 5 min) — roteiro em §6.3
 - [ ] Colar os dois links em `docs/link_video_fase7.txt`
 - [ ] Gerar o .zip (abaixo) e conferir o conteúdo antes de enviar
@@ -811,7 +811,7 @@ agro-monitor/
     ├── prints/                            ← capturas do dashboard (e do TinkerCad)
     └── fase7/
         ├── 01_arquitetura_final.md … 06_pitch_e_roteiros.md
-        ├── arquitetura_final.png, AgroSmart_Pitch.pptx
+        ├── arquitetura_final.png, AgroSmart_Pitch.pptx, AgroSmart_Video_Final.pptx
         ├── gerar_diagramas.py, gerar_slides.py
         └── evidencias/                    ← execucao/, devsecops/, devsecops_execucao1_reprovada/, monitoramento/, processo/
 ```
